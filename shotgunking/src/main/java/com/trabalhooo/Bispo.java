@@ -1,14 +1,14 @@
 package com.trabalhooo;
 
-public class Torre {
-    private int ID = 5;
-    private char Icon = '♖';
+public class Bispo {
+    private int ID = 6;
+    private char Icon = '♗';
     
     private int hp = 5;
     private int posx;
     private int posy;
     
-    public Torre(int x,int y){
+    public Bispo(int x,int y){
         this.posx=x;
         this.posy=y;        
     }

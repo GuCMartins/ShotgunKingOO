@@ -15,6 +15,14 @@ public class Rei {
         this.posx = 3;
         this.posy = 6;
     }
+
+    public int getID(){
+        return this.ID;
+    }
+
+    public char getIcon(){
+        return this.Icon;
+    }
     
     public int Movimento(int dir){
         switch(dir){

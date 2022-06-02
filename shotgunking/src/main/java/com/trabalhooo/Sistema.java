@@ -1,5 +1,6 @@
 package com.trabalhooo;
 
+import java.util.*;
 
 public class Sistema {
     
@@ -44,6 +45,49 @@ public class Sistema {
     
     public int getTabuleiro(int i, int j){
         return tabuleiro[i][j];
+    }
+
+    public void impressaotabuleiro(int m[][], Rei jogador,List<Peao> Apawn,List<Torre> Atower,List<Bispo> Abishop,List<Rainha> Aqueen){
+
+        int contl,contc;//impressao dinamica do tabuleiro
+
+        System.out.println("                    NÍVEL ");
+        System.out.println("   0     1     2     3     4     5     6     7     8");
+        System.out.println(" _____________________________________________________");
+        for(contl=0;contl<7;contl++){ 
+        System.out.println("|     |     |     |     |     |     |     |     |     |");
+        
+            for(contc=0;contc<7;contc++){
+                if(m[contl][contc]==jogador.getID()){
+                    System.out.println("|  "+jogador.getIcon()+"  ");//impressao do jogador
+                }
+                else
+                if(m[contl][contc]==1){//peao
+                    System.out.println("|  ℝ  ");//impressao do inimigo
+                }else
+                if(m[contl][contc]==5){//torre
+                    System.out.println("|  ℝ  ");//impressao do inimigo
+                }else
+                if(m[contl][contc]==6){//bispo
+                    System.out.println("|  ℝ  ");//impressao do inimigo
+                }else
+                if(m[contl][contc]==8){//rainha
+                    System.out.println("|  ℝ  ");//impressao do inimigo
+                }else
+                    System.out.println("|     ");//impressao das paredes do tabuleiro
+            }
+        
+            System.out.println("| "+contl);
+        
+            System.out.println("|_____|_____|_____|_____|_____|_____|_____|_____|_____|\n");
+        }
+        System.out.println("\n");
+        System.out.println("  ______________________________           7  8  9\n");
+        System.out.println("  |(Para se movimentar,pressione|           \\ | /\n");
+        System.out.println("  | um dirercional e,em seguida,|            \\|/\n");// menus de itens e dicas do jogador
+        System.out.println("  |      pressione Enter)       |     4 --Direcionais-- 6\n");
+        System.out.println("  |_____________________________|            /|\\ \n");
+        System.out.println("                                            / | \\ \n");
+        System.out.println("                                           1  2  3 \n");
     }    
-  
 }
