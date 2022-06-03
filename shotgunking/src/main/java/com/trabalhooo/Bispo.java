@@ -30,6 +30,35 @@ public class Bispo {
     }
     
     public void Movimenta(int reix, int reiy, int tabela [][]){
+        if(this.posx==reix){
+            if(this.posy<reiy){
+                while(this.posy<reiy){
+                this.posy++;
+                this.posx++;
+                return;
+                }
+            }else{
+                while(this.posy>reiy){
+                    this.posy--;
+                    this.posx--;
+                    return;
+                }
+            }
+        }
         
+        if(this.posx<reix){
+            while(this.posx<reix){
+                this.posy++;
+                this.posx++;
+                return;
+            }
+        }
+        if(this.posx>reix){
+            while(this.posx<reix){
+                this.posy--;
+                this.posx--;
+                return;
+            }
+        }
     }
 }
