@@ -25,6 +25,9 @@ public class Peao {
     public void Movimenta(int reix, int reiy, int tabela [][]){
       if(this.posy<reiy){
         this.posy++;
+        if(verificacao(this.posx, this.posy, tabela))
+        this.posy--;
+        return;
       }
     }
 
@@ -34,6 +37,13 @@ public class Peao {
             posx=10;
             posy=10;
         }
+    }
+
+    private  boolean verificacao(int x, int y, int tabela[][]){
+        if(tabela[x][y]==0){
+            return true;
+        }
+        return false;
     }
     
 }

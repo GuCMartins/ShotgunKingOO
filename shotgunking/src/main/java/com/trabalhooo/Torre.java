@@ -30,6 +30,48 @@ public class Torre {
     }
     
     public void Movimenta(int reix, int reiy, int tabela [][]){
-        
+        if(this.posx==reix){
+            if(this.posy<reiy){
+                while(this.posy<reiy){
+                    this.posy++;
+                    if(!verificacao(this.posx,this.posy,tabela)){
+                        this.posy--;
+                        return;
+                    }
+                }
+            }
+            else{
+                while(this.posy>reiy){
+                    this.posy--;
+                    if(!verificacao(this.posx,this.posy,tabela)){
+                        this.posy++;
+                        return;
+                    }
+                }
+            }
+        }
+        while(this.posx<reix){
+            this.posx++;
+            if(!verificacao(this.posx,this.posy,tabela)){
+                this.posx--;
+                this.posy++;
+                return;
+            }
+        }
+        while(this.posx>reix){
+            this.posx--;
+            if(!verificacao(this.posx,this.posy,tabela)){
+                this.posx--;
+                this.posy++;
+                return;
+            }
+        }
+    }
+
+    private  boolean verificacao(int x, int y, int tabela[][]){
+        if(tabela[x][y]==0){
+            return true;
+        }
+        return false;
     }
 }
