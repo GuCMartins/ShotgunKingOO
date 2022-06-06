@@ -28,7 +28,7 @@ public class Sistema {
                 tabuleiro[0][3] = 1;//peao
                 tabuleiro[1][2] = 4;//torre
                 tabuleiro[1][4] = 4;//torre
-                tabuleiro[2][3] = 5;//cavalo
+                tabuleiro[2][3] = 5;//rainha
                 break;    
             case 3:
                 ninimigos = 6;

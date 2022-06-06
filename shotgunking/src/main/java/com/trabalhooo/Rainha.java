@@ -108,6 +108,7 @@ public class Rainha {
                         if(verificacao(tab.getTabuleiro(this.posx, this.posy),this.posx,this.posy)){
                             this.posx--;
                             this.posy--;
+                            tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
                             return;
                         }
                     }
@@ -120,6 +121,7 @@ public class Rainha {
                         if(verificacao(tab.getTabuleiro(this.posx, this.posy),this.posx,this.posy)){
                             this.posx--;
                             this.posy++;
+                            tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
                             return;
                         }
                     }
@@ -176,8 +178,8 @@ public class Rainha {
         }  
     }
 
-    private  boolean verificacao(int posicao,int x,int y){
-        if(posicao!=0 || x>=7 || y>=7){
+    private  boolean verificacao(int posicao,int x,int y){//verificacao para limitar a movimentacao dentro 
+        if(posicao!=0 || x>=7 || y>=7){                   //do tabuleiro e nao ocupar a casa de outra peca
             return true;
         }
         return false;

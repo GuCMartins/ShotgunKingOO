@@ -58,7 +58,7 @@ public class Jogo
 
     }
     
-    public static int nivel_1(int nivel,Rei jpgador){
+    public static int nivel_1(int nivel,Rei jogador){
         Scanner teclado = new Scanner(System.in); 
         List<Peao> Peoes = new ArrayList<>();      
         Sistema tab = new Sistema(nivel);

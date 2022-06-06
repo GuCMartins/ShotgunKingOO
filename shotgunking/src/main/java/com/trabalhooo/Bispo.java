@@ -105,6 +105,7 @@ public class Bispo {
                     if(verificacao(tab.getTabuleiro(this.posx, this.posy),this.posx,this.posy)){
                         this.posx--;
                         this.posy--;
+                        tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
                         return;
                     }
                 }
@@ -117,6 +118,7 @@ public class Bispo {
                     if(verificacao(tab.getTabuleiro(this.posx, this.posy),this.posx,this.posy)){
                         this.posx--;
                         this.posy++;
+                        tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
                         return;
                     }
                 }

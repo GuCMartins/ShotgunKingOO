@@ -111,7 +111,7 @@ public class Rei {
         Scanner teclado = new Scanner(System.in);
         int alvox=teclado.nextInt();
         int alvoy=teclado.nextInt();
-        double distancia=Math.sqrt(Math.pow(alvox,2)+Math.pow(alvoy,2));
+        double distancia=Math.sqrt(Math.pow(alvox-this.posx,2)+Math.pow(alvoy-this.posy,2));
         while(distancia>2 || tabuleiro[alvox][alvoy]==0){
             System.out.println("Posicionamento muito distante ou sem inimigos.Selecione outro local:");
             alvox=teclado.nextInt();
