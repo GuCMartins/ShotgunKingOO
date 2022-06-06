@@ -7,7 +7,7 @@ public class Jogo
     Scanner teclado = new Scanner(System.in);    
     int nivel = 1;
         //tela inicial do jogo
-    System.out.println("              BEM VINDO AO CHASE");
+    System.out.println("              BEM VINDO AO SHOTGUNKING");
     System.out.println("          _____________________________");
     System.out.println("         |(Para jogar do modo correto, |");
     System.out.println("         |  ative o NumLock e use o    |");
@@ -15,44 +15,51 @@ public class Jogo
     System.out.println("         |_____________________________|");
     System.out.println("                  ◀ INSTRUÇÕES ▶");
     System.out.println("      ________________________________________");
-    System.out.println("     |● Para vencer, fuja dos robôs e os faça |");
-    System.out.println("     |colidir para se destruírem.             |");
+    System.out.println("     |● Para vencer, fuja das peças brancas e |");
+    System.out.println("     |elimine com sua arma real.              |");
     System.out.println("     |                                        |");
-    System.out.println("     |● Sempre que dois robôs colidirem entre |");
-    System.out.println("     |si, eles viram uma pilha de escombros.  |");
-    System.out.println("     |Caso um robô colida com uma pilha de es-|");
-    System.out.println("     |combros, ele também passa a integrá-la. |");
+    System.out.println("     |● Para se movimentar, escolha um dos    |");
+    System.out.println("     |direcionais e o Rei se move nessa dire- |");
+    System.out.println("     |ção. Algumas pecas brancas tentaram te  |");
+    System.out.println("     |pegar, por isso use a estrategia para   |");
+    System.out.println("     |engana-las e destrui-las.               |");
     System.out.println("     |                                        |");
-    System.out.println("     |● A cada nível, o jogador recebe um te- |");
-    System.out.println("     |letrasnporte que o permite ir até qual- |");
-    System.out.println("     |quer ponto do mapa que não esteja ocupa-|");
-    System.out.println("     |do por obstaculos, robôs ou pilhas de   |");
-    System.out.println("     |escombros.                              |");
-    System.out.println("     |Para usar, pressione + (mais) como dire-|");
-    System.out.println("     |cional.                                 |");
-    System.out.println("     |                                        |");
-    System.out.println("     |● O jogador já inicia o jogo com um te- |");
-    System.out.println("     |letranspote aleatório, que pode ser u-  |");
-    System.out.println("     |sado para levá-lo para um ponto aleató- |");
-    System.out.println("     |rio do mapa que não esteja ocupado.     |");
-    System.out.println("     |Para usar, pressione - (menos ) como di-|");
+    System.out.println("     |● A cada nível, mais pecas tentarao te  |");
+    System.out.println("     |derrotar.Porém, a cada peça destruida, o|");
+    System.out.println("     |jogador ganha uma bala para pode atirar |");
+    System.out.println("     |mais um dia. As pecas brancas sao des-  |");
+    System.out.println("     |truidas ou sendo atingidas pela arma ou |");
+    System.out.println("     |quando o rei pula em cima delas.        |");
+    System.out.println("     |Para atirar, pressione + (mais) como di-|");
     System.out.println("     |recional.                               |");
     System.out.println("     |                                        |");
-    System.out.println("     |● Caso o jogador seja pego por algum ro-|");
-    System.out.println("     |bô, a aventura acaba e o jogo termina.  |");
+    System.out.println("     |● O jogador já inicia o jogo com o pente|");
+    System.out.println("     |cheio. Porém nao atire sem pensar, suas |");
+    System.out.println("     |suas balas sao um recurso valioso.      |");
+    System.out.println("     |                                        |");
+    System.out.println("     |● Caso o jogador seja pego por alguma   |");
+    System.out.println("     |peça inimiga, ele perde uma vida e o jo-|");
+    System.out.println("     |go recomeça. Caso ele seja apanhado no- |");
+    System.out.println("     |vamente, o jogo termina.                |");
     System.out.println("     |________________________________________|");
-    System.out.println("            __________________________");
-    System.out.println("           | X= Jogador     ℝ=Robô    |");
-    System.out.println("           | ▲ = Pilha de Escombros   |");
-    System.out.println("           | # = Obstáculo            |");
-    System.out.println("           |__________________________|");
+    System.out.println("                                             ");
     System.out.println("\n           Pressione Enter para começar");
     teclado.nextLine();
+
+    Rei jogador = new Rei();
+    int resultado;
+    resultado = nivel_1(nivel,jogador);
+    if(resultado==0){
+        //imprimir o fim do jogo com uma funcao do sistema
+    }
+
+
+
+
     }
     
-    public void nivel_1(int nivel){
+    public static int nivel_1(int nivel,Rei jpgador){
         Scanner teclado = new Scanner(System.in); 
-        Rei jogador = new Rei();
         List<Peao> Peoes = new ArrayList<>();      
         Sistema tab = new Sistema(nivel);
         int cont=0;
@@ -60,11 +67,13 @@ public class Jogo
         for(int i=0;i<7;i++){
             for(int j=0;j<7;j++){
                 if(tab.getTabuleiro(i, j)==1){
-                   Peao p = new Peao(i,j,cont);
-                   Peoes.add(p);
-                   cont++;
-                }        
+                    Peoes.add(new Peao(i, j,cont));
+                    cont++;
+                }       
             }
         }
+
+
+        return 1;
     }
 }
