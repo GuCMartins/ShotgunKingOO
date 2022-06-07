@@ -76,7 +76,7 @@ public class Jogo
 
         while(tab.getNInimigos()>0){
 
-            n=(int)Math.floor(Math.random()*(3)+1);
+            n=(int)Math.floor(Math.random()*(2)+1);
 
             Peoes.get(n).Movimenta(jogador.getX(), jogador.getY(), tab);
             
