@@ -1,9 +1,11 @@
 package com.trabalhooo;
 import java.util.*;
+import java.util.Scanner;
+import java.io.IOException;
 
 public class Jogo 
 {
-    public static void main(String[] args) { 
+    public static void main(String[] args) throws IOException, InterruptedException { 
         Scanner teclado = new Scanner(System.in);    
         int nivel = 1;
             //tela inicial do jogo
@@ -45,7 +47,7 @@ public class Jogo
         System.out.println("                                             ");
         System.out.println("\n           Pressione Enter para começar");
         teclado.nextLine();
-
+        cls();
         Rei jogador = new Rei();
         int resultado;
         resultado = nivel_1(nivel,jogador);
@@ -88,12 +90,11 @@ public class Jogo
             if(op =="*"){
                 jogador.Atirar(Peoes, torres, bispos, Queen, tab);
             }
-
+            
             verificavidaP(Peoes.size(),Peoes,tab);
-
+            cls();
         }
-
-
+            
         return 1;
     }
 
@@ -142,4 +143,14 @@ public class Jogo
         teclado.nextLine();
     }
 
-}
+    public static void cls()
+    {
+       for(int i = 0; i < 300; i++) // Default Height of cmd is 300 and Default width is 80
+    System.out.println("\b"); // Prints a backspace
+    }
+
+    
+        
+  }
+
+
