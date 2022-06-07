@@ -30,6 +30,10 @@ public class Rainha {
         return this.Icon;
     }
 
+    public int getHp(){
+        return this.hp;
+    }
+
     public void Dano(int damage){
         this.hp-=damage;
         if(this.hp<=0){

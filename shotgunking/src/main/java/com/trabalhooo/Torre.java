@@ -30,6 +30,10 @@ public class Torre {//aspectos basicos da peça
         return this.Icon;
     }
 
+    public int getHp(){
+        return this.hp;
+    }
+
     public void Dano(int damage){//caso a peça leve dano da arma.
         this.hp-=damage;         //se a vida da peça for reduzida a menos que 1(<+0),
         if(this.hp<=0){          // a peça é mandada para o fim do tabuleiro(ver como deletar a peca no meio da partida)

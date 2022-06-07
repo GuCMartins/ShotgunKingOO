@@ -2,15 +2,13 @@ package com.trabalhooo;
 
 public class Peao {
     private int ID=1;
-    private int local;
     private char Icon = '♙';
     
     private int hp = 1;
     private int posx;
     private int posy;
     
-    public Peao(int x, int y,int id){
-        this.local = id;
+    public Peao(int x, int y){
         this.posx = x;
         this.posy = y; 
     }
@@ -30,12 +28,16 @@ public class Peao {
     public char getIcon(){
         return this.Icon;
     }
+
+    public int getHp(){
+        return this.hp;
+    }
     
     public void Movimenta(int reix, int reiy, Sistema tab){
       int Oldx=this.posx;
       int Oldy=this.posy;  
-      if(this.posy<reiy){
-        this.posy++;
+      if(this.posy>reiy){
+        this.posy--;
         if(verificacao(tab.getTabuleiro(this.posx, this.posy),this.posx,this.posy)){
             this.posy--;
             tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
@@ -46,10 +48,6 @@ public class Peao {
 
     public void Dano(int damage){
         this.hp-=damage;
-        if(this.hp<=0){
-            posx=10;
-            posy=10;
-        }
     }
 
     private  boolean verificacao(int posicao,int x,int y){

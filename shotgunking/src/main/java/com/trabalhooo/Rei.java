@@ -3,7 +3,7 @@ package com.trabalhooo;
 import java.util.*;
 
 public class Rei {
-    private int ID;
+    private int ID =9;
     private char Icon = '♚';
 
     private int vidas = 2;
@@ -24,101 +24,122 @@ public class Rei {
     public char getIcon(){
         return this.Icon;
     }
-    
-    public int Movimento(int dir){
-        switch(dir){
-            case 4:
-                if( posx==0){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posx--;
-                return 1;
 
-            case 7:
-                if( posx==0 || posy ==7){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posx--;
-                posy++;
-                return 1;
-
-            case 8:
-                if(posy ==7){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posy++;
-                return 1;
-
-            case 9:
-                if( posx==7 || posy ==7){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posx++;
-                posy++;
-                return 1;
-
-            case 6:
-                if( posx==7){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posx++;
-                return 1;
-
-            case 3:
-                if( posx==7 || posy ==0){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posx++;
-                posy--;
-                return 1;
-            
-            case 2:
-                if(posy == 0){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posy--;
-                return 1;
-
-            case 1:
-                if( posx==0 || posy ==0){
-                    System.out.println("Impossivel fazer o movimento");
-                    System.out.println("Escolha outra opção");
-                    return 0;
-                }
-                posx--;
-                posy--;
-                return 1;
-        }
-        System.out.println("Selecione uma opção de movimentação");
-        return 0; 
+    public int getX(){
+        return this.posx;
     }
 
-    public void Atirar(List<Peao> Apawn,Torre torres[],Bispo bispos[],Rainha rainha, int tabuleiro[][]){
+    public int getY(){
+        return this.posy;
+    }
+    
+    public void Movimento(Sistema tab){
+        int Oldx=this.posx;
+        int Oldy=this.posy;
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Escolha a opção de movimentação");
+        int dir = teclado.nextInt();
+        switch(dir){
+            case 4:
+                if( posx-1==0){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posx--;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+
+            case 7:
+                if( posx-1 ==0 || posy-1 ==0){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posx--;
+                posy--;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+
+            case 8:
+                if(posy-1 ==7){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posy--;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+
+            case 9:
+                if( posx+1==7 || posy-1 ==0){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posx++;
+                posy--;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+
+            case 6:
+                if( posx+1==7){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posx++;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+
+            case 3:
+                if( posx+1==7 || posy+1==0){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posx++;
+                posy++;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+            
+            case 2:
+                if(posy+1 == 7){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posy++;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+
+            case 1:
+                if( posx-1==0 || posy+1 ==0){
+                    System.out.println("Impossivel fazer o movimento");
+                    System.out.println("Escolha outra opção");
+                    return;
+                }
+                posx--;
+                posy++;
+                tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
+                return;
+        }
+        System.out.println("Selecione uma opção de movimentação");
+        return; 
+    }
+
+    public void Atirar(List<Peao> Apawn,List<Torre> torres,List<Bispo> bispos,Rainha rainha, Sistema tab){
         Scanner teclado = new Scanner(System.in);
         int alvox=teclado.nextInt();
         int alvoy=teclado.nextInt();
         double distancia=Math.sqrt(Math.pow(alvox-this.posx,2)+Math.pow(alvoy-this.posy,2));
-        while(distancia>2 || tabuleiro[alvox][alvoy]==0){
+        while(distancia>2 || tab.getTabuleiro(alvox, alvoy)==0){
             System.out.println("Posicionamento muito distante ou sem inimigos.Selecione outro local:");
             alvox=teclado.nextInt();
             alvoy=teclado.nextInt();
             distancia=Math.sqrt(Math.pow(alvox,2)+Math.pow(alvoy,2));
         }
-        switch(tabuleiro[alvox][alvoy]){
+        switch(tab.getTabuleiro(alvox, alvoy)){
             case 1:
                 int tam = Apawn.size();
                 for(int i=0;i<tam;i++){
@@ -130,16 +151,16 @@ public class Rei {
                 }
             case 3:
                 for(int i=0;i<2;i++){
-                    if(bispos[i].getX()==alvox && bispos[i].getY()==alvoy){
-                        bispos[i].Dano(this.Arma_dano);
+                    if(bispos.get(i).getX()==alvox && bispos.get(i).getY()==alvoy){
+                        bispos.get(i).Dano(this.Arma_dano);
                         this.balas--;
                         break;
                     }                        
                 }
             case 4:
                 for(int i=0;i<2;i++){
-                    if(torres[i].getX()==alvox && torres[i].getY()==alvoy){
-                        torres[i].Dano(this.Arma_dano);
+                    if(torres.get(i).getX()==alvox && torres.get(i).getY()==alvoy){
+                        torres.get(i).Dano(this.Arma_dano);
                         this.balas--;
                         break;
                     }                        
