@@ -43,6 +43,13 @@ public class Jogo
         System.out.println("     |peça inimiga, ele perde uma vida e o jo-|");
         System.out.println("     |go recomeça. Caso ele seja apanhado no- |");
         System.out.println("     |vamente, o jogo termina.                |");
+        System.out.println("     |                                        |");
+        System.out.println("     |● Antes de cada movimento, surge a opção|");
+        System.out.println("     |de se executar um disparo. Caso essa op-|");
+        System.out.println("     |ção seja escolhida(usando a tecla +),   |");
+        System.out.println("     |sera necessario selecionar a posicao do |");
+        System.out.println("     |inimigo que deseja alvejar. Caso esteja |");
+        System.out.println("     |muito distante, nao sofrera dano.       |");
         System.out.println("     |________________________________________|");
         System.out.println("                                             ");
         System.out.println("\n           Pressione Enter para começar");
@@ -82,14 +89,15 @@ public class Jogo
 
             Peoes.get(n).Movimenta(jogador.getX(), jogador.getY(), tab);
             
-            tab.impressaotabuleiro(tab, nivel);
+            tab.impressaotabuleiro(tab, nivel,jogador.getbalas());
 
-            jogador.Movimento(tab);
-            System.out.println("Deseja atirar ou termina o seu turno");
+            System.out.println("Deseja atirar nesse turno(pressione 'x' e Enter para atirar): ");
             op = teclado.nextLine();
-            if(op =="*"){
+            if(op.equals("x")){
                 jogador.Atirar(Peoes, torres, bispos, Queen, tab);
             }
+
+            jogador.Movimento(tab);
             
             verificavidaP(Peoes.size(),Peoes,tab);
             cls();
@@ -145,12 +153,9 @@ public class Jogo
 
     public static void cls()
     {
-       for(int i = 0; i < 300; i++) // Default Height of cmd is 300 and Default width is 80
+       for(int i = 0; i < 50; i++) // Default Height of cmd is 300 and Default width is 80
     System.out.println("\b"); // Prints a backspace
-    }
-
-    
-        
+    }        
   }
 
 

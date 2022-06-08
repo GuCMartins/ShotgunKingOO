@@ -69,11 +69,11 @@ public class Sistema {
         this.tabuleiro[Deady][Deadx] = 0;
     }
 
-    public void impressaotabuleiro(Sistema tab,int nivel){
+    public void impressaotabuleiro(Sistema tab,int nivel,int balas){
 
         int contl,contc;//impressao dinamica do tabuleiro
 
-        System.out.println("                    NÍVEL"+nivel);
+        System.out.println("                    NÍVEL "+nivel);
         System.out.println("   0     1     2     3     4     5     6");
         System.out.println(" ________________________________________");
         for(contl=0;contl<7;contl++){ 
@@ -107,12 +107,12 @@ public class Sistema {
             System.out.println("|_____|_____|_____|_____|_____|_____|_____|");
         }
         System.out.println("");
-        System.out.println("  ______________________________           7  8  9");
-        System.out.println("  |(Para se movimentar,pressione|           \\ | /");
-        System.out.println("  | um dirercional e,em seguida,|            \\|/");// menus de itens e dicas do jogador
-        System.out.println("  |      pressione Enter)       |     4 --Direcionais-- 6");
-        System.out.println("  |_____________________________|            /|\\ ");
-        System.out.println("                                            / | \\ ");
-        System.out.println("                                           1  2  3 ");
+        System.out.println("  ______________________________        7  8  9");
+        System.out.println(" |(Para se movimentar,pressione|        \\ | /");
+        System.out.println(" | um dirercional e,em seguida,|         \\|/");// menus de itens e dicas do jogador
+        System.out.println(" |      pressione Enter)       |  4 --Direcionais-- 6      Numero de balas:");
+        System.out.println(" |_____________________________|          /|\\                  "+balas+" restantes");
+        System.out.println("                                         / | \\ ");
+        System.out.println("                                        1  2  3 ");
     }    
 }

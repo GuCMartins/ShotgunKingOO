@@ -21,6 +21,10 @@ public class Rei {
         return this.ID;
     }
 
+    public int getbalas(){
+        return this.balas;
+    }
+
     public char getIcon(){
         return this.Icon;
     }
@@ -41,7 +45,7 @@ public class Rei {
         int dir = teclado.nextInt();
         switch(dir){
             case 4:
-                if( posx-1==0){
+                if( posx-1==-1){
                     System.out.println("Impossivel fazer o movimento");
                     System.out.println("Escolha outra opção");
                     return;
@@ -51,7 +55,7 @@ public class Rei {
                 return;
 
             case 7:
-                if( posx-1 ==0 || posy-1 ==0){
+                if( posx-1 ==-1 || posy-1 ==-1){
                     System.out.println("Impossivel fazer o movimento");
                     System.out.println("Escolha outra opção");
                     return;
@@ -62,7 +66,7 @@ public class Rei {
                 return;
 
             case 8:
-                if(posy-1 ==7){
+                if(posy-1 ==-1){
                     System.out.println("Impossivel fazer o movimento");
                     System.out.println("Escolha outra opção");
                     return;
@@ -72,7 +76,7 @@ public class Rei {
                 return;
 
             case 9:
-                if( posx+1==7 || posy-1 ==0){
+                if( posx+1==7 || posy-1 ==-1){
                     System.out.println("Impossivel fazer o movimento");
                     System.out.println("Escolha outra opção");
                     return;
@@ -114,7 +118,7 @@ public class Rei {
                 return;
 
             case 1:
-                if( posx-1==0 || posy+1 ==0){
+                if( posx-1==0 || posy+1 ==7){
                     System.out.println("Impossivel fazer o movimento");
                     System.out.println("Escolha outra opção");
                     return;
@@ -130,14 +134,24 @@ public class Rei {
 
     public void Atirar(List<Peao> Apawn,List<Torre> torres,List<Bispo> bispos,Rainha rainha, Sistema tab){
         Scanner teclado = new Scanner(System.in);
+        System.out.println("Insira a coluna onde o inimigo se encontra:");
         int alvox=teclado.nextInt();
+        System.out.println("Insira a linha onde o inimigo se encontra:");
         int alvoy=teclado.nextInt();
         double distancia=Math.sqrt(Math.pow(alvox-this.posx,2)+Math.pow(alvoy-this.posy,2));
+        int op;
         while(distancia>2 || tab.getTabuleiro(alvox, alvoy)==0){
-            System.out.println("Posicionamento muito distante ou sem inimigos.Selecione outro local:");
-            alvox=teclado.nextInt();
-            alvoy=teclado.nextInt();
-            distancia=Math.sqrt(Math.pow(alvox,2)+Math.pow(alvoy,2));
+            System.out.println("Posicionamento muito distante ou sem inimigos.Deseja continuar atirando?(se deseja, insira 1):");
+            op=teclado.nextInt();
+            if(op==1){
+                System.out.println("Insira a linha onde o inimigo se encontra:");
+                alvox=teclado.nextInt();
+                System.out.println("Insira a coluna onde o inimigo se encontra:");
+                alvoy=teclado.nextInt();
+                distancia=Math.sqrt(Math.pow(alvox-this.posx,2)+Math.pow(alvoy-this.posy,2));
+            }
+            else
+                return;    
         }
         switch(tab.getTabuleiro(alvox, alvoy)){
             case 1:

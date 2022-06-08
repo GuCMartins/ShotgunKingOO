@@ -8,9 +8,9 @@ public class Peao {
     private int posx;
     private int posy;
     
-    public Peao(int x, int y){
-        this.posx = x;
-        this.posy = y; 
+    public Peao(int linha, int coluna){
+        this.posx = coluna;
+        this.posy = linha; 
     }
 
     public int getID(){
@@ -36,9 +36,9 @@ public class Peao {
     public void Movimenta(int reix, int reiy, Sistema tab){
       int Oldx=this.posx;
       int Oldy=this.posy;  
-      if(this.posy>reiy){
-        this.posy--;
-        if(verificacao(tab.getTabuleiro(this.posx, this.posy),this.posx,this.posy)){
+      if(this.posy<reiy){
+        this.posy++;
+        if(!verificacao(tab.getTabuleiro(this.posx, this.posy),this.posx,this.posy)){
             this.posy--;
             tab.setTabuleiro(Oldx,Oldy,this.posx,this.posy,this.ID);
         }    
