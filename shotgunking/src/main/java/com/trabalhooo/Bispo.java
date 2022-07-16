@@ -2,19 +2,18 @@ package com.trabalhooo;
 
 public class Bispo extends Peca {
 
-    public Bispo(int x, int y) {
-        this.posx = x;
-        this.posy = y;
+    public Bispo(int coluna, int linha,int tirossofridos) {
+        this.posx = coluna;
+        this.posy = linha;
         this.ID = 3;
         this.Icon = 'B';
-        this.hp = 3;
-    }
-
-    public void Dano(int damage) {
-        this.hp -= damage;
-        if (this.hp <= 0) {
-            posx = 10;
-            posy = 10;
+        switch(tirossofridos){
+            case 0:
+                this.hp = 3;
+            case 1:
+                this.hp = 1;
+            default:
+                this.hp=0;        
         }
     }
 
@@ -26,26 +25,26 @@ public class Bispo extends Peca {
                 while (this.posy < reiy) {
                     this.posy++;
                     this.posx++;
-                    if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                         this.posx--;
                         this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             } else {
                 while (this.posy > reiy) {
                     this.posy--;
                     this.posx--;
-                    if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                         this.posx--;
                         this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             }
         }
 
@@ -54,26 +53,26 @@ public class Bispo extends Peca {
                 while (this.posx < reix) {
                     this.posy++;
                     this.posx++;
-                    if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                         this.posx--;
                         this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             } else {
                 while (this.posx < reix) {
                     this.posy--;
                     this.posx++;
-                    if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                         this.posx--;
                         this.posy++;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             }
         }
         if (this.posx > reix) {
@@ -81,26 +80,26 @@ public class Bispo extends Peca {
                 while (this.posy <= reiy) {
                     this.posy++;
                     this.posx++;
-                    if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                         this.posx--;
                         this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             } else {
                 while (this.posx < reix) {
                     this.posy--;
                     this.posx++;
-                    if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                         this.posx--;
                         this.posy++;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             }
         }
     }

@@ -7,6 +7,7 @@ public abstract class Peca {
     protected int ID;
     protected char Icon;
     protected int hp;
+    protected int tirossofridos;
 
     public int getID() {
         return this.ID;
@@ -30,10 +31,12 @@ public abstract class Peca {
 
     public abstract void Movimenta(int reix, int reiy, Sistema tab);
 
-    public abstract void Dano(int damage);
+    public void Dano(){
+        this.tirossofridos++;
+    }
 
-    protected boolean verificacao(int posicao, int x, int y) { // verificacao para limitar a movimentação
-        if (posicao == 0 && (x >= 0 && x < 7) && (y >= 0 && y < 7)) { // da peca dentro do tabuleiro e nao ocupar a
+    protected boolean verificacaoMov(Peca situacao, int x, int y) { // verificacao para limitar a movimentação
+        if (situacao == null && (x >= 0 && x < 7) && (y >= 0 && y < 7)) { // da peca dentro do tabuleiro e nao ocupar a
             return true; // a mesa casa que outra peca
         }
         return false;

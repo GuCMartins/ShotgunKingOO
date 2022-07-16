@@ -31,7 +31,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posx--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
 
             case 7:
@@ -42,7 +42,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx--;
                 posy--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
 
             case 8:
@@ -52,7 +52,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posy--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
 
             case 9:
@@ -63,7 +63,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx++;
                 posy--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
 
             case 6:
@@ -73,7 +73,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posx++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
 
             case 3:
@@ -84,7 +84,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx++;
                 posy++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
 
             case 2:
@@ -94,7 +94,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posy++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
 
             case 1:
@@ -105,67 +105,18 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx--;
                 posy++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 return;
         }
         System.out.println("Selecione uma opção de movimentação");
         return;
     }
 
-    public void Atirar(List<Peao> Apawn, List<Torre> torres, List<Bispo> bispos, Rainha rainha, Sistema tab) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Insira a coluna onde o inimigo se encontra:");
-        int alvox = teclado.nextInt();
-        System.out.println("Insira a linha onde o inimigo se encontra:");
-        int alvoy = teclado.nextInt();
-        double distancia = Math.sqrt(Math.pow(alvox - this.posx, 2) + Math.pow(alvoy - this.posy, 2));
-        int op;
-        while (distancia > 3 || tab.getTabuleiro(alvox, alvoy) == 0) {
-            System.out.println(
-                    "Posicionamento muito distante ou sem inimigos.Deseja continuar atirando?(se deseja, insira 1):");
-            op = teclado.nextInt();
-            if (op == 1) {
-                System.out.println("Insira a linha onde o inimigo se encontra:");
-                alvox = teclado.nextInt();
-                System.out.println("Insira a coluna onde o inimigo se encontra:");
-                alvoy = teclado.nextInt();
-                distancia = Math.sqrt(Math.pow(alvox - this.posx, 2) + Math.pow(alvoy - this.posy, 2));
-            } else
-                return;
-        }
-        switch (tab.getTabuleiro(alvox, alvoy)) {
-            case 1:
-                int tam = Apawn.size();
-                for (int i = 0; i < tam; i++) {
-                    if (Apawn.get(i).getX() == alvox && Apawn.get(i).getY() == alvoy) {
-                        Apawn.get(i).Dano(this.Arma_dano);
-                        this.balas--;
-                        break;
-                    }
-                }
-            case 3:
-                for (int i = 0; i < 2; i++) {
-                    if (bispos.get(i).getX() == alvox && bispos.get(i).getY() == alvoy) {
-                        bispos.get(i).Dano(this.Arma_dano);
-                        this.balas--;
-                        break;
-                    }
-                }
-            case 4:
-                for (int i = 0; i < 2; i++) {
-                    if (torres.get(i).getX() == alvox && torres.get(i).getY() == alvoy) {
-                        torres.get(i).Dano(this.Arma_dano);
-                        this.balas--;
-                        break;
-                    }
-                }
-            case 5:
-                rainha.Dano(this.Arma_dano);
-                this.balas--;
-                break;
-        }
+    public void Atirar(Sistema tab, int alvolinha, int alvocoluna) {
 
-    }
+        tab.getTabuleiro(alvolinha, alvocoluna).Dano();
+    
+    }    
 
     public void Dano(int damage) {
 

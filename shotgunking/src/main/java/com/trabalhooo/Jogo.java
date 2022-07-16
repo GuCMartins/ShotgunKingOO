@@ -77,7 +77,7 @@ public class Jogo {
 
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                if (tab.getTabuleiro(i, j) == 1) {
+                if (tab.getTabuleiroSwitch(tab.getTabuleiro(i, j)) == 1) {
                     Peoes.add(new Peao(i, j));
                 }
             }
@@ -91,11 +91,7 @@ public class Jogo {
 
             tab.impressaotabuleiro(tab, nivel, jogador.getbalas());
 
-            System.out.println("Deseja atirar nesse turno(pressione 'x' e Enter para atirar): ");
-            op = teclado.nextLine();
-            if (op.equals("x")) {
-                jogador.Atirar(Peoes, torres, bispos, Queen, tab);
-            }
+            VerificaAtirar(teclado, jogador,tab);
 
             jogador.Movimenta(jogador.getX(), jogador.getY(), tab);
 
@@ -155,4 +151,31 @@ public class Jogo {
         for (int i = 0; i < 50; i++) // Default Height of cmd is 300 and Default width is 80
             System.out.println("\b"); // Prints a backspace
     }
+
+    public static void VerificaAtirar(Scanner teclado,Rei jogador, Sistema tab){
+        System.out.println("Deseja atirar nesse turno(pressione 'x' e Enter para atirar): ");
+        String op = teclado.nextLine();
+        if (op.equals("x")) {
+            System.out.println("Insira a coluna onde o inimigo se encontra:");
+            int alvox = teclado.nextInt();
+            System.out.println("Insira a linha onde o inimigo se encontra:");
+            int alvoy = teclado.nextInt();
+            double distancia = Math.sqrt(Math.pow(alvox - jogador.getX(), 2) + Math.pow(alvoy - jogador.getY(), 2));
+            int continua;
+            while (distancia > 3 || tab.getTabuleiro(alvox, alvoy) == null) {
+                System.out.println(
+                        "Posicionamento muito distante ou sem inimigos.Deseja continuar atirando?(se deseja, insira 1):");
+                continua = teclado.nextInt();
+                if (continua == 1) {
+                    System.out.println("Insira a linha onde o inimigo se encontra:");
+                    alvoy = teclado.nextInt();
+                    System.out.println("Insira a coluna onde o inimigo se encontra:");
+                    alvox = teclado.nextInt();
+                    distancia = Math.sqrt(Math.pow(alvox - jogador.getX(), 2) + Math.pow(alvoy - jogador.getY(), 2));
+                } else
+                    return;
+            }
+            jogador.Atirar(tab,alvoy,alvox);
+        }
+    }    
 }

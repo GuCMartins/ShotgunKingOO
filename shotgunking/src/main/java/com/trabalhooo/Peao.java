@@ -2,7 +2,7 @@ package com.trabalhooo;
 
 public class Peao extends Peca {
 
-  public Peao(int linha, int coluna) {
+  public Peao(int coluna, int linha) {
     this.posx = coluna;
     this.posy = linha;
     this.ID = 1;
@@ -15,11 +15,11 @@ public class Peao extends Peca {
     int Oldy = this.posy;
     if (this.posy < reiy) {
       this.posy++;
-      if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+      if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
         this.posy--;
-        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
       }
-      tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+      tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
     }
   }
 

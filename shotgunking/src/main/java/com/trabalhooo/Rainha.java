@@ -3,11 +3,11 @@ package com.trabalhooo;
 public class Rainha extends Peca {
     
     // funcoes basicas de criação,dano e morte e retorno dos aspectos privados
-    public Rainha(int x, int y) {
-        this.posx = x;
-        this.posy = y;
-        this.ID = 7;
+    public Rainha(int coluna, int linha) {
+        this.posx = coluna;
+        this.posy = linha;
         this.Icon = '♕';
+        this.ID = 7;
         this.hp = 7;
     }
 
@@ -30,26 +30,26 @@ public class Rainha extends Peca {
                     while (this.posy < reiy) {
                         this.posy++;
                         this.posx++;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posx--;
                             this.posy--;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 } else {
                     while (this.posy > reiy) {
                         this.posy--;
                         this.posx--;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posx--;
                             this.posy--;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 }
             }
 
@@ -58,26 +58,26 @@ public class Rainha extends Peca {
                     while (this.posx < reix) {
                         this.posy++;
                         this.posx++;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posx--;
                             this.posy--;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 } else {
                     while (this.posx < reix) {
                         this.posy--;
                         this.posx++;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posx--;
                             this.posy++;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 }
             }
             if (this.posx > reix) {
@@ -85,26 +85,26 @@ public class Rainha extends Peca {
                     while (this.posy <= reiy) {
                         this.posy++;
                         this.posx++;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posx--;
                             this.posy--;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 } else {
                     while (this.posx < reix) {
                         this.posy--;
                         this.posx++;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posx--;
                             this.posy++;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 }
             }
         } else {
@@ -112,45 +112,45 @@ public class Rainha extends Peca {
                 if (this.posy < reiy) {
                     while (this.posy < reiy) {
                         this.posy++;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posy--;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 } else {
                     while (this.posy > reiy) {
                         this.posy--;
-                        if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                        if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                             this.posy++;
-                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                             return;
                         }
                     }
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                 }
             }
             while (this.posx < reix) {
                 this.posx++;
-                if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                     this.posx--;
                     this.posy++;
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                     return;
                 }
             }
-            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             while (this.posx > reix) {
                 this.posx--;
-                if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+                if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
                     this.posx--;
                     this.posy++;
-                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+                    tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
                     return;
                 }
             }
-            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+            tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
             return;
         }
     }
