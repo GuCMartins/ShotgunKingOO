@@ -1,15 +1,13 @@
 package com.trabalhooo;
 
 public class Rainha extends Peca {
-    private int ID;
-    private char Icon = '♕';
-    private int hp = 5;
-
+    
     // funcoes basicas de criação,dano e morte e retorno dos aspectos privados
     public Rainha(int x, int y) {
         this.posx = x;
         this.posy = y;
         this.ID = 7;
+        this.Icon = '♕';
         this.hp = 7;
     }
 
