@@ -2,105 +2,108 @@ package com.trabalhooo;
 
 public class Bispo extends Peca {
 
-    public Bispo(int coluna, int linha,int tirossofridos) {
+    public Bispo(int linha, int coluna) {
         this.posx = coluna;
         this.posy = linha;
         this.ID = 3;
         this.Icon = 'B';
-        switch(tirossofridos){
-            case 0:
-                this.hp = 3;
-            case 1:
-                this.hp = 1;
-            default:
-                this.hp=0;        
+
+    }
+
+    public void Movimenta(int reilinha, int reicoluna, Sistema tab) {
+        int Oldcoluna = this.posx;
+        int Oldlinha = this.posy;
+        if (this.posx == reilinha) {
+            if (this.posy < reicoluna) {
+                while (this.posy < reicoluna) {
+                    this.posy++;
+                    this.posx++;
+                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx--;
+                        this.posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        return;
+                    }
+                }
+                if (MataRei(tab, reilinha, reicoluna) == true) {// completar com uma info para que o rei possa ser morto
+
+                }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+            } else {
+                while (this.posy > reicoluna) {
+                    this.posy--;
+                    this.posx--;
+                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx--;
+                        this.posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        return;
+                    }
+                }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+            }
+        }
+
+        if (this.posx < reilinha) {
+            if (this.posy <= reicoluna) {
+                while (this.posx < reilinha) {
+                    this.posy++;
+                    this.posx++;
+                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx--;
+                        this.posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        return;
+                    }
+                }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+            } else {
+                while (this.posx < reilinha) {
+                    this.posy--;
+                    this.posx++;
+                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx--;
+                        this.posy++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        return;
+                    }
+                }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+            }
+        }
+        if (this.posx > reilinha) {
+            if (this.posy <= reicoluna) {
+                while (this.posy <= reicoluna) {
+                    this.posy++;
+                    this.posx++;
+                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx--;
+                        this.posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        return;
+                    }
+                }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+            } else {
+                while (this.posx < reilinha) {
+                    this.posy--;
+                    this.posx++;
+                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx--;
+                        this.posy++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        return;
+                    }
+                }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+            }
         }
     }
 
-    public void Movimenta(int reix, int reiy, Sistema tab) {
-        int Oldx = this.posx;
-        int Oldy = this.posy;
-        if (this.posx == reix) {
-            if (this.posy < reiy) {
-                while (this.posy < reiy) {
-                    this.posy++;
-                    this.posx++;
-                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
-                        this.posx--;
-                        this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-                        return;
-                    }
-                }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-            } else {
-                while (this.posy > reiy) {
-                    this.posy--;
-                    this.posx--;
-                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
-                        this.posx--;
-                        this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-                        return;
-                    }
-                }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-            }
+    protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
+        if (tab.GetTabuleiro(reiLinha, reiColuna) instanceof Rei) {
+            return true;
         }
-
-        if (this.posx < reix) {
-            if (this.posy <= reiy) {
-                while (this.posx < reix) {
-                    this.posy++;
-                    this.posx++;
-                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
-                        this.posx--;
-                        this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-                        return;
-                    }
-                }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-            } else {
-                while (this.posx < reix) {
-                    this.posy--;
-                    this.posx++;
-                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
-                        this.posx--;
-                        this.posy++;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-                        return;
-                    }
-                }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-            }
-        }
-        if (this.posx > reix) {
-            if (this.posy <= reiy) {
-                while (this.posy <= reiy) {
-                    this.posy++;
-                    this.posx++;
-                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
-                        this.posx--;
-                        this.posy--;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-                        return;
-                    }
-                }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-            } else {
-                while (this.posx < reix) {
-                    this.posy--;
-                    this.posx++;
-                    if (verificacaoMov(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
-                        this.posx--;
-                        this.posy++;
-                        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-                        return;
-                    }
-                }
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
-            }
-        }
+        return false;
     }
 }

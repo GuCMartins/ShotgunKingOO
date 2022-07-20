@@ -15,11 +15,11 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         this.Icon = 'R';
     }
 
-    public int getbalas() {
+    public int Getbalas() {
         return this.balas;
     }
 
-    public void Movimenta(int Oldx, int Oldy, Sistema tab) {
+    public void Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Escolha a opção de movimentação");
         int dir = teclado.nextInt();
@@ -31,7 +31,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posx--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
 
             case 7:
@@ -42,7 +42,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx--;
                 posy--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
 
             case 8:
@@ -52,7 +52,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posy--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
 
             case 9:
@@ -63,7 +63,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx++;
                 posy--;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
 
             case 6:
@@ -73,7 +73,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posx++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
 
             case 3:
@@ -84,7 +84,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx++;
                 posy++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
 
             case 2:
@@ -94,7 +94,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     return;
                 }
                 posy++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
 
             case 1:
@@ -105,7 +105,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                 }
                 posx--;
                 posy++;
-                tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
         }
         System.out.println("Selecione uma opção de movimentação");
@@ -114,11 +114,21 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
 
     public void Atirar(Sistema tab, int alvolinha, int alvocoluna) {
 
-        tab.getTabuleiro(alvolinha, alvocoluna).Dano();
+        tab.GetTabuleiro(alvolinha, alvocoluna).Dano(Arma_dano);
+        this.balas--;
     
-    }    
-
-    public void Dano(int damage) {
-
     }
+
+    protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){
+        Scanner teclado = new Scanner(System.in);
+        String confirm;
+        System.out.println("Quer mesmo desistir?");
+        confirm = teclado.nextLine();
+        if(confirm.equals("sim")){
+            return true;
+        }
+        return false;
+    }
+    
+    
 }

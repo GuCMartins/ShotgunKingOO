@@ -29,34 +29,34 @@ public class Sistema {
                 this.tabuleiro[0][3] = new Peao(0,3);// peao
                 this.tabuleiro[1][2] = new Torre(1,2);// torre
                 this.tabuleiro[1][4] = new Torre(1,4);// torre
-                this.tabuleiro[2][3] = new Bispo(2,3,0);// bispo
+                this.tabuleiro[2][3] = new Bispo(2,3);// bispo
                 break;
             case 3:
                 this.ninimigos = 6;
                 this.tabuleiro[0][1] = new Torre(0,1);//torre
                 this.tabuleiro[0][3] = new Torre(0,3);// torre
                 this.tabuleiro[0][5] = new Rainha(0,5);// rainha
-                this.tabuleiro[3][0] = new Bispo(3,0,0);// bisbo
-                this.tabuleiro[3][6] = new Bispo(3,6,0);// bispo
+                this.tabuleiro[3][0] = new Bispo(3,0);// bisbo
+                this.tabuleiro[3][6] = new Bispo(3,6);// bispo
                 this.tabuleiro[4][3] = new Peao(4,3);// peao
                 break;
         }
 
     }
 
-    public int getNInimigos() {
+    public int GetNInimigos() {
         return this.ninimigos;
     }
 
-    public void setNInimigos() {
+    public void SetNInimigos() {
         this.ninimigos--;
     }
-
-    public Peca getTabuleiro(int i, int j) {
-        return tabuleiro[i][j];
+    
+    public Peca GetTabuleiro(int linha, int coluna) {
+        return tabuleiro[linha][coluna];
     }
 
-    public int getTabuleiroSwitch(Peca elemento){
+    public int GetTabuleiroSwitch(Peca elemento){
         if(elemento instanceof Rei){
             return 9;
         }
@@ -75,12 +75,12 @@ public class Sistema {
         return 0;
     }
 
-    public void setTabuleiro(int Oldx, int Oldy, int Newx, int Newy) {
-        if (Newx == Oldx && Newy == Oldy) {
+    public void setTabuleiro(int Oldlinha, int Oldcoluna, int Newlinha, int Newcoluna) {
+        if (Newlinha == Oldlinha && Newcoluna == Oldcoluna) {
             return;
         }
-        this.tabuleiro[Newy][Newx] = getTabuleiro(Oldy,Oldx);
-        this.tabuleiro[Oldy][Oldx] = null;
+        this.tabuleiro[Newlinha][Newcoluna] = GetTabuleiro(Oldlinha,Oldcoluna);
+        this.tabuleiro[Oldlinha][Oldcoluna] = null;
     }
 
     public void Morte(int Deadx, int Deady) {
@@ -98,7 +98,7 @@ public class Sistema {
             System.out.println("|     |     |     |     |     |     |     |");
 
             for (contc = 0; contc < 7; contc++) {
-                switch (tab.getTabuleiroSwitch(getTabuleiro(contl, contc))) {
+                switch (tab.GetTabuleiroSwitch(GetTabuleiro(contl, contc))) {
                     case 9:
                         System.out.print("|  R  ");// impressao do jogador
                         break;

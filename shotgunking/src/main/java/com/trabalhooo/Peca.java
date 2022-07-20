@@ -7,32 +7,33 @@ public abstract class Peca {
     protected int ID;
     protected char Icon;
     protected int hp;
-    protected int tirossofridos;
 
-    public int getID() {
+    public int GetID() {
         return this.ID;
     }
 
-    public int getX() {
-        return this.posx;
-    }
-
-    public int getY() {
+    public int GetLinha() {
         return this.posy;
     }
 
-    public char getIcon() {
+    public int GetColuna() {
+        return this.posx;
+    }
+
+    public char GetIcon() {
         return this.Icon;
     }
 
-    public int getHp() {
+    public int GetHp() {
         return this.hp;
     }
 
     public abstract void Movimenta(int reix, int reiy, Sistema tab);
 
-    public void Dano(){
-        this.tirossofridos++;
+    protected abstract boolean MataRei(Sistema tab, int reiLinha, int reiColuna);
+
+    public void Dano(int damage){
+        this.hp=this.hp-damage;
     }
 
     protected boolean verificacaoMov(Peca situacao, int x, int y) { // verificacao para limitar a movimentação
