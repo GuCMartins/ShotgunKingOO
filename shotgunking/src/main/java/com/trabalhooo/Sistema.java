@@ -83,8 +83,8 @@ public class Sistema {
         this.tabuleiro[Oldlinha][Oldcoluna] = null;
     }
 
-    public void Morte(int Deadx, int Deady) {
-        this.tabuleiro[Deady][Deadx] = null;
+    public void Morte(int linha, int coluna) {
+        this.tabuleiro[linha][coluna] = null;
     }
 
     public void impressaotabuleiro(Sistema tab, int nivel, int balas) {
