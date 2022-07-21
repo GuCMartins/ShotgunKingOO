@@ -5,67 +5,86 @@ import java.util.*;
 public class Sistema {
 
     private int ninimigos;
-    private int tabuleiro[][];
+    private Peca tabuleiro[][];
 
     public Sistema(int nivel) {
-        tabuleiro = new int[7][7];
+        tabuleiro = new Peca[7][7];
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                this.tabuleiro[i][j] = 0;
+                this.tabuleiro[i][j] = null;
             }
         }
 
-        this.tabuleiro[6][3] = 9;
+        this.tabuleiro[6][3] = new Rei();
 
         switch (nivel) {
             case 1:
                 this.ninimigos = 3;
-                this.tabuleiro[1][1] = 1;// peao
-                this.tabuleiro[1][3] = 1;// peao
-                this.tabuleiro[1][5] = 1;// peao
+                this.tabuleiro[1][1] = new Peao(1,1);// peao
+                this.tabuleiro[1][3] = new Peao(1,3);// peao
+                this.tabuleiro[1][5] = new Peao(1,5);// peao
                 break;
             case 2:
                 this.ninimigos = 4;
-                this.tabuleiro[0][3] = 1;// peao
-                this.tabuleiro[1][2] = 4;// torre
-                this.tabuleiro[1][4] = 4;// torre
-                this.tabuleiro[2][3] = 3;// bispo
+                this.tabuleiro[0][3] = new Peao(0,3);// peao
+                this.tabuleiro[1][2] = new Torre(1,2);// torre
+                this.tabuleiro[1][4] = new Torre(1,4);// torre
+                this.tabuleiro[2][3] = new Bispo(2,3);// bispo
                 break;
             case 3:
                 this.ninimigos = 6;
-                this.tabuleiro[0][1] = 4;// torre
-                this.tabuleiro[0][3] = 4;// torre
-                this.tabuleiro[0][5] = 5;// rainha
-                this.tabuleiro[3][0] = 3;// bisbo
-                this.tabuleiro[3][6] = 3;// bispo
-                this.tabuleiro[4][3] = 1;// peao
+                this.tabuleiro[0][1] = new Torre(0,1);//torre
+                this.tabuleiro[0][3] = new Torre(0,3);// torre
+                this.tabuleiro[0][5] = new Rainha(0,5);// rainha
+                this.tabuleiro[3][0] = new Bispo(3,0);// bisbo
+                this.tabuleiro[3][6] = new Bispo(3,6);// bispo
+                this.tabuleiro[4][3] = new Peao(4,3);// peao
                 break;
         }
 
     }
 
-    public int getNInimigos() {
+    public int GetNInimigos() {
         return this.ninimigos;
     }
 
-    public void setNInimigos() {
+    public void SetNInimigos() {
         this.ninimigos--;
     }
-
-    public int getTabuleiro(int i, int j) {
-        return tabuleiro[i][j];
+    
+    public Peca GetTabuleiro(int linha, int coluna) {
+        return tabuleiro[linha][coluna];
     }
 
-    public void setTabuleiro(int Oldx, int Oldy, int Newx, int Newy, int val) {
-        if (Newx == Oldx && Newy == Oldy) {
+    public int GetTabuleiroSwitch(Peca elemento){
+        if(elemento instanceof Rei){
+            return 9;
+        }
+        if(elemento instanceof Peao){
+            return 1;
+        }
+        if(elemento instanceof Bispo){
+            return 3;
+        }
+        if(elemento instanceof Torre){
+            return 4;
+        }
+        if(elemento instanceof Rainha){
+            return 7;
+        }
+        return 0;
+    }
+
+    public void setTabuleiro(int Oldlinha, int Oldcoluna, int Newlinha, int Newcoluna) {
+        if (Newlinha == Oldlinha && Newcoluna == Oldcoluna) {
             return;
         }
-        this.tabuleiro[Oldy][Oldx] = 0;
-        this.tabuleiro[Newy][Newx] = val;
+        this.tabuleiro[Newlinha][Newcoluna] = GetTabuleiro(Oldlinha,Oldcoluna);
+        this.tabuleiro[Oldlinha][Oldcoluna] = null;
     }
 
-    public void Morte(int Deadx, int Deady) {
-        this.tabuleiro[Deady][Deadx] = 0;
+    public void Morte(int linha, int coluna) {
+        this.tabuleiro[linha][coluna] = null;
     }
 
     public void impressaotabuleiro(Sistema tab, int nivel, int balas) {
@@ -79,7 +98,7 @@ public class Sistema {
             System.out.println("|     |     |     |     |     |     |     |");
 
             for (contc = 0; contc < 7; contc++) {
-                switch (tab.getTabuleiro(contl, contc)) {
+                switch (tab.GetTabuleiroSwitch(GetTabuleiro(contl, contc))) {
                     case 9:
                         System.out.print("|  R  ");// impressao do jogador
                         break;
@@ -92,7 +111,7 @@ public class Sistema {
                     case 4:
                         System.out.print("|  T  ");// impressao do inimigo
                         break;
-                    case 5:
+                    case 7:
                         System.out.print("|  r  ");// impressao do inimigo
                         break;
                     default:

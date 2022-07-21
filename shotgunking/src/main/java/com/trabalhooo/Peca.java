@@ -8,32 +8,36 @@ public abstract class Peca {
     protected char Icon;
     protected int hp;
 
-    public int getID() {
+    public int GetID() {
         return this.ID;
     }
 
-    public int getX() {
-        return this.posx;
-    }
-
-    public int getY() {
+    public int GetLinha() {
         return this.posy;
     }
 
-    public char getIcon() {
+    public int GetColuna() {
+        return this.posx;
+    }
+
+    public char GetIcon() {
         return this.Icon;
     }
 
-    public int getHp() {
+    public int GetHp() {
         return this.hp;
     }
 
     public abstract void Movimenta(int reix, int reiy, Sistema tab);
 
-    public abstract void Dano(int damage);
+    protected abstract boolean MataRei(Sistema tab, int reiLinha, int reiColuna);
 
-    protected boolean verificacao(int posicao, int x, int y) { // verificacao para limitar a movimentação
-        if (posicao == 0 && (x >= 0 && x < 7) && (y >= 0 && y < 7)) { // da peca dentro do tabuleiro e nao ocupar a
+    public void Dano(int damage){
+        this.hp=this.hp-damage;
+    }
+
+    protected boolean verificacaoMov(Peca situacao, int x, int y) { // verificacao para limitar a movimentação
+        if (situacao == null && (x >= 0 && x < 7) && (y >= 0 && y < 7)) { // da peca dentro do tabuleiro e nao ocupar a
             return true; // a mesa casa que outra peca
         }
         return false;

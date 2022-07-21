@@ -10,21 +10,27 @@ public class Peao extends Peca {
     this.hp = 1;
   }
 
-  public void Movimenta(int reix, int reiy, Sistema tab) {
-    int Oldx = this.posx;
-    int Oldy = this.posy;
-    if (this.posy < reiy) {
+  public void Movimenta(int reilinha, int reicoluna, Sistema tab) {
+    int Oldcoluna = this.posx;
+    int Oldlinha = this.posy;
+    if (this.posy < reilinha && this.hp > 0) {
       this.posy++;
-      if (verificacao(tab.getTabuleiro(this.posx, this.posy), this.posx, this.posy)) {
+      if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
         this.posy--;
-        tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+        return;
       }
-      tab.setTabuleiro(Oldx, Oldy, this.posx, this.posy, this.ID);
+      tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+      return;
     }
   }
 
-  public void Dano(int damage) {
-    this.hp -= damage;
+  protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
+    if (tab.GetTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
+        || tab.GetTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {
+      return true;
+    }
+    return false;
   }
 
 }
