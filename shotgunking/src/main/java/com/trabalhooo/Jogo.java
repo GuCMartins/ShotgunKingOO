@@ -57,7 +57,13 @@ public class Jogo {
         cls();
         Rei jogador = new Rei();
         int resultado;
-        resultado = nivel_1(nivel, jogador);
+        resultado = nivel(nivel, jogador);
+        if (resultado == 0) {
+            FimDoJogo();
+            return;
+        }
+        nivel++;
+        resultado = nivel(nivel,jogador);
         if (resultado == 0) {
             FimDoJogo();
             return;
@@ -65,7 +71,7 @@ public class Jogo {
 
     }
 
-    public static int nivel_1(int nivel, Rei jogador) {
+    public static int nivel(int nivel, Rei jogador) {
         Scanner teclado = new Scanner(System.in);
         List<Peca> inimigos = new ArrayList<>();
         Sistema tab = new Sistema(nivel);
@@ -74,8 +80,21 @@ public class Jogo {
 
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                if (tab.GetTabuleiroSwitch(tab.GetTabuleiro(i, j)) == 1) {
-                    inimigos.add(new Peao(i, j));
+                switch (tab.GetTabuleiroSwitch(tab.GetTabuleiro(i, j))) {
+                    case 1:
+                        inimigos.add(new Peao(i, j));
+                        break;
+                    case 3:
+                        inimigos.add(new Bispo(i,j));
+                        break;
+                    case 4:
+                        inimigos.add(new Torre(i,j));
+                        break;
+                    case 7:
+                        inimigos.add(new Rainha(i, j));
+                        break;
+                    default:
+                        break;                
                 }
             }
         }
@@ -93,6 +112,8 @@ public class Jogo {
             if(ver == false){
                 
                 jogador.Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
+
+                verificaPinimigo(jogador, inimigos, tab.GetNInimigos());
             }
 
             
@@ -105,8 +126,11 @@ public class Jogo {
                 n = (int) Math.floor(Math.random() * tab.GetNInimigos());
                 
                 inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
+                
+                if(verificaPRei(jogador,inimigos.get(n))==true){
+                    return 0;
+                }
             }
-
 
         }
 
@@ -116,11 +140,28 @@ public class Jogo {
     public static void verificavida(List<Peca> inimigos, Sistema tab) {
         for (int i = 0; i < inimigos.size(); i++) {
             if (inimigos.get(i).GetHp() <= 0) {
-                tab.Morte(inimigos.get(i).GetLinha(), inimigos.get(i).GetColuna());
+                tab.Morte(inimigos.get(i).GetLinha(), inimigos.get(i).GetColuna(), tab.GetTabuleiro(inimigos.get(i).GetLinha(), inimigos.get(i).GetColuna()));
                 inimigos.remove(i);
                 tab.SetNInimigos();
             }
         }
+    }
+
+    public static boolean verificaPRei(Peca jogador, Peca inimigo){
+        if(inimigo.GetLinha()==jogador.GetLinha() && inimigo.GetColuna()==jogador.GetColuna()){
+            return true;
+        }
+        return false;
+    }
+
+    public static void verificaPinimigo(Peca jogador, List<Peca> inimigos,int nInimigos){
+        for(int i=0;i<nInimigos;i++){
+            if(inimigos.get(i).GetLinha()==jogador.GetLinha() && inimigos.get(i).GetColuna()==jogador.GetColuna()){
+                inimigos.get(i).Dano(10);
+                return;
+            }
+        }
+        return;
     }
 
     public static void FimDoJogo() {

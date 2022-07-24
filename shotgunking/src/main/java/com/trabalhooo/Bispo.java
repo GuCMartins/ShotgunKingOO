@@ -13,12 +13,12 @@ public class Bispo extends Peca {
     public void Movimenta(int reilinha, int reicoluna, Sistema tab) {
         int Oldcoluna = this.posx;
         int Oldlinha = this.posy;
-        if (this.posx == reilinha) {
-            if (this.posy < reicoluna) {
+        if (this.posy == reilinha) {
+            if (this.posx < reicoluna) {
                 while (this.posy < reicoluna) {
                     this.posy++;
                     this.posx++;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -30,12 +30,12 @@ public class Bispo extends Peca {
                 }
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
-                while (this.posy > reicoluna) {
+                while (this.posx > reicoluna) {
                     this.posy--;
                     this.posx--;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx--;
-                        this.posy--;
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx++;
+                        this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                         return;
                     }
@@ -44,12 +44,12 @@ public class Bispo extends Peca {
             }
         }
 
-        if (this.posx < reilinha) {
-            if (this.posy <= reicoluna) {
-                while (this.posx < reilinha) {
+        if (this.posy < reilinha) {
+            if (this.posx <= reicoluna) {
+                while (this.posx < reicoluna) {
                     this.posy++;
                     this.posx++;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -58,10 +58,10 @@ public class Bispo extends Peca {
                 }
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
-                while (this.posx < reilinha) {
-                    this.posy--;
-                    this.posx++;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                while (this.posx > reicoluna) {
+                    this.posy++;
+                    this.posx--;
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -71,12 +71,12 @@ public class Bispo extends Peca {
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             }
         }
-        if (this.posx > reilinha) {
-            if (this.posy <= reicoluna) {
-                while (this.posy <= reicoluna) {
-                    this.posy++;
+        if (this.posy > reilinha) {
+            if (this.posx <= reicoluna) {
+                while (this.posx <= reicoluna) {
+                    this.posy--;
                     this.posx++;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -85,10 +85,10 @@ public class Bispo extends Peca {
                 }
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
-                while (this.posx < reilinha) {
+                while (this.posx > reicoluna) {
                     this.posy--;
-                    this.posx++;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    this.posx--;
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);

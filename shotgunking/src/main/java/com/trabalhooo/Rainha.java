@@ -30,7 +30,7 @@ public class Rainha extends Peca {
                     while (this.posy < reiy) {
                         this.posy++;
                         this.posx++;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posx--;
                             this.posy--;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -42,7 +42,7 @@ public class Rainha extends Peca {
                     while (this.posy > reiy) {
                         this.posy--;
                         this.posx--;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posx--;
                             this.posy--;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -58,7 +58,7 @@ public class Rainha extends Peca {
                     while (this.posx < reix) {
                         this.posy++;
                         this.posx++;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posx--;
                             this.posy--;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -70,7 +70,7 @@ public class Rainha extends Peca {
                     while (this.posx < reix) {
                         this.posy--;
                         this.posx++;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posx--;
                             this.posy++;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -85,7 +85,7 @@ public class Rainha extends Peca {
                     while (this.posy <= reiy) {
                         this.posy++;
                         this.posx++;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posx--;
                             this.posy--;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -97,7 +97,7 @@ public class Rainha extends Peca {
                     while (this.posx < reix) {
                         this.posy--;
                         this.posx++;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posx--;
                             this.posy++;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -112,7 +112,7 @@ public class Rainha extends Peca {
                 if (this.posy < reiy) {
                     while (this.posy < reiy) {
                         this.posy++;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posy--;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                             return;
@@ -122,7 +122,7 @@ public class Rainha extends Peca {
                 } else {
                     while (this.posy > reiy) {
                         this.posy--;
-                        if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posy++;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                             return;
@@ -133,7 +133,7 @@ public class Rainha extends Peca {
             }
             while (this.posx < reix) {
                 this.posx++;
-                if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                     this.posx--;
                     this.posy++;
                     tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -143,7 +143,7 @@ public class Rainha extends Peca {
             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             while (this.posx > reix) {
                 this.posx--;
-                if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                     this.posx--;
                     this.posy++;
                     tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);

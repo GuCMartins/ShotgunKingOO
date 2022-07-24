@@ -27,7 +27,7 @@ public class Torre extends Peca {// aspectos basicos da peça
             if (this.posx < reix) {
                 while (this.posx < reix) {
                     this.posy++;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                         return;
@@ -37,7 +37,7 @@ public class Torre extends Peca {// aspectos basicos da peça
             } else {
                 while (this.posy > reiy) {
                     this.posy--;
-                    if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                         return;
@@ -46,20 +46,18 @@ public class Torre extends Peca {// aspectos basicos da peça
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             }
         }
-        while (this.posx < reix) {
-            this.posx++;
-            if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                this.posx--;
-                this.posy++;
+        while (this.posy < reiy) {
+            this.posy++;
+            if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                this.posy--;
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                 return;
             }
         }
         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
-        while (this.posx > reix) {
-            this.posx--;
-            if (verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                this.posx--;
+        while (this.posy > reiy) {
+            this.posy--;
+            if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                 this.posy++;
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                 return;
