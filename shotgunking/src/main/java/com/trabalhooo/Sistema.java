@@ -94,7 +94,7 @@ public class Sistema {
 
         System.out.println("                    NÍVEL " + nivel);
         System.out.println("   0     1     2     3     4     5     6");
-        System.out.println(" ________________________________________");
+        System.out.println(" __________________________________________");
         for (contl = 0; contl < 7; contl++) {
             System.out.println("|     |     |     |     |     |     |     |");
 

@@ -19,14 +19,14 @@ public class Torre extends Peca {// aspectos basicos da peça
         }
     }
 
-    public void Movimenta(int reiy, int reix, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
+    public void Movimenta(int reilinha, int reicoluna, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
                                                             // buscando sempre igualar
         int Oldcoluna = this.posx; // primeiramente a posicao x para dps igualar a y
         int Oldlinha = this.posy;
-        if (this.posy == reiy) {
-            if (this.posx < reix) {
-                while (this.posx < reix) {
-                    this.posy++;
+        if (this.posy == reilinha) {
+            if (this.posx < reicoluna) {
+                while (this.posx < reicoluna) {
+                    this.posx++;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -35,8 +35,8 @@ public class Torre extends Peca {// aspectos basicos da peça
                 }
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
-                while (this.posy > reiy) {
-                    this.posy--;
+                while (this.posx > reicoluna) {
+                    this.posx--;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -46,7 +46,7 @@ public class Torre extends Peca {// aspectos basicos da peça
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             }
         }
-        while (this.posy < reiy) {
+        while (this.posy < reilinha) {
             this.posy++;
             if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                 this.posy--;
@@ -55,7 +55,7 @@ public class Torre extends Peca {// aspectos basicos da peça
             }
         }
         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
-        while (this.posy > reiy) {
+        while (this.posy > reilinha) {
             this.posy--;
             if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                 this.posy++;
