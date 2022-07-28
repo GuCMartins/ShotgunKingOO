@@ -10,15 +10,7 @@ public class Rainha extends Peca {
         this.ID = 7;
         this.hp = 7;
     }
-
-    public void Dano(int damage) {
-        this.hp -= damage;
-        if (this.hp <= 0) {
-            posx = 10;
-            posy = 10;
-        }
-    }
-
+    
     // movimentção da rainha
     public void Movimenta(int reix, int reiy, Sistema tab) {
         int op = (int) Math.floor(Math.random() * (2) + 1);

@@ -10,15 +10,6 @@ public class Torre extends Peca {// aspectos basicos da peça
         this.hp = 5;
     }
 
-    public void Dano(int damage) {// caso a peça leve dano da arma.
-        this.hp -= damage; // se a vida da peça for reduzida a menos que 1(<+0),
-        if (this.hp <= 0) { // a peça é mandada para o fim do tabuleiro(ver como deletar a peca no meio da
-                            // partida)
-            posx = 10;
-            posy = 10;
-        }
-    }
-
     public void Movimenta(int reilinha, int reicoluna, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
                                                             // buscando sempre igualar
         int Oldcoluna = this.posx; // primeiramente a posicao x para dps igualar a y

@@ -7,15 +7,18 @@ public class Sistema {
     private int ninimigos;
     private Peca tabuleiro[][];
 
-    public Sistema(int nivel) {
+    public Sistema(int nivel, Rei jogador) {
         tabuleiro = new Peca[7][7];
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
                 this.tabuleiro[i][j] = null;
             }
         }
+        
+        jogador.inicia(6,3);
 
         this.tabuleiro[6][3] = new Rei();
+        
 
         switch (nivel) {
             case 1:
@@ -88,7 +91,7 @@ public class Sistema {
             this.tabuleiro[linha][coluna] = null;
     }
 
-    public void impressaotabuleiro(Sistema tab, int nivel, int balas) {
+    public void impressaotabuleiro(Sistema tab, int nivel, Rei jogador) {
 
         int contl, contc;// impressao dinamica do tabuleiro
 
@@ -127,11 +130,11 @@ public class Sistema {
         }
         System.out.println("");
         System.out.println("  ______________________________        7  8  9");
-        System.out.println(" |(Para se movimentar,pressione|        \\ | /");
-        System.out.println(" | um dirercional e,em seguida,|         \\|/");// menus de itens e dicas do jogador
-        System.out.println(" |      pressione Enter)       |  4 --Direcionais-- 6      Numero de balas:");
-        System.out.println(" |_____________________________|          /|\\                  " + balas + " restantes");
-        System.out.println("                                         / | \\ ");
+        System.out.println(" |(Para se movimentar,pressione|        \\ | /            Numero de balas:");
+        System.out.println(" | um dirercional e,em seguida,|         \\|/                "+jogador.Getbalas()+" restantes");// menus de itens e dicas do jogador
+        System.out.println(" |      pressione Enter)       |  4 --Direcionais-- 6 ");
+        System.out.println(" |_____________________________|          /|\\                Vidas:");
+        System.out.println("                                         / | \\              "+jogador.GetHp()+" restantes");
         System.out.println("                                        1  2  3 ");
     }
 }

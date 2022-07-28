@@ -3,8 +3,7 @@ package com.trabalhooo;
 import java.util.*;
 
 public class Rei extends Peca {// ver como vai funcionar o dano no rei
-
-    private int vidas = 2;
+    
     private int balas = 5;
     private int Arma_dano = 2;
 
@@ -13,6 +12,12 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         this.posy = 6;
         this.ID = 9;
         this.Icon = 'R';
+        this.hp = 2;
+    }
+    
+    public void inicia(int linha,int coluna){
+        this.posy=linha;
+        this.posx = coluna;
     }
 
     public int Getbalas() {
@@ -129,6 +134,10 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         alvo.Dano(Arma_dano);
         this.balas--;
 
+    }
+    
+    public void perdeHp(){
+        this.hp--;
     }
 
     protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {

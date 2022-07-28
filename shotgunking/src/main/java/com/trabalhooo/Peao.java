@@ -21,10 +21,10 @@ public class Peao extends Peca {
         return;
       }
       tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-      return;
     }
   }
 
+  @Override
   protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
     if (tab.GetTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
         || tab.GetTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {

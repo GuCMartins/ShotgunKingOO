@@ -5,9 +5,10 @@ import java.util.Scanner;
 import java.io.IOException;
 
 public class Jogo {
+
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner teclado = new Scanner(System.in);
-        int nivel = 1;
+        int estado = 1;
         // tela inicial do jogo
         System.out.println("              BEM VINDO AO SHOTGUNKING");
         System.out.println("          _____________________________");
@@ -56,25 +57,39 @@ public class Jogo {
         teclado.nextLine();
         cls();
         Rei jogador = new Rei();
-        int resultado;
-        resultado = nivel(nivel, jogador);
-        if (resultado == 0) {
-            FimDoJogo();
-            return;
-        }
-        nivel++;
-        resultado = nivel(nivel,jogador);
-        if (resultado == 0) {
-            FimDoJogo();
-            return;
-        }
+        int resultado = 0, ver;
+        do {
+            ver = nivel(estado, jogador);
+            if(ver != 0){
+                jogador.perdeHp();
+            }
+            resultado += ver;
+            if (jogador.GetHp()==0) {
+                FimDoJogo();
+                return;
+            }
+        } while (ver != 0);
+
+        estado++;
+        
+        do {
+            ver = nivel(estado, jogador);
+            if(ver != 0){
+                jogador.perdeHp();
+            }
+            resultado += ver;
+            if (jogador.GetHp()==0) {
+                FimDoJogo();
+                return;
+            }
+        } while (ver != 0);
 
     }
 
     public static int nivel(int nivel, Rei jogador) {
         Scanner teclado = new Scanner(System.in);
         List<Peca> inimigos = new ArrayList<>();
-        Sistema tab = new Sistema(nivel);
+        Sistema tab = new Sistema(nivel,jogador);
         boolean ver;
         int n;
 
@@ -85,16 +100,16 @@ public class Jogo {
                         inimigos.add(new Peao(i, j));
                         break;
                     case 3:
-                        inimigos.add(new Bispo(i,j));
+                        inimigos.add(new Bispo(i, j));
                         break;
                     case 4:
-                        inimigos.add(new Torre(i,j));
+                        inimigos.add(new Torre(i, j));
                         break;
                     case 7:
                         inimigos.add(new Rainha(i, j));
                         break;
                     default:
-                        break;                
+                        break;
                 }
             }
         }
@@ -105,36 +120,42 @@ public class Jogo {
 
         while (tab.GetNInimigos() > 0) {
 
-            tab.impressaotabuleiro(tab, nivel, jogador.Getbalas());
+            tab.impressaotabuleiro(tab, nivel, jogador);
 
-            ver = VerificaAtirar(teclado, jogador, tab,inimigos);
+            ver = VerificaAtirar(teclado, jogador, tab, inimigos);
 
-            if(ver == false){
-                
+            if (ver == false) {
+
                 jogador.Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
 
                 verificaPinimigo(jogador, inimigos, tab.GetNInimigos());
             }
 
-            
             verificavida(inimigos, tab);
+            
+            System.out.println("vetor:"+inimigos.size()+"/tabuleiro:"+tab.GetNInimigos());
 
             cls();
-            
-            if(inimigos.size() > 0){
+
+            if (inimigos.size() > 0) {
 
                 n = (int) Math.floor(Math.random() * tab.GetNInimigos());
-                
-                inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
-                
-                if(verificaPRei(jogador,inimigos.get(n))==true){
-                    return 0;
+
+                for (int i = 0; i < inimigos.size(); i++) {
+                    if (inimigos.get(i).MataRei(tab, jogador.GetLinha(), jogador.GetColuna()) == true) {
+                        inimigos=null;
+                        tab=null;
+                        return 1;
+                    }
                 }
+
+                inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
             }
 
         }
-
-        return 1;
+        inimigos=null;
+        tab=null;
+        return 0;
     }
 
     public static void verificavida(List<Peca> inimigos, Sistema tab) {
@@ -147,16 +168,16 @@ public class Jogo {
         }
     }
 
-    public static boolean verificaPRei(Peca jogador, Peca inimigo){
-        if(inimigo.GetLinha()==jogador.GetLinha() && inimigo.GetColuna()==jogador.GetColuna()){
+    public static boolean verificaPRei(Peca jogador, Peca inimigo) {
+        if (inimigo.GetLinha() == jogador.GetLinha() && inimigo.GetColuna() == jogador.GetColuna()) {
             return true;
         }
         return false;
     }
 
-    public static void verificaPinimigo(Peca jogador, List<Peca> inimigos,int nInimigos){
-        for(int i=0;i<nInimigos;i++){
-            if(inimigos.get(i).GetLinha()==jogador.GetLinha() && inimigos.get(i).GetColuna()==jogador.GetColuna()){
+    public static void verificaPinimigo(Peca jogador, List<Peca> inimigos, int nInimigos) {
+        for (int i = 0; i < nInimigos; i++) {
+            if (inimigos.get(i).GetLinha() == jogador.GetLinha() && inimigos.get(i).GetColuna() == jogador.GetColuna()) {
                 inimigos.get(i).Dano(10);
                 return;
             }
@@ -173,7 +194,9 @@ public class Jogo {
 
     public static void cls() {
         for (int i = 0; i < 50; i++) // Default Height of cmd is 300 and Default width is 80
+        {
             System.out.println("\b"); // Prints a backspace
+        }
     }
 
     public static boolean VerificaAtirar(Scanner teclado, Rei jogador, Sistema tab, List<Peca> inimigos) {
@@ -198,16 +221,17 @@ public class Jogo {
                     alvocoluna = teclado.nextInt();
                     distancia = Math.sqrt(Math.pow(alvolinha - jogador.GetLinha(), 2)
                             + Math.pow(alvocoluna - jogador.GetColuna(), 2));
-                } else
+                } else {
                     return false;
+                }
             }
-            int i=0;
+            int i = 0;
 
-            while(!(inimigos.get(i).GetLinha()==alvolinha && inimigos.get(i).GetColuna()==alvocoluna)){
+            while (!(inimigos.get(i).GetLinha() == alvolinha && inimigos.get(i).GetColuna() == alvocoluna)) {
                 i++;
             }
-            
-            jogador.Atirar(tab, alvolinha, alvocoluna,inimigos.get(i));
+
+            jogador.Atirar(tab, alvolinha, alvocoluna, inimigos.get(i));
             return true;
         }
         return false;
