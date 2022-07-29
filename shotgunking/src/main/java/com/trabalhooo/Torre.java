@@ -19,42 +19,39 @@ public class Torre extends Peca {// aspectos basicos da peça
                 while (this.posx < reicoluna) {
                     this.posx++;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        this.posx--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
                 while (this.posx > reicoluna) {
                     this.posx--;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posy++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        this.posx++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             }
         }
         while (this.posy < reilinha) {
             this.posy++;
             if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                 this.posy--;
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
             }
         }
-        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
         while (this.posy > reilinha) {
             this.posy--;
             if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                 this.posy++;
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                 return;
             }
         }
-        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
     }
 
     protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){

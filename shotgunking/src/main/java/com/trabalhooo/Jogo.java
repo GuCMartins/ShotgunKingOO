@@ -70,6 +70,7 @@ public class Jogo {
             }
         } while (ver != 0);
 
+        ver = 0;
         estado++;
         
         do {
@@ -114,10 +115,6 @@ public class Jogo {
             }
         }
 
-        n = (int) Math.floor(Math.random() * tab.GetNInimigos());
-
-        inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
-
         while (tab.GetNInimigos() > 0) {
 
             tab.impressaotabuleiro(tab, nivel, jogador);
@@ -133,14 +130,16 @@ public class Jogo {
 
             verificavida(inimigos, tab);
             
-            System.out.println("vetor:"+inimigos.size()+"/tabuleiro:"+tab.GetNInimigos());
 
             cls();
+
+ 
 
             if (inimigos.size() > 0) {
 
                 n = (int) Math.floor(Math.random() * tab.GetNInimigos());
 
+               /* 
                 for (int i = 0; i < inimigos.size(); i++) {
                     if (inimigos.get(i).MataRei(tab, jogador.GetLinha(), jogador.GetColuna()) == true) {
                         inimigos=null;
@@ -148,15 +147,26 @@ public class Jogo {
                         return 1;
                     }
                 }
+                */
+                
 
                 inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
+
+                //debugging
+                for(int i=0; i<inimigos.size();i++){
+                    System.out.println("Peca : " + inimigos.get(i).Icon);
+                    System.out.println("Linha : " + inimigos.get(i).GetLinha());
+                    System.out.println("Coluna : " + inimigos.get(i).GetColuna());
+                    System.out.println("********");
+                }   
             }
 
         }
-        inimigos=null;
-        tab=null;
+        jogador.restauraPosicao();
         return 0;
     }
+
+    
 
     public static void verificavida(List<Peca> inimigos, Sistema tab) {
         for (int i = 0; i < inimigos.size(); i++) {
