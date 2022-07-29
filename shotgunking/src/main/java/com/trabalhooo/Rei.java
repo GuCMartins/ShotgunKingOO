@@ -24,13 +24,34 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         return this.balas;
     }
 
+    public void testeMovimento(int dir) throws EntradaInvalidaException{
+        if(dir!=1 && dir!=2 && dir!=3 && dir!=4 && dir!=6 && dir!=7 && dir!=8 && dir!=9){
+            throw new EntradaInvalidaException();
+        }
+    }
+
+    public int leMovimento(){
+        try{
+            Scanner teclado = new Scanner(System.in);
+            int dir = teclado.nextInt();
+            testeMovimento(dir);
+            return dir;
+
+        }catch(EntradaInvalidaException | InputMismatchException e){
+            System.out.println("Entrada invalida, Digite novamente: ");
+            return leMovimento();
+        }
+    }
+
     public void Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Escolha a opção de movimentação");
+
         boolean ver = false;
-        int dir;
+       
+        System.out.println("Escolha a opção de movimentação");
+        int dir = this.leMovimento();
+
         while (!ver) {
-            dir=teclado.nextInt();
+    
             switch (dir) {
                 case 4:
                     if (posx - 1 == -1) {
