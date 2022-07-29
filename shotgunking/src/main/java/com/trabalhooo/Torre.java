@@ -7,7 +7,7 @@ public class Torre extends Peca {// aspectos basicos da peça
         this.posy = linha;
         this.ID = 5;
         this.Icon = 'T';
-        this.hp = 5;
+        this.hp = 3;
     }
 
     public void Movimenta(int reilinha, int reicoluna, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
@@ -72,7 +72,7 @@ public class Torre extends Peca {// aspectos basicos da peça
             if(hasPeca == false){
                 return true;
             }
-            
+
         }else if(posx == reiColuna){
             boolean hasPeca = false;
             int copiaLinha = posy + 1;
