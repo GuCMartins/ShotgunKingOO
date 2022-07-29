@@ -7,6 +7,7 @@ public class Bispo extends Peca {
         this.posy = linha;
         this.ID = 3;
         this.Icon = 'B';
+        this.hp = 3;
 
     }
 
@@ -21,14 +22,10 @@ public class Bispo extends Peca {
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                if (MataRei(tab, reilinha, reicoluna) == true) {// completar com uma info para que o rei possa ser morto
-
-                }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
                 while (this.posx > reicoluna) {
                     this.posy--;
@@ -36,11 +33,10 @@ public class Bispo extends Peca {
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx++;
                         this.posy++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             }
         }
 
@@ -52,11 +48,10 @@ public class Bispo extends Peca {
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
                 while (this.posx > reicoluna) {
                     this.posy++;
@@ -64,11 +59,10 @@ public class Bispo extends Peca {
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             }
         }
         if (this.posy > reilinha) {
@@ -79,11 +73,10 @@ public class Bispo extends Peca {
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             } else {
                 while (this.posx > reicoluna) {
                     this.posy--;
@@ -91,13 +84,13 @@ public class Bispo extends Peca {
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
             }
         }
+        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
     }
 
     protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
