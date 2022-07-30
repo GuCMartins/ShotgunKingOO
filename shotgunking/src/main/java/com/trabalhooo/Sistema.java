@@ -28,10 +28,10 @@ public class Sistema {
                 this.tabuleiro[1][5] = new Peao(1,5);// peao
                 break;
             case 2:
-                this.ninimigos = 1;
-                //this.tabuleiro[0][3] = new Peao(0,3);// peao
-                //this.tabuleiro[1][2] = new Torre(1,2);// torre
-                //this.tabuleiro[1][4] = new Torre(1,4);// torre
+                this.ninimigos = 4;
+                this.tabuleiro[0][3] = new Peao(0,3);// peao
+                this.tabuleiro[1][2] = new Torre(1,2);// torre
+                this.tabuleiro[1][4] = new Torre(1,4);// torre
                 this.tabuleiro[2][3] = new Bispo(2,3);// bispo
                 break;
             case 3:
