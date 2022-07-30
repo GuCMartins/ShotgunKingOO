@@ -27,7 +27,7 @@ public class Bispo extends Peca {
                     }
                 }
             } else {
-                while (this.posx > reicoluna) {
+                while (this.posx > reicoluna && posy > 0) {
                     this.posy--;
                     this.posx--;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
@@ -72,17 +72,17 @@ public class Bispo extends Peca {
                     this.posx++;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
-                        this.posy--;
+                        this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
                     }
                 }
             } else {
-                while (this.posx > reicoluna) {
+                while (this.posx > reicoluna && posy > 0) {
                     this.posy--;
                     this.posx--;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx--;
+                        this.posx++;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return;
@@ -94,8 +94,66 @@ public class Bispo extends Peca {
     }
 
     protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
-        if (tab.GetTabuleiro(reiLinha, reiColuna) instanceof Rei) {
-            return true;
+        if(this.posx < reiColuna){
+            int copiaColuna = this.posx + 1;
+            
+
+            if(this.posy < reiLinha){
+                int copiaLinha = this.posy + 1;
+                while(copiaColuna <= reiColuna && copiaLinha <= reiLinha){
+
+                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                            return true;
+                        }
+                        return false;
+                    }
+                    copiaColuna++;
+                    copiaLinha++;
+                }
+            }else if(this.posy > reiLinha){
+                int copiaLinha = this.posy - 1;
+                while(copiaColuna <= reiColuna && copiaLinha >= reiLinha){
+                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                            return true;
+                        }
+                        return false;
+                    }
+                    copiaColuna ++;
+                    copiaLinha --;
+                }
+            }
+
+        }else if(this.posx > reiColuna){
+            int copiaColuna = this.posx - 1;
+            
+
+            if(this.posy < reiLinha){
+                int copiaLinha = this.posy + 1;
+                while(copiaColuna >= reiColuna && copiaLinha <= reiLinha){
+                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                            return true;
+                        }
+                        return false;
+                    }
+                    copiaColuna --;
+                    copiaLinha ++;
+                }
+            }else if(this.posy > reiLinha){
+                int copiaLinha = this.posy - 1;
+                while(copiaColuna >= reiColuna && copiaLinha >= reiLinha){
+                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                            return true;
+                        }
+                        return false;
+                    }
+                    copiaColuna --;
+                    copiaLinha --;
+                }
+            }
         }
         return false;
     }
