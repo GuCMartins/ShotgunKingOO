@@ -20,7 +20,7 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         this.posx = coluna;
     }
 
-    public int Getbalas() {
+    public int getbalas() {
         return this.balas;
     }
 
@@ -128,10 +128,10 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         }
     }
 
-    public void Atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo) {
+    public void atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo) {
 
-        tab.GetTabuleiro(alvolinha, alvocoluna).Dano(Arma_dano);
-        alvo.Dano(Arma_dano);
+        tab.getTabuleiro(alvolinha, alvocoluna).dano(Arma_dano);
+        alvo.dano(Arma_dano);
         this.balas--;
 
     }
@@ -144,7 +144,7 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         this.hp--;
     }
 
-    protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
+    protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
         Scanner teclado = new Scanner(System.in);
         String confirm;
         System.out.println("Quer mesmo desistir?");

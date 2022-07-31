@@ -3,11 +3,172 @@ package com.trabalhooo;
 import java.util.*;
 import java.util.Scanner;
 import java.io.IOException;
+import javax.swing.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 
-public class Jogo {
+public class Jogo extends JFrame {
+
+    public static Scanner teclado;
+    public static int TAMANHO = 7;
+    private static JPanel painel;
+
+    public static int nivel(int nivel, Rei jogador, Scanner teclado) {
+        painel = new JPanel();
+        List<Peca> inimigos = new ArrayList<>();
+        Sistema tab = new Sistema(nivel,jogador, painel);
+        boolean ver;
+        int n;
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                switch (tab.getTabuleiroSwitch(tab.getTabuleiro(i, j))) {
+                    case 1:
+                        inimigos.add(new Peao(i, j));
+                        break;
+                    case 3:
+                        inimigos.add(new Bispo(i, j));
+                        break;
+                    case 4:
+                        inimigos.add(new Torre(i, j));
+                        break;
+                    case 7:
+                        inimigos.add(new Rainha(i, j));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        n = (int) Math.floor(Math.random() * tab.getNInimigos());
+
+        inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab);
+
+        while (tab.getNInimigos() > 0) {
+
+            tab.impressaoTabuleiro(tab, nivel, jogador);
+
+            ver = VerificaAtirar(teclado, jogador, tab, inimigos);
+
+            if (ver == false) {
+
+                jogador.Movimenta(jogador.getLinha(), jogador.getColuna(), tab);
+
+                verificaPinimigo(jogador, inimigos, tab.getNInimigos());
+            }
+
+            verificavida(inimigos, tab);
+            
+            System.out.println("vetor:"+inimigos.size()+"/tabuleiro:"+tab.getNInimigos());
+
+            cls();
+
+            if (inimigos.size() > 0) {
+
+                n = (int) Math.floor(Math.random() * tab.getNInimigos());
+
+                for (int i = 0; i < inimigos.size(); i++) {
+                    if (inimigos.get(i).mataRei(tab, jogador.getLinha(), jogador.getColuna()) == true) {
+                        inimigos=null;
+                        tab=null;
+                        return 1;
+                    }
+                }
+
+                inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab);
+            }
+
+        }
+        inimigos=null;
+        tab=null;
+        return 0;
+    }
+
+    public static void verificavida(List<Peca> inimigos, Sistema tab) {
+        for (int i = 0; i < inimigos.size(); i++) {
+            if (inimigos.get(i).getHp() <= 0) {
+                tab.morte(inimigos.get(i).getLinha(), inimigos.get(i).getColuna(), tab.getTabuleiro(inimigos.get(i).getLinha(), inimigos.get(i).getColuna()));
+                inimigos.remove(i);
+                tab.setNInimigos();
+            }
+        }
+    }
+
+    public static boolean verificaPRei(Peca jogador, Peca inimigo) {
+        if (inimigo.getLinha() == jogador.getLinha() && inimigo.getColuna() == jogador.getColuna()) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void verificaPinimigo(Peca jogador, List<Peca> inimigos, int nInimigos) {
+        for (int i = 0; i < nInimigos; i++) {
+            if (inimigos.get(i).getLinha() == jogador.getLinha() && inimigos.get(i).getColuna() == jogador.getColuna()) {
+                inimigos.get(i).dano(10);
+                return;
+            }
+        }
+        return;
+    }
+
+    public static void FimDoJogo(Scanner teclado) {
+        System.out.println("Voce Perdeu!!");
+        System.out.println("Pressione Enter para terminar o jogo");
+        teclado.nextLine();
+    }
+
+    public static void cls() {
+        for (int i = 0; i < 50; i++) // Default Height of cmd is 300 and Default width is 80
+        {
+            System.out.println("\b"); // Prints a backspace
+        }
+    }
+
+    public static boolean VerificaAtirar(Scanner teclado, Rei jogador, Sistema tab, List<Peca> inimigos) {
+        System.out.println("Deseja atirar nesse turno(pressione 'x' e Enter para atirar): ");
+        String op = teclado.nextLine();
+        if (op.equals("x")) {
+            System.out.println("Insira a linha onde o inimigo se encontra:");
+            int alvolinha = teclado.nextInt();
+            System.out.println("Insira a coluna onde o inimigo se encontra:");
+            int alvocoluna = teclado.nextInt();
+            double distancia = Math
+                    .sqrt(Math.pow(alvolinha - jogador.getLinha(), 2) + Math.pow(alvocoluna - jogador.getColuna(), 2));
+            int continua;
+            while (distancia > 3 || tab.getTabuleiro(alvolinha, alvocoluna) == null) {
+                System.out.println(
+                        "Posicionamento muito distante ou sem inimigos.Deseja continuar atirando?(se deseja, insira 1):");
+                continua = teclado.nextInt();
+                if (continua == 1) {
+                    System.out.println("Insira a linha onde o inimigo se encontra:");
+                    alvolinha = teclado.nextInt();
+                    System.out.println("Insira a coluna onde o inimigo se encontra:");
+                    alvocoluna = teclado.nextInt();
+                    distancia = Math.sqrt(Math.pow(alvolinha - jogador.getLinha(), 2)
+                            + Math.pow(alvocoluna - jogador.getColuna(), 2));
+                } else {
+                    return false;
+                }
+            }
+            int i = 0;
+
+            while (!(inimigos.get(i).getLinha() == alvolinha && inimigos.get(i).getColuna() == alvocoluna)) {
+                i++;
+            }
+
+            jogador.atirar(tab, alvolinha, alvocoluna, inimigos.get(i));
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        Scanner teclado = new Scanner(System.in);
+        teclado = new Scanner(System.in);
+        Jogo jogo = new Jogo();
+        Rei jogador = new Rei();
         int estado = 1;
         // tela inicial do jogo
         System.out.println("              BEM VINDO AO SHOTGUNKING");
@@ -56,16 +217,15 @@ public class Jogo {
         System.out.println("\n           Pressione Enter para começar");
         teclado.nextLine();
         cls();
-        Rei jogador = new Rei();
         int resultado = 0, ver;
         do {
-            ver = nivel(estado, jogador);
+            ver = nivel(estado, jogador,teclado);
             if(ver != 0){
                 jogador.perdeHp();
             }
             resultado += ver;
-            if (jogador.GetHp()==0) {
-                FimDoJogo();
+            if (jogador.getHp()==0) {
+                FimDoJogo(teclado);
                 return;
             }
         } while (ver != 0);
@@ -73,167 +233,18 @@ public class Jogo {
         estado++;
         
         do {
-            ver = nivel(estado, jogador);
+            ver = nivel( estado, jogador, teclado);
             if(ver != 0){
                 jogador.perdeHp();
             }
             resultado += ver;
-            if (jogador.GetHp()==0) {
-                FimDoJogo();
+            if (jogador.getHp()==0) {
+                FimDoJogo(teclado);
                 return;
             }
         } while (ver != 0);
 
     }
 
-    public static int nivel(int nivel, Rei jogador) {
-        Scanner teclado = new Scanner(System.in);
-        List<Peca> inimigos = new ArrayList<>();
-        Sistema tab = new Sistema(nivel,jogador);
-        boolean ver;
-        int n;
-
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                switch (tab.GetTabuleiroSwitch(tab.GetTabuleiro(i, j))) {
-                    case 1:
-                        inimigos.add(new Peao(i, j));
-                        break;
-                    case 3:
-                        inimigos.add(new Bispo(i, j));
-                        break;
-                    case 4:
-                        inimigos.add(new Torre(i, j));
-                        break;
-                    case 7:
-                        inimigos.add(new Rainha(i, j));
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        n = (int) Math.floor(Math.random() * tab.GetNInimigos());
-
-        inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
-
-        while (tab.GetNInimigos() > 0) {
-
-            tab.impressaotabuleiro(tab, nivel, jogador);
-
-            ver = VerificaAtirar(teclado, jogador, tab, inimigos);
-
-            if (ver == false) {
-
-                jogador.Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
-
-                verificaPinimigo(jogador, inimigos, tab.GetNInimigos());
-            }
-
-            verificavida(inimigos, tab);
-            
-            System.out.println("vetor:"+inimigos.size()+"/tabuleiro:"+tab.GetNInimigos());
-
-            cls();
-
-            if (inimigos.size() > 0) {
-
-                n = (int) Math.floor(Math.random() * tab.GetNInimigos());
-
-                for (int i = 0; i < inimigos.size(); i++) {
-                    if (inimigos.get(i).MataRei(tab, jogador.GetLinha(), jogador.GetColuna()) == true) {
-                        inimigos=null;
-                        tab=null;
-                        return 1;
-                    }
-                }
-
-                inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
-            }
-
-        }
-        inimigos=null;
-        tab=null;
-        return 0;
-    }
-
-    public static void verificavida(List<Peca> inimigos, Sistema tab) {
-        for (int i = 0; i < inimigos.size(); i++) {
-            if (inimigos.get(i).GetHp() <= 0) {
-                tab.Morte(inimigos.get(i).GetLinha(), inimigos.get(i).GetColuna(), tab.GetTabuleiro(inimigos.get(i).GetLinha(), inimigos.get(i).GetColuna()));
-                inimigos.remove(i);
-                tab.SetNInimigos();
-            }
-        }
-    }
-
-    public static boolean verificaPRei(Peca jogador, Peca inimigo) {
-        if (inimigo.GetLinha() == jogador.GetLinha() && inimigo.GetColuna() == jogador.GetColuna()) {
-            return true;
-        }
-        return false;
-    }
-
-    public static void verificaPinimigo(Peca jogador, List<Peca> inimigos, int nInimigos) {
-        for (int i = 0; i < nInimigos; i++) {
-            if (inimigos.get(i).GetLinha() == jogador.GetLinha() && inimigos.get(i).GetColuna() == jogador.GetColuna()) {
-                inimigos.get(i).Dano(10);
-                return;
-            }
-        }
-        return;
-    }
-
-    public static void FimDoJogo() {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Voce Perdeu!!");
-        System.out.println("Pressione Enter para terminar o jogo");
-        teclado.nextLine();
-    }
-
-    public static void cls() {
-        for (int i = 0; i < 50; i++) // Default Height of cmd is 300 and Default width is 80
-        {
-            System.out.println("\b"); // Prints a backspace
-        }
-    }
-
-    public static boolean VerificaAtirar(Scanner teclado, Rei jogador, Sistema tab, List<Peca> inimigos) {
-        System.out.println("Deseja atirar nesse turno(pressione 'x' e Enter para atirar): ");
-        String op = teclado.nextLine();
-        if (op.equals("x")) {
-            System.out.println("Insira a linha onde o inimigo se encontra:");
-            int alvolinha = teclado.nextInt();
-            System.out.println("Insira a coluna onde o inimigo se encontra:");
-            int alvocoluna = teclado.nextInt();
-            double distancia = Math
-                    .sqrt(Math.pow(alvolinha - jogador.GetLinha(), 2) + Math.pow(alvocoluna - jogador.GetColuna(), 2));
-            int continua;
-            while (distancia > 3 || tab.GetTabuleiro(alvolinha, alvocoluna) == null) {
-                System.out.println(
-                        "Posicionamento muito distante ou sem inimigos.Deseja continuar atirando?(se deseja, insira 1):");
-                continua = teclado.nextInt();
-                if (continua == 1) {
-                    System.out.println("Insira a linha onde o inimigo se encontra:");
-                    alvolinha = teclado.nextInt();
-                    System.out.println("Insira a coluna onde o inimigo se encontra:");
-                    alvocoluna = teclado.nextInt();
-                    distancia = Math.sqrt(Math.pow(alvolinha - jogador.GetLinha(), 2)
-                            + Math.pow(alvocoluna - jogador.GetColuna(), 2));
-                } else {
-                    return false;
-                }
-            }
-            int i = 0;
-
-            while (!(inimigos.get(i).GetLinha() == alvolinha && inimigos.get(i).GetColuna() == alvocoluna)) {
-                i++;
-            }
-
-            jogador.Atirar(tab, alvolinha, alvocoluna, inimigos.get(i));
-            return true;
-        }
-        return false;
-    }
+    
 }

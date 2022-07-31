@@ -5,34 +5,34 @@ public abstract class Peca {
     protected int posx;
     protected int posy;
     protected int ID;
-    protected char Icon;
     protected int hp;
+    protected char Icon;
 
-    public int GetID() {
+    public int getID() {
         return this.ID;
     }
 
-    public int GetLinha() {
+    public int getLinha() {
         return this.posy;
     }
 
-    public int GetColuna() {
+    public int getColuna() {
         return this.posx;
     }
 
-    public char GetIcon() {
+    public char getIcon() {
         return this.Icon;
     }
 
-    public int GetHp() {
+    public int getHp() {
         return this.hp;
     }
 
     public abstract void Movimenta(int reix, int reiy, Sistema tab);
 
-    protected abstract boolean MataRei(Sistema tab, int reiLinha, int reiColuna);
+    protected abstract boolean mataRei(Sistema tab, int reiLinha, int reiColuna);
 
-    public void Dano(int damage){
+    public void dano(int damage){
         this.hp=this.hp-damage;
     }
 

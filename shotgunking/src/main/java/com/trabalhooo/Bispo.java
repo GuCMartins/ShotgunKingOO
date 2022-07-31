@@ -18,14 +18,14 @@ public class Bispo extends Peca {
                 while (this.posy < reicoluna) {
                     this.posy++;
                     this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
                         return;
                     }
                 }
-                if (MataRei(tab, reilinha, reicoluna) == true) {// completar com uma info para que o rei possa ser morto
+                if (mataRei(tab, reilinha, reicoluna) == true) {// completar com uma info para que o rei possa ser morto
 
                 }
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -33,7 +33,7 @@ public class Bispo extends Peca {
                 while (this.posx > reicoluna) {
                     this.posy--;
                     this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx++;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -49,7 +49,7 @@ public class Bispo extends Peca {
                 while (this.posx < reicoluna) {
                     this.posy++;
                     this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -61,7 +61,7 @@ public class Bispo extends Peca {
                 while (this.posx > reicoluna) {
                     this.posy++;
                     this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -76,7 +76,7 @@ public class Bispo extends Peca {
                 while (this.posx <= reicoluna) {
                     this.posy--;
                     this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -88,7 +88,7 @@ public class Bispo extends Peca {
                 while (this.posx > reicoluna) {
                     this.posy--;
                     this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
@@ -100,8 +100,8 @@ public class Bispo extends Peca {
         }
     }
 
-    protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
-        if (tab.GetTabuleiro(reiLinha, reiColuna) instanceof Rei) {
+    protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
+        if (tab.getTabuleiro(reiLinha, reiColuna) instanceof Rei) {
             return true;
         }
         return false;
