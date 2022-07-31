@@ -2,7 +2,7 @@ package com.trabalhooo;
 
 import java.util.*;
 
-public class Rei extends Peca {// ver como vai funcionar o dano no rei
+public class Rei extends Peca implements arma{// ver como vai funcionar o dano no rei
     
     private int balas = 5;
     private int Arma_dano = 2;
@@ -134,6 +134,10 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         alvo.Dano(Arma_dano);
         this.balas--;
 
+    }
+
+    public void balasMatou(){
+        this.balas++;
     }
     
     public void perdeHp(){
