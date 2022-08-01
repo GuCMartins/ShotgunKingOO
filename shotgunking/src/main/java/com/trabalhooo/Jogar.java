@@ -58,8 +58,6 @@ public class Jogar implements MouseListener {
                 Image resizedImage = getScaledImage(bomb.getImage(), casa.getWidth() - 1, casa.getHeight() - 1);
                 bomb.setImage(resizedImage);
                 casa.setText("");
-                tabuleiro.mostrarBombas(bomb);
-                
                 casa.setForeground(Color.RED);
 
                 JOptionPane.showMessageDialog(tabuleiro, "Você perdeu!");

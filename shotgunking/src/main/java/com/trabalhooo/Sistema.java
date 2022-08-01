@@ -57,14 +57,13 @@ public class Sistema extends JFrame {
         painel.setLayout(new GridLayout(TAMANHO, TAMANHO));
         for (int i = 0; i < TAMANHO; i++) {
             for (int j = 0; j < TAMANHO; j++) {
-                Casa casa = new Casa(getTabuleiro(i,j));
-                casa.setLinha(i);
-                casa.setColuna(j);
+                Casa casa = new Casa(getTabuleiro(i,j), i, j, 6,3);
 
                 casa.addMouseListener(new Jogar(this));
 
                 casa.setPreferredSize(new Dimension(50, 50));
                 casa.setBorder(BorderFactory.createLineBorder(Color.black));
+
                 painel.add(casa);
             }
         }
