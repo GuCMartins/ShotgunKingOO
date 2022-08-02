@@ -12,94 +12,215 @@ public class Rainha extends Peca {
     }
     
     public boolean Movimenta(int reilinha, int reicoluna, Sistema tab) {
-        return true;
-    }
-    // movimentção da rainha
-    /*
-    public void Movimenta(int reilinha, int reicoluna, Sistema tab) {
         int op = (int) Math.floor(Math.random() * (2) + 1);
         int Oldcoluna = this.posx;
         int Oldlinha = this.posy;
-        
-        if (this.posy == reilinha) {
-            if (this.posx < reicoluna) {
-                while (this.posy < reicoluna) {
-                    this.posy++;
-                    this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx--;
-                        this.posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
-                    }
-                }
-            } else {
-                while (this.posx > reicoluna && posy > 0) {
-                    this.posy--;
-                    this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx++;
-                        this.posy++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
-                    }
-                }
-            }
-        }
 
-        if (this.posy < reilinha) {
-            if (this.posx <= reicoluna) {
-                while (this.posx < reicoluna) {
+        if(op == 1){
+            if(this.posy < reilinha){          
+                while (this.posy < reilinha) {
                     this.posy++;
-                    this.posx++;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
+                        if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                            return true;
+                        }
+                        return false;
                     }
                 }
-            } else {
-                while (this.posx > reicoluna) {
-                    this.posy++;
-                    this.posx--;
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                    return true;
+                }
+                return false;
+            }else if(this.posy > reilinha){
+                while (this.posy > reilinha) {
+                    this.posy--;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx--;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
+                        if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                            return true;
+                        }
+                        return false;
                     }
                 }
-            }
-        }
-        if (this.posy > reilinha) {
-            if (this.posx <= reicoluna) {
-                while (this.posx <= reicoluna) {
-                    this.posy--;
-                    this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx--;
-                        this.posy++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
-                    }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                    return true;
                 }
-            } else {
-                while (this.posx > reicoluna && posy > 0) {
-                    this.posy--;
-                    this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                return false;
+    
+            }else{ 
+                 
+                if (this.posx < reicoluna) {
+                    while (this.posx < reicoluna) {
                         this.posx++;
-                        this.posy++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx--;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+        
+                            if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
                     }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+        
+                } else if(this.posx > reicoluna){
+                    while (this.posx > reicoluna) {
+                        this.posx--;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx++;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        }else{
+            if (this.posy == reilinha) {
+                if (this.posx < reicoluna) {
+                    while (this.posy < reicoluna && this.posx < 6) {
+                        this.posy++;
+                        this.posx++;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx--;
+                            this.posy--;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                } else {
+                    while (this.posx > reicoluna && this.posy > 0) {
+                        this.posy--;
+                        this.posx--;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx++;
+                            this.posy++;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                }
+            }else if (this.posy < reilinha) {
+                if (this.posx <= reicoluna) {
+                    while (this.posx <= reicoluna && this.posx < 6 && this.posx < 6) {
+                        this.posy++;
+                        this.posx++;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx--;
+                            this.posy--;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+    
+                } else {
+                    while (this.posx > reicoluna && this.posy < 6 && this.posx > 0) {
+                        this.posy++;
+                        this.posx--;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx--;
+                            this.posy++;
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                }
+            }else if (this.posy > reilinha) {
+                if (this.posx < reicoluna) {
+                    while (this.posx < reicoluna && this.posy > 0 && this.posx < 6) {
+                        this.posy--;
+                        this.posx++;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx--;
+                            this.posy++;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                } else if(this.posx >= reicoluna){
+                    while (this.posx >= reicoluna && this.posy > 0 && this.posx > 0) {
+                        this.posy--;
+                        this.posx--;
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx++;
+                            this.posy++;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
                 }
             }
         }
-        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+            return true;
+        }
+        return false;
     }
-    */
+    
 
     protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){
         if(tab.GetTabuleiro(reiLinha, reiColuna) instanceof Rei){
