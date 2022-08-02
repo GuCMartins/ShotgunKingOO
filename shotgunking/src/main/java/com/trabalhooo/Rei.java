@@ -29,7 +29,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         return this.balas;
     }
 
-    public void Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
+    public boolean Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Escolha a opção de movimentação");
         boolean ver = false;
@@ -131,6 +131,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     break;
             }
         }
+        return true;
     }
 
     public void Atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo) {

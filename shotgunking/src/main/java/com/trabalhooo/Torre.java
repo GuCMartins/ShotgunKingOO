@@ -10,48 +10,91 @@ public class Torre extends Peca {// aspectos basicos da peça
         this.hp = 3;
     }
 
-    public void Movimenta(int reilinha, int reicoluna, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
+    public boolean Movimenta(int reilinha, int reicoluna, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
                                                             // buscando sempre igualar
         int Oldcoluna = this.posx; // primeiramente a posicao x para dps igualar a y
         int Oldlinha = this.posy;
-        if (this.posy == reilinha) {
+
+        if(this.posy < reilinha){          
+            while (this.posy < reilinha) {
+                this.posy++;
+                if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    this.posy--;
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+            if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                return true;
+            }
+            return false;
+        }else if(this.posy > reilinha){
+            while (this.posy > reilinha) {
+                this.posy--;
+                if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    this.posy++;
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+            if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                return true;
+            }
+            return false;
+
+        }else{ 
+             
             if (this.posx < reicoluna) {
                 while (this.posx < reicoluna) {
                     this.posx++;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
+    
+                        if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                            return true;
+                        }
+                        return false;
                     }
                 }
-            } else {
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                    return true;
+                }
+                return false;
+    
+            } else if(this.posx > reicoluna){
                 while (this.posx > reicoluna) {
                     this.posx--;
                     if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        return;
+                        if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                            return true;
+                        }
+                        return false;
                     }
                 }
-            }
-        }
-        while (this.posy < reilinha) {
-            this.posy++;
-            if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                this.posy--;
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                return;
+                if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                    return true;
+                }
+                return false;
             }
         }
-        while (this.posy > reilinha) {
-            this.posy--;
-            if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                this.posy++;
-                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                return;
-            }
+
+        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+            return true;
         }
-        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+        return false;
     }
 
     protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){

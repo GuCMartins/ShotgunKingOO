@@ -28,7 +28,14 @@ public abstract class Peca {
         return this.hp;
     }
 
-    public abstract void Movimenta(int reix, int reiy, Sistema tab);
+    public boolean verificaMov(int oldLinha, int Oldcoluna, int newLinha, int newColuna){
+        if(oldLinha == newLinha && Oldcoluna == newColuna){
+            return false;
+        }
+        return true;
+    }
+
+    public abstract boolean Movimenta(int reix, int reiy, Sistema tab);
 
     protected abstract boolean MataRei(Sistema tab, int reiLinha, int reiColuna);
 

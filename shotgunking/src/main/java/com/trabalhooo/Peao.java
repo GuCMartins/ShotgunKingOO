@@ -10,18 +10,33 @@ public class Peao extends Peca {
     this.hp = 1;
   }
 
-  public void Movimenta(int reilinha, int reicoluna, Sistema tab) {
+  public boolean Movimenta(int reilinha, int reicoluna, Sistema tab) {
     int Oldcoluna = this.posx;
     int Oldlinha = this.posy;
-    if (this.posy < reilinha && this.hp > 0) {
+    if (this.posy < reilinha) {
       this.posy++;
+
       if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
         this.posy--;
         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-        return;
+          if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+            return true;
+          }
+          return false;
       }
+
       tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+
+    }else if(this.posy >= reilinha && this.posy < 6){
+        this.posy++;
+        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);   
     }
+
+    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+      return true;
+    }
+    return false;
+    
   }
 
   @Override

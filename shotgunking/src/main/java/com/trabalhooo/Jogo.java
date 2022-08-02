@@ -57,33 +57,23 @@ public class Jogo {
         teclado.nextLine();
         cls();
         Rei jogador = new Rei();
-        int resultado = 0, ver;
-        do {
-            ver = nivel(estado, jogador);
-            if(ver != 0){
-                jogador.perdeHp();
-            }
-            resultado += ver;
-            if (jogador.GetHp()==0) {
-                FimDoJogo();
-                return;
-            }
-        } while (ver != 0);
+        int resultado = 0;
 
-        ver = 0;
-        estado++;
-        
         do {
-            ver = nivel(estado, jogador);
-            if(ver != 0){
+            resultado = nivel(estado, jogador);
+            if(resultado == 1){
                 jogador.perdeHp();
             }
-            resultado += ver;
+
             if (jogador.GetHp()==0) {
                 FimDoJogo();
                 return;
             }
-        } while (ver != 0);
+
+            if(resultado == 0){
+                estado++;
+            }
+        } while (estado <= 3);
 
     }
 
@@ -139,7 +129,7 @@ public class Jogo {
 
                 n = (int) Math.floor(Math.random() * tab.GetNInimigos());
 
-                
+                /* 
                 for (int i = 0; i < inimigos.size(); i++) {
                     if (inimigos.get(i).MataRei(tab, jogador.GetLinha(), jogador.GetColuna()) == true) {
                         inimigos=null;
@@ -147,12 +137,21 @@ public class Jogo {
                         return 1;
                     }
                 }
-            
+                */
+                if(inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab) == false){
+                    int i = inimigos.size() - 1;
+                    System.out.println(inimigos.size());
+                    while(inimigos.get(i).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab) == false && i>0){
+                        i--;
+                    }
+                }
+
+                
                
 
                 
 
-                inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
+                //inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
 
                 //debugging
                 for(int i=0; i<inimigos.size();i++){
