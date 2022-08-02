@@ -1,6 +1,7 @@
 package com.trabalhooo;
 
-import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JButton;
 
 public class Casa extends JButton {
@@ -8,137 +9,59 @@ public class Casa extends JButton {
     private Peca posicao;
     private int linha;
     private int coluna;
+    private String peca;
+    private boolean mover;
 
-    ImageIcon iconReinoPreto = new ImageIcon(getClass().getResource("rei_no_preto.jpeg"));
-    ImageIcon iconReinoBranco = new ImageIcon(getClass().getResource("rei_no_branco.jpeg"));
-    ImageIcon iconPreto = new ImageIcon(getClass().getResource("preto.jpeg"));
-    ImageIcon iconPretoMove = new ImageIcon(getClass().getResource("preto_move.jpeg"));
-    ImageIcon iconBranco = new ImageIcon(getClass().getResource("branco.jpeg"));
-    ImageIcon iconBrancoMove = new ImageIcon(getClass().getResource("branco_move.jpeg"));
-    ImageIcon iconPeaonoPreto = new ImageIcon(getClass().getResource("peao_no_preto.jpeg"));
-    ImageIcon iconPeaonoBranco = new ImageIcon(getClass().getResource("rei_no_branco.jpeg"));
-    ImageIcon iconTorrenoPreto = new ImageIcon(getClass().getResource("torre_no_preto.jpeg"));
-    ImageIcon iconTorrenoBranco = new ImageIcon(getClass().getResource("torre_no_branco.jpeg"));
-    ImageIcon iconBisponoPreto = new ImageIcon(getClass().getResource("bispo_no_preto.jpeg"));
-    ImageIcon iconBisponoBranco = new ImageIcon(getClass().getResource("bispo_no_branco.jpeg"));
-    ImageIcon iconRainhanoPreto = new ImageIcon(getClass().getResource("rainha_no_preto.jpeg"));
-    ImageIcon iconRainhanoBranco = new ImageIcon(getClass().getResource("rainha_no_branco.jpeg"));
-
-    public Casa(Peca elemento, int linha, int coluna, int reiLinha, int reiColuna) {
+    /*
+    switch (getElementoSwitch(elemento)) {
+                    case 0:
+                        if (setIconMov(reiLinha, reiColuna)) {
+                            this.setText(".");
+                            mover = true;
+                            break;
+                        }
+                        mover = false;
+                        break;
+                    case 1:
+                        this.setText("P");
+                        break;
+                    case 3:
+                        this.setText("B");
+                        break;
+                    case 4:
+                        this.setText("T");
+                        break;
+                    case 7:
+                        this.setText("r");
+                        break;
+                    case 9:
+                        this.setText("R");
+                        break;
+                }*/
+    public Casa(Peca elemento, int linha, int coluna) {
         this.posicao = elemento;
         this.linha = linha;
         this.coluna = coluna;
+        this.mover = false;
         if (this.linha % 2 == 0) {
-            if (this.coluna % 2 == 0) {
-                switch (getElementoSwitch(elemento)) {
-                    case 0:
-                        if (setIconMov(reiLinha, reiColuna)) {
-                            this.setIcon(iconBrancoMove);
-                            break;
-                        }
-                        this.setIcon(iconBranco);
-                        break;
-                    case 1:
-                        this.setIcon(iconPeaonoBranco);
-                        break;
-                    case 3:
-                        this.setIcon(iconBisponoBranco);
-                        break;
-                    case 4:
-                        this.setIcon(iconTorrenoBranco);
-                        break;
-                    case 7:
-                        this.setIcon(iconRainhanoBranco);
-                        break;
-                    case 9:
-                        this.setIcon(iconReinoBranco);
-                        break;
-                }
+            if (this.coluna % 2 == 0) {;
+                this.setBackground(Color.LIGHT_GRAY);
             } else {
-                switch (getElementoSwitch(elemento)) {
-                    case 0:
-                        if (setIconMov(reiLinha, reiColuna)) {
-                            this.setIcon(iconPretoMove);
-                            break;
-                        }
-                        this.setIcon(iconPreto);
-                        break;
-                    case 1:
-                        this.setIcon(iconPeaonoPreto);
-                        break;
-                    case 3:
-                        this.setIcon(iconBisponoPreto);
-                        break;
-                    case 4:
-                        this.setIcon(iconTorrenoPreto);
-                        break;
-                    case 7:
-                        this.setIcon(iconRainhanoPreto);
-                        break;
-                    case 9:
-                        this.setIcon(iconReinoPreto);
-                        break;
-                }
-
+                this.setBackground(Color.DARK_GRAY);
             }
         } else {
             if (this.coluna % 2 == 0) {
-                switch (getElementoSwitch(elemento)) {
-                    case 0:
-                        if (setIconMov(reiLinha, reiColuna)) {
-                            this.setIcon(iconPretoMove);
-                            break;
-                        }
-                        this.setIcon(iconPreto);
-                        break;
-                    case 1:
-                        this.setIcon(iconPeaonoPreto);
-                        break;
-                    case 3:
-                        this.setIcon(iconBisponoPreto);
-                        break;
-                    case 4:
-                        this.setIcon(iconTorrenoPreto);
-                        break;
-                    case 7:
-                        this.setIcon(iconRainhanoPreto);
-                        break;
-                    case 9:
-                        this.setIcon(iconReinoPreto);
-                        break;
-                }
+                this.setBackground(Color.DARK_GRAY);
             } else {
-                switch (getElementoSwitch(elemento)) {
-                    case 0:
-                        if (setIconMov(reiLinha, reiColuna)) {
-                            this.setIcon(iconBrancoMove);
-                            break;
-                        }
-                        this.setIcon(iconBranco);
-                        break;
-                    case 1:
-                        this.setIcon(iconPeaonoBranco);
-                        break;
-                    case 3:
-                        this.setIcon(iconBisponoBranco);
-                        break;
-                    case 4:
-                        this.setIcon(iconTorrenoBranco);
-                        break;
-                    case 7:
-                        this.setIcon(iconRainhanoBranco);
-                        break;
-                    case 9:
-                        this.setIcon(iconReinoBranco);
-                        break;
-                }
-
+                this.setBackground(Color.LIGHT_GRAY);
             }
 
         }
+
+        this.setForeground(Color.WHITE);
     }
 
-    public Peca elemento() {
+    public Peca getElemento() {
         return posicao;
     }
 
@@ -158,12 +81,67 @@ public class Casa extends JButton {
         this.coluna = coluna;
     }
 
+    public String getPeca() {
+        return peca;
+    }
+
+    public void setPeca(String peca) {
+        this.peca = peca;
+    }
+    
+    
+
     public boolean setIconMov(int reiLinha, int reiColuna) {
-        if (Math.abs(this.linha - reiLinha) == 1 || Math.abs(this.coluna - reiColuna) == 1) {
+        if (Math.sqrt(Math.pow((this.linha - reiLinha),2)+ Math.pow((this.coluna - reiColuna),2)) == 1) {
             return true;
         }
         return false;
     }
+
+    public void setIconNew(Peca elemento, int reiLinha, int reiColuna) {
+        this.mover = false;
+        switch (getElementoSwitch(elemento)) {
+            case 0:
+                if (setIconMov(reiLinha, reiColuna)) {
+                    this.setText(".");
+                    this.peca =  ".";
+                    this.mover = true;
+                    break;
+                }
+                this.setText(" ");
+                this.peca = " ";
+                break;
+            case 1:
+                this.setText("♙");
+                this.peca = "♙";
+                break;
+            case 3:
+                if (setIconMov(reiLinha, reiColuna)) {
+                    this.setText(".");
+                    this.mover = true;
+                    break;
+                }
+                this.setText("♗");
+                this.peca = "♗";
+                break;
+            case 4:
+                this.setText("♖");
+                this.peca = "♖";
+                break;
+            case 7:
+                this.setText("♕");
+                this.peca = "♕";
+                break;
+            case 9:
+                this.setText("♚");
+                this.setForeground(Color.BLACK);
+                this.peca = "rei";
+                break;
+        }
+
+    }
+
+
 
     public int getElementoSwitch(Peca elemento) {
         if (elemento instanceof Rei) {

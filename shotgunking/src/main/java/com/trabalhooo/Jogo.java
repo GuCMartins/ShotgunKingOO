@@ -4,10 +4,6 @@ import java.util.*;
 import java.util.Scanner;
 import java.io.IOException;
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 
 public class Jogo extends JFrame {
 
@@ -18,7 +14,8 @@ public class Jogo extends JFrame {
     public static int nivel(int nivel, Rei jogador, Scanner teclado) {
         painel = new JPanel();
         List<Peca> inimigos = new ArrayList<>();
-        Sistema tab = new Sistema(nivel,jogador, painel);
+        Sistema tab = new Sistema(nivel,jogador);
+        tab.setPainel(painel,jogador.getLinha(),jogador.getColuna());
         boolean ver;
         int n;
 
@@ -50,6 +47,8 @@ public class Jogo extends JFrame {
         while (tab.getNInimigos() > 0) {
 
             tab.impressaoTabuleiro(tab, nivel, jogador);
+
+            tab.resetPainel(painel,jogador);
 
             ver = VerificaAtirar(teclado, jogador, tab, inimigos);
 
@@ -217,13 +216,12 @@ public class Jogo extends JFrame {
         System.out.println("\n           Pressione Enter para começar");
         teclado.nextLine();
         cls();
-        int resultado = 0, ver;
+        int ver;
         do {
             ver = nivel(estado, jogador,teclado);
             if(ver != 0){
                 jogador.perdeHp();
             }
-            resultado += ver;
             if (jogador.getHp()==0) {
                 FimDoJogo(teclado);
                 return;
@@ -237,7 +235,6 @@ public class Jogo extends JFrame {
             if(ver != 0){
                 jogador.perdeHp();
             }
-            resultado += ver;
             if (jogador.getHp()==0) {
                 FimDoJogo(teclado);
                 return;

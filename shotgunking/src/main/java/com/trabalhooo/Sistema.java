@@ -1,13 +1,9 @@
 package com.trabalhooo;
 
-import java.util.*;
-
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -17,7 +13,7 @@ public class Sistema extends JFrame {
     private Peca tabuleiro[][];
     public static int TAMANHO = 7;
 
-    public Sistema(int nivel, Rei jogador, JPanel painel) {
+    public Sistema(int nivel, Rei jogador) {
         tabuleiro = new Peca[7][7];
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
@@ -53,15 +49,18 @@ public class Sistema extends JFrame {
                 this.tabuleiro[4][3] = new Peao(4, 3);// peao
                 break;
         }
-
+    }
+    
+    public void setPainel(JPanel painel, int reiLinha, int reiColuna){
         painel.setLayout(new GridLayout(TAMANHO, TAMANHO));
         for (int i = 0; i < TAMANHO; i++) {
             for (int j = 0; j < TAMANHO; j++) {
-                Casa casa = new Casa(getTabuleiro(i,j), i, j, 6,3);
+                Casa casa = new Casa(getTabuleiro(i,j), i, j);
+                casa.setIconNew(getTabuleiro(i,j), reiLinha, reiColuna);
 
                 casa.addMouseListener(new Jogar(this));
 
-                casa.setPreferredSize(new Dimension(50, 50));
+                casa.setPreferredSize(new Dimension(40, 40));
                 casa.setBorder(BorderFactory.createLineBorder(Color.black));
 
                 painel.add(casa);
@@ -70,11 +69,10 @@ public class Sistema extends JFrame {
 
         this.add(painel);
         this.setVisible(true);
-        this.setSize(500, 500);
+        this.setSize(5000, 5000);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.repaint();
-        this.pack();
-
+        this.pack();        
     }
 
     public int getNInimigos() {
@@ -114,6 +112,11 @@ public class Sistema extends JFrame {
         }
         this.tabuleiro[Newlinha][Newcoluna] = getTabuleiro(Oldlinha, Oldcoluna);
         this.tabuleiro[Oldlinha][Oldcoluna] = null;
+    }
+
+    public void resetPainel(JPanel painel,Rei jogador){
+        painel.removeAll();
+        setPainel(painel,jogador.getLinha(), jogador.getColuna());
     }
 
     public void morte(int linha, int coluna, Peca situacao) {
