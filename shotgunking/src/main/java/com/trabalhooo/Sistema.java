@@ -35,13 +35,13 @@ public class Sistema {
                 this.tabuleiro[2][3] = new Bispo(2,3);// bispo
                 break;
             case 3:
-                this.ninimigos = 1;
-                //this.tabuleiro[0][1] = new Torre(0,1);//torre
-                //this.tabuleiro[0][3] = new Torre(0,3);// torre
+                this.ninimigos = 6;
+                this.tabuleiro[0][1] = new Torre(0,1);//torre
+                this.tabuleiro[0][3] = new Torre(0,3);// torre
                 this.tabuleiro[0][5] = new Rainha(0,5);// rainha
-                //this.tabuleiro[3][0] = new Bispo(3,0);// bisbo
-                //this.tabuleiro[3][6] = new Bispo(3,6);// bispo
-                //this.tabuleiro[4][3] = new Peao(4,3);// peao
+                this.tabuleiro[3][0] = new Bispo(3,0);// bisbo
+                this.tabuleiro[3][6] = new Bispo(3,6);// bispo
+                this.tabuleiro[4][3] = new Peao(4,3);// peao
                 break;
         }
 

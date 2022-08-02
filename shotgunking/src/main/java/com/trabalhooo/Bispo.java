@@ -59,14 +59,22 @@ public class Bispo extends Peca {
                 while (this.posx <= reicoluna && this.posx < 6 && this.posx < 6) {
                     this.posy++;
                     this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                        this.posx--;
+                    if(this.posy > 6 || this.posx > 6){
+                        System.out.println("aqui");
                         this.posy--;
+                        this.posx--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
-                            return true;
+                        return true;
+                    }else{
+                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx--;
+                            this.posy--;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
                         }
-                        return false;
                     }
                 }
                 tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);

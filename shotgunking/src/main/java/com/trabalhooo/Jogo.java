@@ -140,30 +140,13 @@ public class Jogo {
 
                 if(inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab) == false){
                     int i = inimigos.size() - 1;
-                    System.out.println(inimigos.size());
                     while(inimigos.get(i).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab) == false && i>0){
                         i--;
                     }
                 }
-
-                
-               
-
-                
-
-                //inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
-
-                //debugging
-                for(int i=0; i<inimigos.size();i++){
-                    System.out.println("Peca : " + inimigos.get(i).Icon);
-                    System.out.println("Linha : " + inimigos.get(i).GetLinha());
-                    System.out.println("Coluna : " + inimigos.get(i).GetColuna());
-                    System.out.println("********");
-                }   
             }
 
         }
-        jogador.restauraPosicao();
         return 0;
     }
 
