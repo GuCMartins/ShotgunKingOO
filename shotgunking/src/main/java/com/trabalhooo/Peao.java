@@ -41,9 +41,11 @@ public class Peao extends Peca {
 
   @Override
   protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
-    if (tab.GetTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
-        || tab.GetTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {
-      return true;
+    if(this.posy+1 < 6 && this.posx+1 < 6){
+      if (tab.GetTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
+          || tab.GetTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {
+        return true;
+      }
     }
     return false;
   }

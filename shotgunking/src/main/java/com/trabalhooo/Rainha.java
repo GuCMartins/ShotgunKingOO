@@ -223,8 +223,100 @@ public class Rainha extends Peca {
     
 
     protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){
-        if(tab.GetTabuleiro(reiLinha, reiColuna) instanceof Rei){
-            return true;
+        if(posy == reiLinha){
+            boolean hasPeca = false;
+            int colunaTorre = posx + 1;
+
+            while(colunaTorre <  reiColuna){
+                System.out.println(colunaTorre);
+                if(tab.GetTabuleiro(posy, colunaTorre) != null){
+                    System.out.println(tab.GetTabuleiro(posy, colunaTorre).Icon);
+                    hasPeca = true;
+                }
+                colunaTorre++;
+            }
+
+            if(hasPeca == false){
+                return true;
+            }
+
+        }else if(posx == reiColuna){
+            boolean hasPeca = false;
+            int copiaLinha = posy + 1;
+
+            while(copiaLinha < reiLinha){
+                if(tab.GetTabuleiro(copiaLinha, posx) != null){
+                    hasPeca = true;
+                }
+                copiaLinha++;
+            }
+
+            if(hasPeca == false){
+                return true;
+            }
+
+        }else{
+            if(this.posx < reiColuna){
+                int copiaColuna = this.posx + 1;
+                
+    
+                if(this.posy < reiLinha){
+                    int copiaLinha = this.posy + 1;
+                    while(copiaColuna <= reiColuna && copiaLinha <= reiLinha){
+    
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                            if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                                return true;
+                            }
+                            return false;
+                        }
+                        copiaColuna++;
+                        copiaLinha++;
+                    }
+                }else if(this.posy > reiLinha){
+                    int copiaLinha = this.posy - 1;
+                    while(copiaColuna <= reiColuna && copiaLinha >= reiLinha){
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                            if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                                return true;
+                            }
+                            return false;
+                        }
+                        copiaColuna ++;
+                        copiaLinha --;
+                    }
+                }
+    
+            }else if(this.posx > reiColuna){
+                int copiaColuna = this.posx - 1;
+                
+    
+                if(this.posy < reiLinha){
+                    int copiaLinha = this.posy + 1;
+                    while(copiaColuna >= reiColuna && copiaLinha <= reiLinha){
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                            if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                                return true;
+                            }
+                            return false;
+                        }
+                        copiaColuna --;
+                        copiaLinha ++;
+                    }
+                }else if(this.posy > reiLinha){
+                    int copiaLinha = this.posy - 1;
+                    while(copiaColuna >= reiColuna && copiaLinha >= reiLinha){
+                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
+                            if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                                return true;
+                            }
+                            return false;
+                        }
+                        copiaColuna --;
+                        copiaLinha --;
+                    }
+                }
+            }
         }
         return false;
     }

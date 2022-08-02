@@ -129,7 +129,7 @@ public class Jogo {
 
                 n = (int) Math.floor(Math.random() * tab.GetNInimigos());
 
-                /* 
+
                 for (int i = 0; i < inimigos.size(); i++) {
                     if (inimigos.get(i).MataRei(tab, jogador.GetLinha(), jogador.GetColuna()) == true) {
                         inimigos=null;
@@ -137,7 +137,7 @@ public class Jogo {
                         return 1;
                     }
                 }
-                */
+
                 if(inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab) == false){
                     int i = inimigos.size() - 1;
                     System.out.println(inimigos.size());
