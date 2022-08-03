@@ -12,7 +12,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         this.posy = 6;
         this.ID = 9;
         this.Icon = 'R';
-        this.hp = 50;
+        this.hp = 3;
     }
 
     public void restauraPosicao(){
