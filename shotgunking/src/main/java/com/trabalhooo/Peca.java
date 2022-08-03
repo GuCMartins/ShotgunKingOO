@@ -36,10 +36,17 @@ public abstract class Peca {
     }
     
     public void atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo){};
-
-    public abstract void Movimenta(int reix, int reiy, Sistema tab);
     
-    public abstract void Movimenta(int reix, int reiy, Sistema tab,int op);
+    public abstract boolean Movimenta(int reix, int reiy, Sistema tab,int op);
+
+    public boolean verificaMov(int oldLinha, int Oldcoluna, int newLinha, int newColuna){
+        if(oldLinha == newLinha && Oldcoluna == newColuna){
+            return false;
+        }
+        return true;
+    }
+
+    public abstract boolean Movimenta(int reix, int reiy, Sistema tab);
 
     protected abstract boolean mataRei(Sistema tab, int reiLinha, int reiColuna);
 
@@ -47,8 +54,8 @@ public abstract class Peca {
         this.hp=this.hp-damage;
     }
 
-    protected boolean verificacaoMov(Peca situacao, int x, int y) { // verificacao para limitar a movimentação
-        if (situacao == null && (x >= 0 && x < 7) && (y >= 0 && y < 7)) { // da peca dentro do tabuleiro e nao ocupar a
+    protected boolean verificacaoMov(Peca situacao, int linha, int coluna) { // verificacao para limitar a movimentação
+        if (situacao == null && (linha >= 0 && linha < 7) && (coluna >= 0 && coluna < 7)) { // da peca dentro do tabuleiro e nao ocupar a
             return true; // a mesa casa que outra peca
         }
         return false;

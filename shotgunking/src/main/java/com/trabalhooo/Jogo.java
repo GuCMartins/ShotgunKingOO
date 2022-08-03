@@ -11,10 +11,95 @@ public class Jogo extends JFrame {
     public static int TAMANHO = 7;
     private static JPanel painel;
 
-    public static int nivel(int nivel, Rei jogador, Scanner teclado) {
-        painel = new JPanel();
-        List<Peca> inimigos = new ArrayList<>();
-        Sistema tab = new Sistema(nivel, jogador);
+    public static void main(String[] args) throws Exception {
+        teclado = new Scanner(System.in);
+        Jogo jogo = new Jogo();
+        Rei jogador = new Rei();
+        int estado = 1;
+        String texto0 = "BEM VINDO AO SHOTGUNKING";
+        String texto1 = "● Para vencer, fuja das peças brancas e elimine com sua arma real.\n ● Para se movimentar, selecione o Rei e depois o local aonde deseja ir.Algumas pecas brancas tentaram te pegar, por isso use a estrategia para engana-las e destrui-las. ";
+        String texto2 = "● A cada nível, mais pecas tentarao te derrotar.Porém, a cada peça destruida, o jogador ganha uma bala para pode atirar mais um dia. As pecas brancas sao des truidas ou sendo atingidas pela arma ou quando o rei pula em cima delas.";
+        String texto3 = "● O jogador já inicia o jogo com o pente cheio. Porém nao atire sem pensar, suas balas sao um recurso valioso.\n  ● Caso o jogador seja pego por alguma peça inimiga, ele perde uma vida e o jogo recomeça. Caso ele seja apanhado novamente, o jogo termina.";
+        String texto4 = "● Antes de cada movimento, surge a opção de se executar um disparo. Caso essa opção seja escolhida,sera necessario selecionar a posicao do  inimigo que deseja alvejar. Caso esteja muito distante, nao sofrera dano.";
+
+        JOptionPane.showConfirmDialog(null, texto0, "ShotgunKing",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto1, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto2, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto3, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto4, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+
+        // tela inicial do jogo
+        int ver;
+
+        cls();
+        
+        try {
+            //aqui estamos criando uma variavel do mesmo tipo do dado que foi salvo, para assim em seguida essa informação poder ser recuperada/alocada na variavel e apresentada ao usuário.
+            SalvarDado data2 = new SalvarDado();
+            data2 = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
+
+            if(data2.fim_jogo){
+            System.out.println("Jogador, escreva seu nome:");
+            data2.nome = teclado.nextLine();
+            data2.fim_jogo = false;
+            GerenciarRecursos.Salvar(data2, "dados.txt");
+            
+        }
+        else {
+                System.out.println("Bem vindo novamente ao jogo,"+ data2.nome +" continuando de onde parou ...");
+               // estado = data2.nivel;
+            }
+            }
+            catch(Exception e) {
+            //System.out.println(""+ e.getMessage());
+                SalvarDado data2 = new SalvarDado();
+                data2.fim_jogo = false;
+                //voce pode criar seu proprio formato aqui, ou usar o tipo .txt, se modificar aqui, lembre-se de modificar o do “CARREGAR” também, pois vc quer que ele busque as informações no mesmo arquivo que foi salvo.
+                System.out.println("Jogador novo, escreva seu nome:");
+                data2.nome = teclado.nextLine();
+                data2.nivel = 1;
+                GerenciarRecursos.Salvar(data2, "dados.txt");
+            }
+
+        int resultado = 0;
+
+        try{
+            SalvarDado data = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
+            estado = data.nivel;
+        do {
+            resultado = nivel(estado, jogador,teclado);
+            data.hp = jogador.hp;
+
+            if(resultado == 1){
+                jogador.perdeHp();
+                System.out.println("perdeu vida");
+                data.hp--;
+                GerenciarRecursos.Salvar(data, "dados.txt");
+            }
+
+            if (jogador.getHp()==0) {
+                fimDoJogo(teclado);
+                data.fim_jogo = true; //proxima vez que for iniciar, voltara do começo
+                data.hp = 2; //volta a vida ao valor inicial
+                data.nivel = 1; //volta para o nivel 1
+                GerenciarRecursos.Salvar(data, "dados.txt");                
+                return;
+            }
+
+            if(resultado == 0){
+                estado++;
+            }
+        }while (estado <= 3); 
+
+        }catch(Exception e) {
+            System.out.println("nao deu");
+    }
+}
+
+public static int nivel(int nivel, Rei jogador, Scanner teclado) {
+    painel = new JPanel();
+    List<Peca> inimigos = new ArrayList<>();
+    Sistema tab = new Sistema(nivel, jogador);
         tab.setPainel(painel, jogador.getLinha(), jogador.getColuna());
         boolean ver;
         int n;
@@ -67,6 +152,7 @@ public class Jogo extends JFrame {
 
                 n = (int) Math.floor(Math.random() * tab.getNInimigos());
 
+
                 for (int i = 0; i < inimigos.size(); i++) {
                     if (inimigos.get(i).mataRei(tab, jogador.getLinha(), jogador.getColuna()) == true) {
                         inimigos = null;
@@ -79,10 +165,13 @@ public class Jogo extends JFrame {
             }
 
         }
+
         inimigos = null;
         tab = null;
         return 0;
     }
+
+    
 
     public static void verificavida(List<Peca> inimigos, Sistema tab) {
         for (int i = 0; i < inimigos.size(); i++) {
@@ -113,7 +202,7 @@ public class Jogo extends JFrame {
         return;
     }
 
-    public static void FimDoJogo(Scanner teclado) {
+    public static void fimDoJogo(Scanner teclado) {
         System.out.println("Voce Perdeu!!");
         System.out.println("Pressione Enter para terminar o jogo");
         teclado.nextLine();
@@ -164,49 +253,18 @@ public class Jogo extends JFrame {
         return false;
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        teclado = new Scanner(System.in);
-        Jogo jogo = new Jogo();
-        Rei jogador = new Rei();
-        int estado = 1;
-        String texto0 = "BEM VINDO AO SHOTGUNKING";
-        String texto1 = "● Para vencer, fuja das peças brancas e elimine com sua arma real.\n ● Para se movimentar, selecione o Rei e depois o local aonde deseja ir.Algumas pecas brancas tentaram te pegar, por isso use a estrategia para engana-las e destrui-las. ";
-        String texto2 = "● A cada nível, mais pecas tentarao te derrotar.Porém, a cada peça destruida, o jogador ganha uma bala para pode atirar mais um dia. As pecas brancas sao des truidas ou sendo atingidas pela arma ou quando o rei pula em cima delas.";
-        String texto3 = "● O jogador já inicia o jogo com o pente cheio. Porém nao atire sem pensar, suas balas sao um recurso valioso.\n  ● Caso o jogador seja pego por alguma peça inimiga, ele perde uma vida e o jogo recomeça. Caso ele seja apanhado novamente, o jogo termina.";
-        String texto4 = "● Antes de cada movimento, surge a opção de se executar um disparo. Caso essa opção seja escolhida,sera necessario selecionar a posicao do  inimigo que deseja alvejar. Caso esteja muito distante, nao sofrera dano.";
 
-        JOptionPane.showConfirmDialog(null, texto0, "ShotgunKing",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-        JOptionPane.showConfirmDialog(null, texto1, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-        JOptionPane.showConfirmDialog(null, texto2, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-        JOptionPane.showConfirmDialog(null, texto3, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
-        JOptionPane.showConfirmDialog(null, texto4, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
 
-        // tela inicial do jogo
-        int ver;
-        do {
-            ver = nivel(estado, jogador, teclado);
-            if (ver != 0) {
-                jogador.perdeHp();
+    public static void Salvar_info(SalvarDado data,int nivel, boolean fim_jogo,int hp) {
+        try {
+            data.nivel = nivel;
+            data.fim_jogo = fim_jogo;
+            data.hp = hp;
+            GerenciarRecursos.Salvar(data, "dados.txt");
             }
-            if (jogador.getHp() == 0) {
-                FimDoJogo(teclado);
-                return;
+            catch(Exception e) {
+            System.out.println("é sobre isso");
             }
-        } while (ver != 0);
-
-        estado++;
-
-        do {
-            ver = nivel(estado, jogador, teclado);
-            if (ver != 0) {
-                jogador.perdeHp();
-            }
-            if (jogador.getHp() == 0) {
-                FimDoJogo(teclado);
-                return;
-            }
-        } while (ver != 0);
-
     }
-
 }
+

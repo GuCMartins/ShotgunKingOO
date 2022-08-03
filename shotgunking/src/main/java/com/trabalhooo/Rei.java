@@ -12,7 +12,12 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         this.posy = 6;
         this.ID = 9;
         this.Icon = 'R';
-        this.hp = 2;
+        this.hp = 3;
+    }
+
+    public void restauraPosicao(){
+        this.posx = 3;
+        this.posy = 6;
     }
     
     public void inicia(int linha,int coluna){
@@ -24,7 +29,7 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         return this.balas;
     }
 
-    public void Movimenta(int Oldlinha, int Oldcoluna, Sistema tab, int op) {
+    public boolean Movimenta(int Oldlinha, int Oldcoluna, Sistema tab, int op) {
         System.out.println("Escolha a opção de movimentação");
         boolean ver = false;
         while (!ver) {
@@ -123,6 +128,7 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
                     break;
             }
         }
+        return true;
     }
 
     public void atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo) {
@@ -152,6 +158,8 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         return false;
     }
 
-    public void Movimenta(int reix, int reiy, Sistema tab){};
+    public boolean Movimenta(int reix, int reiy, Sistema tab){
+        return true;
+    };
 
 }
