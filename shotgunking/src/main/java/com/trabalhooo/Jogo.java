@@ -125,7 +125,7 @@ public class Jogo {
                 data.hp--;
                 GerenciarRecursos.Salvar(data, "dados.txt");
             }
-            resultado += ver;
+
             if (jogador.GetHp()==0) {
                 FimDoJogo();
                 data.fim_jogo = true; //proxima vez que for iniciar, voltara do começo
@@ -136,7 +136,6 @@ public class Jogo {
                 
                 return;
             }
-        } while (ver != 0);
 
         estado++;
         data.nivel++;
@@ -193,10 +192,6 @@ public class Jogo {
             }
         }
 
-        n = (int) Math.floor(Math.random() * tab.GetNInimigos());
-
-        inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
-
         while (tab.GetNInimigos() > 0) {
 
             tab.impressaotabuleiro(tab, nivel, jogador);
@@ -212,13 +207,15 @@ public class Jogo {
 
             verificavida(inimigos, tab);
             
-            System.out.println("vetor:"+inimigos.size()+"/tabuleiro:"+tab.GetNInimigos());
 
             cls();
+
+ 
 
             if (inimigos.size() > 0) {
 
                 n = (int) Math.floor(Math.random() * tab.GetNInimigos());
+
 
                 for (int i = 0; i < inimigos.size(); i++) {
                     if (inimigos.get(i).MataRei(tab, jogador.GetLinha(), jogador.GetColuna()) == true) {
@@ -228,14 +225,19 @@ public class Jogo {
                     }
                 }
 
-                inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab);
+                if(inimigos.get(n).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab) == false){
+                    int i = inimigos.size() - 1;
+                    while(inimigos.get(i).Movimenta(jogador.GetLinha(), jogador.GetColuna(), tab) == false && i>0){
+                        i--;
+                    }
+                }
             }
 
         }
-        inimigos=null;
-        tab=null;
         return 0;
     }
+
+    
 
     public static void verificavida(List<Peca> inimigos, Sistema tab) {
         for (int i = 0; i < inimigos.size(); i++) {

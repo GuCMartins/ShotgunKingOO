@@ -12,7 +12,12 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         this.posy = 6;
         this.ID = 9;
         this.Icon = 'R';
-        this.hp = 2;
+        this.hp = 3;
+    }
+
+    public void restauraPosicao(){
+        this.posx = 3;
+        this.posy = 6;
     }
     
     public void inicia(int linha,int coluna){
@@ -24,7 +29,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         return this.balas;
     }
 
-    public void Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
+    public boolean Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Escolha a opção de movimentação");
         boolean ver = false;
@@ -126,6 +131,7 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     break;
             }
         }
+        return true;
     }
 
     public void Atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo) {
