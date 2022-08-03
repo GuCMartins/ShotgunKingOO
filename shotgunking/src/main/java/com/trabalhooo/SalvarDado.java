@@ -1,13 +1,35 @@
 package com.trabalhooo;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class JSON {
-    /* 
+public class SalvarDado implements Serializable{
+
+    private static final long serialVersionUID = 1L; 
+//você pode escrever qualquer numero que quiser, mas tem que ser um numero do tipo long.
+// é o comando usado para fazer com que as estruturas de dados possam voltar ao seu original. O que nos economiza bastante tempo, //para que não tenhamos que fazer isso manualmente.
+//Agora declare as variáveis que você quer, neste exemplo:
+public String nome;
+public int nivel;
+public boolean fim_jogo;
+public int hp;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ /* 
     public static String toJSON(Contato contato) {
         Gson gson = new Gson();
         String json = gson.toJson(contato);
@@ -37,4 +59,3 @@ public class JSON {
     }
     
 */
-}

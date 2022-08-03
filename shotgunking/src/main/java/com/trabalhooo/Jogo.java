@@ -6,9 +6,35 @@ import java.io.IOException;
 
 public class Jogo {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws Exception {
         Scanner teclado = new Scanner(System.in);
-        int estado = 1;
+        
+            /* 
+            data.nivel = teclado.nextInt();
+            teclado.nextLine();
+            data.nome = teclado.nextLine();
+            try {
+            GerenciarRecursos.Salvar(data, "dados.txt");//voce pode criar seu proprio formato aqui, ou usar o tipo .txt, se modificar aqui, lembre-se de modificar o do “CARREGAR” também, pois vc quer que ele busque as informações no mesmo arquivo que foi salvo.
+            }
+            catch(Exception e) {
+            System.out.println("Could’t save: "+ e.getMessage());
+            }
+            
+            try {
+            //aqui estamos criando uma variavel do mesmo tipo do dado que foi salvo, para assim em seguida essa informação poder ser recuperada/alocada na variavel e apresentada ao usuário.
+            SalvarDado data2 = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
+            System.out.println(data2.nivel);
+            System.out.println(data2.nome);
+            }
+            catch(Exception e) {
+            System.out.println("Couldn't load save data: "+ e.getMessage());
+            }
+
+            */
+            
+
+        
+        
         // tela inicial do jogo
         System.out.println("              BEM VINDO AO SHOTGUNKING");
         System.out.println("          _____________________________");
@@ -56,36 +82,89 @@ public class Jogo {
         System.out.println("\n           Pressione Enter para começar");
         teclado.nextLine();
         cls();
+
+        try {
+            //aqui estamos criando uma variavel do mesmo tipo do dado que foi salvo, para assim em seguida essa informação poder ser recuperada/alocada na variavel e apresentada ao usuário.
+            SalvarDado data2 = new SalvarDado();
+            data2 = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
+
+            if(data2.fim_jogo){
+            System.out.println("Jogador, escreva seu nome:");
+            data2.nome = teclado.nextLine();
+            data2.fim_jogo = false;
+            GerenciarRecursos.Salvar(data2, "dados.txt");
+
+            }
+            else {
+                System.out.println("Bem vindo novamente ao jogo,"+ data2.nome +" continuando de onde parou ...");
+               // estado = data2.nivel;
+            }
+            }
+            catch(Exception e) {
+            //System.out.println(""+ e.getMessage());
+                SalvarDado data2 = new SalvarDado();
+                data2.fim_jogo = false;
+                //voce pode criar seu proprio formato aqui, ou usar o tipo .txt, se modificar aqui, lembre-se de modificar o do “CARREGAR” também, pois vc quer que ele busque as informações no mesmo arquivo que foi salvo.
+                System.out.println("Jogador novo, escreva seu nome:");
+                data2.nome = teclado.nextLine();
+                data2.nivel = 1;
+                GerenciarRecursos.Salvar(data2, "dados.txt");
+            }
+            
         Rei jogador = new Rei();
         int resultado = 0, ver;
+        try{
+            SalvarDado data = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
+            int estado = data.nivel;
         do {
             ver = nivel(estado, jogador);
+            data.hp = jogador.hp;
             if(ver != 0){
                 jogador.perdeHp();
+                System.out.println("perdeu vida");
+                data.hp--;
+                GerenciarRecursos.Salvar(data, "dados.txt");
             }
             resultado += ver;
             if (jogador.GetHp()==0) {
                 FimDoJogo();
+                data.fim_jogo = true; //proxima vez que for iniciar, voltara do começo
+                data.hp = 2; //volta a vida ao valor inicial
+                data.nivel = 1; //volta para o nivel 1
+                GerenciarRecursos.Salvar(data, "dados.txt");
+
+                
                 return;
             }
         } while (ver != 0);
 
         estado++;
+        data.nivel++;
         
+        GerenciarRecursos.Salvar(data, "dados.txt");
         do {
             ver = nivel(estado, jogador);
             if(ver != 0){
                 jogador.perdeHp();
+                data.hp--;
+                System.out.println("perdeu vida");
+                GerenciarRecursos.Salvar(data, "dados.txt");
             }
             resultado += ver;
             if (jogador.GetHp()==0) {
                 FimDoJogo();
+                data.fim_jogo = true; //proxima vez que for iniciar, voltara do começo
+                data.hp = 2; //volta a vida ao valor inicial
+                data.nivel = 1; //volta para o nivel 1
+                GerenciarRecursos.Salvar(data, "dados.txt");
                 return;
             }
         } while (ver != 0);
-
     }
-
+ catch(Exception e) {
+    System.out.println("nao deu");
+    }
+}
     public static int nivel(int nivel, Rei jogador) {
         Scanner teclado = new Scanner(System.in);
         List<Peca> inimigos = new ArrayList<>();
@@ -236,4 +315,19 @@ public class Jogo {
         }
         return false;
     }
+
+
+
+    public static void Salvar_info(SalvarDado data,int nivel, boolean fim_jogo,int hp) {
+        try {
+            data.nivel = nivel;
+            data.fim_jogo = fim_jogo;
+            data.hp = hp;
+            GerenciarRecursos.Salvar(data, "dados.txt");
+            }
+            catch(Exception e) {
+            System.out.println("é sobre isso");
+            }
+    }
 }
+
