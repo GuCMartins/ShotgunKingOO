@@ -8,6 +8,7 @@ public class Jogo {
 
     public static void main(String[] args) throws Exception {
         Scanner teclado = new Scanner(System.in);
+        int estado = 1;
         
             /* 
             data.nivel = teclado.nextInt();
@@ -110,16 +111,19 @@ public class Jogo {
                 data2.nivel = 1;
                 GerenciarRecursos.Salvar(data2, "dados.txt");
             }
+        
             
         Rei jogador = new Rei();
-        int resultado = 0, ver;
+        int resultado = 0;
+
         try{
             SalvarDado data = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
-            int estado = data.nivel;
+            estado = data.nivel;
         do {
-            ver = nivel(estado, jogador);
+            resultado = nivel(estado, jogador);
             data.hp = jogador.hp;
-            if(ver != 0){
+
+            if(resultado == 1){
                 jogador.perdeHp();
                 System.out.println("perdeu vida");
                 data.hp--;
@@ -131,39 +135,20 @@ public class Jogo {
                 data.fim_jogo = true; //proxima vez que for iniciar, voltara do começo
                 data.hp = 2; //volta a vida ao valor inicial
                 data.nivel = 1; //volta para o nivel 1
-                GerenciarRecursos.Salvar(data, "dados.txt");
-
-                
+                GerenciarRecursos.Salvar(data, "dados.txt");                
                 return;
             }
 
-        estado++;
-        data.nivel++;
-        
-        GerenciarRecursos.Salvar(data, "dados.txt");
-        do {
-            ver = nivel(estado, jogador);
-            if(ver != 0){
-                jogador.perdeHp();
-                data.hp--;
-                System.out.println("perdeu vida");
-                GerenciarRecursos.Salvar(data, "dados.txt");
+            if(resultado == 0){
+                estado++;
             }
-            resultado += ver;
-            if (jogador.GetHp()==0) {
-                FimDoJogo();
-                data.fim_jogo = true; //proxima vez que for iniciar, voltara do começo
-                data.hp = 2; //volta a vida ao valor inicial
-                data.nivel = 1; //volta para o nivel 1
-                GerenciarRecursos.Salvar(data, "dados.txt");
-                return;
-            }
-        } while (ver != 0);
-    }
- catch(Exception e) {
-    System.out.println("nao deu");
+        }while (estado <= 3); 
+
+        }catch(Exception e) {
+            System.out.println("nao deu");
     }
 }
+
     public static int nivel(int nivel, Rei jogador) {
         Scanner teclado = new Scanner(System.in);
         List<Peca> inimigos = new ArrayList<>();

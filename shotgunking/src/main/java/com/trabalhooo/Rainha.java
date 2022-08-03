@@ -227,34 +227,62 @@ public class Rainha extends Peca {
             boolean hasPeca = false;
             int colunaTorre = posx + 1;
 
-            while(colunaTorre <  reiColuna){
-                System.out.println(colunaTorre);
-                if(tab.GetTabuleiro(posy, colunaTorre) != null){
-                    System.out.println(tab.GetTabuleiro(posy, colunaTorre).Icon);
-                    hasPeca = true;
+            if(colunaTorre < reiColuna){
+                while(colunaTorre <  reiColuna){
+                    System.out.println(colunaTorre);
+                    if(tab.GetTabuleiro(posy, colunaTorre) != null){
+                        System.out.println(tab.GetTabuleiro(posy, colunaTorre).Icon);
+                        hasPeca = true;
+                    }
+                    colunaTorre++;
                 }
-                colunaTorre++;
-            }
 
-            if(hasPeca == false){
-                return true;
+                if(hasPeca == false){
+                    return true;
+                }
+            }else{
+                while(colunaTorre >  reiColuna){
+                    System.out.println(colunaTorre);
+                    if(tab.GetTabuleiro(posy, colunaTorre) != null){
+                        System.out.println(tab.GetTabuleiro(posy, colunaTorre).Icon);
+                        hasPeca = true;
+                    }
+                    colunaTorre--;
+                }
+
+                if(hasPeca == false){
+                    return true;
+                }
             }
 
         }else if(posx == reiColuna){
             boolean hasPeca = false;
             int copiaLinha = posy + 1;
 
-            while(copiaLinha < reiLinha){
-                if(tab.GetTabuleiro(copiaLinha, posx) != null){
-                    hasPeca = true;
+            if(copiaLinha < reiLinha){
+                while(copiaLinha < reiLinha){
+                    if(tab.GetTabuleiro(copiaLinha, posx) != null){
+                        hasPeca = true;
+                    }
+                    copiaLinha++;
                 }
-                copiaLinha++;
-            }
 
-            if(hasPeca == false){
-                return true;
-            }
+                if(hasPeca == false){
+                    return true;
+                }
+            }else{
+                while(copiaLinha > reiLinha){
+                    if(tab.GetTabuleiro(copiaLinha, posx) != null){
+                        hasPeca = true;
+                    }
+                    copiaLinha--;
+                }
 
+                if(hasPeca == false){
+                    return true;
+                }
+            }
+            
         }else{
             if(this.posx < reiColuna){
                 int copiaColuna = this.posx + 1;
