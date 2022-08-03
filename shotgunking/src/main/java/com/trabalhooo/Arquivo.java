@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;

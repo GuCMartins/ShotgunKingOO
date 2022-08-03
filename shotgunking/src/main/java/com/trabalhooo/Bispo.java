@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 public class Bispo extends Peca {
 
@@ -106,4 +106,6 @@ public class Bispo extends Peca {
         }
         return false;
     }
+
+    public void Movimenta(int reix, int reiy, Sistema tab,int op){};
 }

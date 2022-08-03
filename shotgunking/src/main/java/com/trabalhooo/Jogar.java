@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,8 +9,7 @@ public class Jogar implements MouseListener {
     private final Sistema tabuleiro;
     static public int ultimoReiColuna = -1;
     static public int ultimoReiLinha = -1;
-    static public Casa Inicio;
-    static public Casa Final;
+    static public Casa ultimoRei = null;
 
     public Jogar(Sistema tabuleiro) {
         this.tabuleiro = tabuleiro;
@@ -20,27 +19,70 @@ public class Jogar implements MouseListener {
     public void mouseClicked(MouseEvent me) {
         Casa casa = (Casa) me.getSource();
 
+        double tiro = 3;
+        double dist = Math.sqrt(2);
+
         if (SwingUtilities.isLeftMouseButton(me)) {
+            System.out.println("Da casa" + casa.getLinha() + ", " + casa.getColuna() + ", " + casa.getPeca());
+            System.out.println("Da casa" + ultimoReiLinha + ", " + ultimoReiColuna);
 
-            if (Math.sqrt(Math.pow((casa.getColuna() - ultimoReiColuna), 2)
-                    + Math.pow((casa.getLinha() - ultimoReiLinha), 2)) <= Math.sqrt(2)) {
-                Final = casa;
-                Inicio.setText(" ");
-                Inicio.setPeca(" ");
-                Final.setText("♚");
-                Final.setPeca("♚");
+            if (casa.isDistantceequal(ultimoReiLinha, ultimoReiColuna, dist)) {
+                casa.setText("♚");
+                casa.setPeca("rei");
+                System.out.println("chegou");
+                ultimoRei.setText(" ");
+                ultimoRei.getElemento().Movimenta(ultimoReiLinha, ultimoReiColuna, tabuleiro,
+                        decideMov(casa.getLinha(), casa.getColuna()));
+                ultimoRei = casa;
+                ultimoReiColuna = casa.getColuna();
+                ultimoReiLinha = casa.getLinha();
+
             }
-
+            if (casa.getPeca().equals("rei")) {
+                System.out.println("entrou");
+                ultimoReiColuna = casa.getColuna();
+                ultimoReiLinha = casa.getLinha();
+                ultimoRei = casa;
+                casa.setPeca(" ");
+            }
         }
 
         if (SwingUtilities.isRightMouseButton(me)) {
-
-            if (casa.getPeca().equals("rei")) {
-                Inicio = casa;
-                ultimoReiColuna = casa.getColuna();
-                ultimoReiLinha = casa.getLinha();
+            if (ultimoRei != null) {
+                if (casa.isDistantceequal(ultimoReiLinha, ultimoReiColuna, tiro) && casa.getElemento() != null) {
+                    ultimoRei.getElemento().atirar(tabuleiro, casa.getLinha(), casa.getColuna(), casa.getElemento());
+                }
             }
         }
+    }
+
+    public int decideMov(int linha, int coluna){
+        int op = 0;
+        if(linha==(ultimoReiLinha+1) && coluna==(ultimoReiColuna-1)){
+            op = 1;
+        }
+        if(linha==(ultimoReiLinha+1) && coluna==ultimoReiColuna){
+            op = 2;
+        }
+        if(linha==(ultimoReiLinha+1) && coluna==(ultimoReiColuna+1)){
+            op = 3;
+        }
+        if(linha==ultimoReiLinha && coluna==(ultimoReiColuna-1)){
+            op = 4;
+        }
+        if(linha==ultimoReiLinha && coluna==(ultimoReiColuna+1)){
+            op = 6;
+        }
+        if(linha==(ultimoReiLinha-1) && coluna ==(ultimoReiColuna-1)){
+            op = 7;
+        }
+        if(linha==(ultimoReiLinha-1) && coluna == ultimoReiColuna){
+            op = 8;
+        }
+        if(linha==(ultimoReiLinha-1) && coluna==(ultimoReiColuna+1)){
+            op = 9;
+        }
+        return op;
     }
 
     @Override

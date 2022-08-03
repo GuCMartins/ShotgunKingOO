@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 public interface arma {
 

@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 public abstract class Peca {
 
@@ -7,6 +7,13 @@ public abstract class Peca {
     protected int ID;
     protected int hp;
     protected char Icon;
+
+    @Override
+    public String toString() {
+        return "Peca{" + "posx=" + posx + ", posy=" + posy + ", ID=" + ID + ", hp=" + hp + ", Icon=" + Icon + '}';
+    }
+    
+    
 
     public int getID() {
         return this.ID;
@@ -27,8 +34,12 @@ public abstract class Peca {
     public int getHp() {
         return this.hp;
     }
+    
+    public void atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo){};
 
     public abstract void Movimenta(int reix, int reiy, Sistema tab);
+    
+    public abstract void Movimenta(int reix, int reiy, Sistema tab,int op);
 
     protected abstract boolean mataRei(Sistema tab, int reiLinha, int reiColuna);
 

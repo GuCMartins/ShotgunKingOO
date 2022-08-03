@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 public class Rainha extends Peca {
     
@@ -153,4 +153,6 @@ public class Rainha extends Peca {
         }
         return false;
     }
+
+    public void Movimenta(int reix, int reiy, Sistema tab,int op){};
 }

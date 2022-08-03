@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 import java.util.*;
 import java.util.Scanner;
@@ -14,8 +14,8 @@ public class Jogo extends JFrame {
     public static int nivel(int nivel, Rei jogador, Scanner teclado) {
         painel = new JPanel();
         List<Peca> inimigos = new ArrayList<>();
-        Sistema tab = new Sistema(nivel,jogador);
-        tab.setPainel(painel,jogador.getLinha(),jogador.getColuna());
+        Sistema tab = new Sistema(nivel, jogador);
+        tab.setPainel(painel, jogador.getLinha(), jogador.getColuna());
         boolean ver;
         int n;
 
@@ -48,20 +48,18 @@ public class Jogo extends JFrame {
 
             tab.impressaoTabuleiro(tab, nivel, jogador);
 
-            tab.resetPainel(painel,jogador);
+            tab.resetPainel(painel, jogador);
 
             ver = VerificaAtirar(teclado, jogador, tab, inimigos);
 
-            if (ver == false) {
-
-                jogador.Movimenta(jogador.getLinha(), jogador.getColuna(), tab);
+            if (ver == false && tab.reiMexeu()) {
 
                 verificaPinimigo(jogador, inimigos, tab.getNInimigos());
             }
 
             verificavida(inimigos, tab);
-            
-            System.out.println("vetor:"+inimigos.size()+"/tabuleiro:"+tab.getNInimigos());
+
+            System.out.println("vetor:" + inimigos.size() + "/tabuleiro:" + tab.getNInimigos());
 
             cls();
 
@@ -71,8 +69,8 @@ public class Jogo extends JFrame {
 
                 for (int i = 0; i < inimigos.size(); i++) {
                     if (inimigos.get(i).mataRei(tab, jogador.getLinha(), jogador.getColuna()) == true) {
-                        inimigos=null;
-                        tab=null;
+                        inimigos = null;
+                        tab = null;
                         return 1;
                     }
                 }
@@ -81,15 +79,16 @@ public class Jogo extends JFrame {
             }
 
         }
-        inimigos=null;
-        tab=null;
+        inimigos = null;
+        tab = null;
         return 0;
     }
 
     public static void verificavida(List<Peca> inimigos, Sistema tab) {
         for (int i = 0; i < inimigos.size(); i++) {
             if (inimigos.get(i).getHp() <= 0) {
-                tab.morte(inimigos.get(i).getLinha(), inimigos.get(i).getColuna(), tab.getTabuleiro(inimigos.get(i).getLinha(), inimigos.get(i).getColuna()));
+                tab.morte(inimigos.get(i).getLinha(), inimigos.get(i).getColuna(),
+                        tab.getTabuleiro(inimigos.get(i).getLinha(), inimigos.get(i).getColuna()));
                 inimigos.remove(i);
                 tab.setNInimigos();
             }
@@ -105,7 +104,8 @@ public class Jogo extends JFrame {
 
     public static void verificaPinimigo(Peca jogador, List<Peca> inimigos, int nInimigos) {
         for (int i = 0; i < nInimigos; i++) {
-            if (inimigos.get(i).getLinha() == jogador.getLinha() && inimigos.get(i).getColuna() == jogador.getColuna()) {
+            if (inimigos.get(i).getLinha() == jogador.getLinha()
+                    && inimigos.get(i).getColuna() == jogador.getColuna()) {
                 inimigos.get(i).dano(10);
                 return;
             }
@@ -169,73 +169,39 @@ public class Jogo extends JFrame {
         Jogo jogo = new Jogo();
         Rei jogador = new Rei();
         int estado = 1;
+        String texto0 = "BEM VINDO AO SHOTGUNKING";
+        String texto1 = "● Para vencer, fuja das peças brancas e elimine com sua arma real.\n ● Para se movimentar, selecione o Rei e depois o local aonde deseja ir.Algumas pecas brancas tentaram te pegar, por isso use a estrategia para engana-las e destrui-las. ";
+        String texto2 = "● A cada nível, mais pecas tentarao te derrotar.Porém, a cada peça destruida, o jogador ganha uma bala para pode atirar mais um dia. As pecas brancas sao des truidas ou sendo atingidas pela arma ou quando o rei pula em cima delas.";
+        String texto3 = "● O jogador já inicia o jogo com o pente cheio. Porém nao atire sem pensar, suas balas sao um recurso valioso.\n  ● Caso o jogador seja pego por alguma peça inimiga, ele perde uma vida e o jogo recomeça. Caso ele seja apanhado novamente, o jogo termina.";
+        String texto4 = "● Antes de cada movimento, surge a opção de se executar um disparo. Caso essa opção seja escolhida,sera necessario selecionar a posicao do  inimigo que deseja alvejar. Caso esteja muito distante, nao sofrera dano.";
+
+        JOptionPane.showConfirmDialog(null, texto0, "ShotgunKing",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto1, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto2, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto3, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+        JOptionPane.showConfirmDialog(null, texto4, "Regras",JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+
         // tela inicial do jogo
-        System.out.println("              BEM VINDO AO SHOTGUNKING");
-        System.out.println("          _____________________________");
-        System.out.println("         |(Para jogar do modo correto, |");
-        System.out.println("         |  ative o NumLock e use o    |");
-        System.out.println("         |     teclado numérico)       |");
-        System.out.println("         |_____________________________|");
-        System.out.println("                  ◀ INSTRUÇÕES ▶");
-        System.out.println("      ________________________________________");
-        System.out.println("     |● Para vencer, fuja das peças brancas e |");
-        System.out.println("     |elimine com sua arma real.              |");
-        System.out.println("     |                                        |");
-        System.out.println("     |● Para se movimentar, escolha um dos    |");
-        System.out.println("     |direcionais e o Rei se move nessa dire- |");
-        System.out.println("     |ção. Algumas pecas brancas tentaram te  |");
-        System.out.println("     |pegar, por isso use a estrategia para   |");
-        System.out.println("     |engana-las e destrui-las.               |");
-        System.out.println("     |                                        |");
-        System.out.println("     |● A cada nível, mais pecas tentarao te  |");
-        System.out.println("     |derrotar.Porém, a cada peça destruida, o|");
-        System.out.println("     |jogador ganha uma bala para pode atirar |");
-        System.out.println("     |mais um dia. As pecas brancas sao des-  |");
-        System.out.println("     |truidas ou sendo atingidas pela arma ou |");
-        System.out.println("     |quando o rei pula em cima delas.        |");
-        System.out.println("     |Para atirar, pressione + (mais) como di-|");
-        System.out.println("     |recional.                               |");
-        System.out.println("     |                                        |");
-        System.out.println("     |● O jogador já inicia o jogo com o pente|");
-        System.out.println("     |cheio. Porém nao atire sem pensar, suas |");
-        System.out.println("     |suas balas sao um recurso valioso.      |");
-        System.out.println("     |                                        |");
-        System.out.println("     |● Caso o jogador seja pego por alguma   |");
-        System.out.println("     |peça inimiga, ele perde uma vida e o jo-|");
-        System.out.println("     |go recomeça. Caso ele seja apanhado no- |");
-        System.out.println("     |vamente, o jogo termina.                |");
-        System.out.println("     |                                        |");
-        System.out.println("     |● Antes de cada movimento, surge a opção|");
-        System.out.println("     |de se executar um disparo. Caso essa op-|");
-        System.out.println("     |ção seja escolhida(usando a tecla +),   |");
-        System.out.println("     |sera necessario selecionar a posicao do |");
-        System.out.println("     |inimigo que deseja alvejar. Caso esteja |");
-        System.out.println("     |muito distante, nao sofrera dano.       |");
-        System.out.println("     |________________________________________|");
-        System.out.println("                                             ");
-        System.out.println("\n           Pressione Enter para começar");
-        teclado.nextLine();
-        cls();
         int ver;
         do {
-            ver = nivel(estado, jogador,teclado);
-            if(ver != 0){
+            ver = nivel(estado, jogador, teclado);
+            if (ver != 0) {
                 jogador.perdeHp();
             }
-            if (jogador.getHp()==0) {
+            if (jogador.getHp() == 0) {
                 FimDoJogo(teclado);
                 return;
             }
         } while (ver != 0);
 
         estado++;
-        
+
         do {
-            ver = nivel( estado, jogador, teclado);
-            if(ver != 0){
+            ver = nivel(estado, jogador, teclado);
+            if (ver != 0) {
                 jogador.perdeHp();
             }
-            if (jogador.getHp()==0) {
+            if (jogador.getHp() == 0) {
                 FimDoJogo(teclado);
                 return;
             }
@@ -243,5 +209,4 @@ public class Jogo extends JFrame {
 
     }
 
-    
 }

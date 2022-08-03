@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

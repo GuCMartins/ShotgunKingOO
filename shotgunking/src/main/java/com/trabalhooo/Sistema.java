@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Sistema extends JFrame {
+
+    public static int ultimoReiColuna;
+    public static int ultimoReiLinha;
 
     private int ninimigos;
     private Peca tabuleiro[][];
@@ -22,6 +25,8 @@ public class Sistema extends JFrame {
         }
 
         jogador.inicia(6, 3);
+        ultimoReiLinha = 6;
+        ultimoReiColuna = 3;
 
         this.tabuleiro[6][3] = new Rei();
 
@@ -50,13 +55,13 @@ public class Sistema extends JFrame {
                 break;
         }
     }
-    
-    public void setPainel(JPanel painel, int reiLinha, int reiColuna){
+
+    public void setPainel(JPanel painel, int reiLinha, int reiColuna) {
         painel.setLayout(new GridLayout(TAMANHO, TAMANHO));
         for (int i = 0; i < TAMANHO; i++) {
             for (int j = 0; j < TAMANHO; j++) {
-                Casa casa = new Casa(getTabuleiro(i,j), i, j);
-                casa.setIconNew(getTabuleiro(i,j), reiLinha, reiColuna);
+                Casa casa = new Casa(getTabuleiro(i, j), i, j);
+                casa.setIconNew(getTabuleiro(i, j), reiLinha, reiColuna);
 
                 casa.addMouseListener(new Jogar(this));
 
@@ -72,7 +77,7 @@ public class Sistema extends JFrame {
         this.setSize(5000, 5000);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.repaint();
-        this.pack();        
+        this.pack();
     }
 
     public int getNInimigos() {
@@ -114,9 +119,9 @@ public class Sistema extends JFrame {
         this.tabuleiro[Oldlinha][Oldcoluna] = null;
     }
 
-    public void resetPainel(JPanel painel,Rei jogador){
+    public void resetPainel(JPanel painel, Rei jogador) {
         painel.removeAll();
-        setPainel(painel,jogador.getLinha(), jogador.getColuna());
+        setPainel(painel, jogador.getLinha(), jogador.getColuna());
     }
 
     public void morte(int linha, int coluna, Peca situacao) {
@@ -177,5 +182,18 @@ public class Sistema extends JFrame {
         System.out.println(
                 "                                         / | \\              " + jogador.getHp() + " restantes");
         System.out.println("                                        1  2  3 ");
+    }
+
+    public boolean reiMexeu() {
+        for (int i = 0; i < TAMANHO; i++) {
+            for (int j = 0; j < TAMANHO; j++) {
+                if (getTabuleiro(i, j) instanceof Rei) {
+                    if (i != ultimoReiLinha && j != ultimoReiColuna) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

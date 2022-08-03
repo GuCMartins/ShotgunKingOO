@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 import java.util.*;
 
@@ -24,14 +24,11 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         return this.balas;
     }
 
-    public void Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
-        Scanner teclado = new Scanner(System.in);
+    public void Movimenta(int Oldlinha, int Oldcoluna, Sistema tab, int op) {
         System.out.println("Escolha a opção de movimentação");
         boolean ver = false;
-        int dir;
         while (!ver) {
-            dir=teclado.nextInt();
-            switch (dir) {
+            switch (op) {
                 case 4:
                     if (posx - 1 == -1) {
                         System.out.println("Impossivel fazer o movimento");
@@ -154,5 +151,7 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         }
         return false;
     }
+
+    public void Movimenta(int reix, int reiy, Sistema tab){};
 
 }

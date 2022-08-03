@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 public class Torre extends Peca {// aspectos basicos da peça
 
@@ -63,4 +63,6 @@ public class Torre extends Peca {// aspectos basicos da peça
         }
         return false;
     }
+
+    public void Movimenta(int reix, int reiy, Sistema tab,int op){};
 }
