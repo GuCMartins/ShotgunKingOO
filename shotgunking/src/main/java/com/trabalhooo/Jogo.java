@@ -157,7 +157,7 @@ public class Jogo extends JFrame {
 
             tab.impressaoTabuleiro(tab, nivel, jogador);
 
-            String[] options = { "Desisto", "Vou jogar" };
+            String[] options = { "Desisto","Sair", "Vou jogar" };
             int option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
@@ -169,7 +169,12 @@ public class Jogo extends JFrame {
                     
                     return 3;
                 }
-            } else {
+            }if(option == 1){
+                data.fim_jogo = false; // proxima vez que for iniciar, voltara do começo
+                    GerenciarRecursos.Salvar(data, "dados.txt");
+                    return 3;
+
+            }else {
                 String[] move = { "🢀", "🢂", "🢁", "🢃", "🢄", "🢅", "🢆", "🢇", "⍟" };
                 option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
