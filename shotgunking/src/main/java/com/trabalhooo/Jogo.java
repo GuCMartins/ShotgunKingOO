@@ -196,11 +196,7 @@ public class Jogo extends JFrame {
                             confirmacao = i;
                         }
                     }
-
-                    if(alvoLinha == 0 || alvoColuna == 0) {
-                        alvoLinha = 1;
-                        alvoColuna = 1;
-                    }
+                    
                     jogador.atirar(tab, alvoLinha - 1, alvoColuna - 1, inimigos.get(confirmacao));
                 } else {
                     jogador.movimentaRei(jogador.getLinha(), jogador.getColuna(), tab, option);
