@@ -159,7 +159,7 @@ public static int nivel(int nivel, Rei jogador, Scanner teclado) {
                 JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
 
                 if(option == 8){
-                    String[] op = {"Desistir do tiro", "0", "1", "2", "3", "4", "5", "6", "7"};
+                    String[] op = {"Desistir do tiro", "0", "1", "2", "3", "4", "5", "6"};
                     int alvoLinha = JOptionPane.showOptionDialog(null, "Selecione linha em que o alvo se encontra:", "Atirar",
                     JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
                     int alvoColuna = JOptionPane.showOptionDialog(null, "Selecione coluna em que o alvo se encontra:", "Atirar",
