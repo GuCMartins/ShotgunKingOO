@@ -181,9 +181,9 @@ try{
                                     failure = false;
                                     verificatiro = false;
                                 }
-                        if (tab.getTabuleiro(alvoLinha, alvoColuna) == null
-                                || Math.sqrt(Math.pow(alvoLinha - jogador.getLinha(), 2)
-                                        + Math.pow(alvoColuna - jogador.getColuna(), 2)) > 3) {
+                        if (tab.getTabuleiro(alvoLinha-1, alvoColuna-1) == null
+                                || Math.sqrt(Math.pow((alvoLinha-1) - jogador.getLinha(), 2)
+                                        + Math.pow((alvoColuna-1) - jogador.getColuna(), 2)) > 3) {
                             JOptionPane.showConfirmDialog(null, "Alvo não alcancado/sem alvo", "Erro",
                                     JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
                         } else {
@@ -203,7 +203,7 @@ try{
                             confirmacao = i;
                         }
                     }
-                    
+
                     jogador.atirar(tab, alvoLinha - 1, alvoColuna - 1, inimigos.get(confirmacao));
                 } else {
                     jogador.movimentaRei(jogador.getLinha(), jogador.getColuna(), tab, option);
