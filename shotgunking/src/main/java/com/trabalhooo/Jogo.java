@@ -234,12 +234,7 @@ public class Jogo {
         }
     }
 
-    public static boolean verificaPRei(Peca jogador, Peca inimigo) {
-        if (inimigo.GetLinha() == jogador.GetLinha() && inimigo.GetColuna() == jogador.GetColuna()) {
-            return true;
-        }
-        return false;
-    }
+
 
     public static void verificaPinimigo(Peca jogador, List<Peca> inimigos, int nInimigos) {
         for (int i = 0; i < nInimigos; i++) {
