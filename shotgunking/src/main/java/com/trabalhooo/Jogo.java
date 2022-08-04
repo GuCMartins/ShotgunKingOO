@@ -117,7 +117,10 @@ public class Jogo extends JFrame {
     }
 
     public static int nivel(int nivel, Rei jogador, Scanner teclado) throws Exception {
-        painel = new JPanel();
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel painel = (JPanel)frame.getContentPane();
         List<Peca> inimigos = new ArrayList<>();
         Sistema tab = new Sistema(nivel, jogador);
         tab.setPainel(painel, jogador.getLinha(), jogador.getColuna());
@@ -160,19 +163,22 @@ public class Jogo extends JFrame {
             if (option == 0) {
                 boolean ver = jogador.mataRei(tab, jogador.getLinha(), jogador.getColuna());
                 if (ver == true) {
+                    
                     data.fim_jogo = true; // proxima vez que for iniciar, voltara do começo
                     GerenciarRecursos.Salvar(data, "dados.txt");
+                    System.exit(0);
                     
                     return 3;
                 }
             }if(option == 1){
                 data.fim_jogo = false; // proxima vez que for iniciar, voltara do começo
                     GerenciarRecursos.Salvar(data, "dados.txt");
+                    System.exit(0);
                     return 3;
 
             }else {
                 String[] move = { "🢀", "🢂", "🢁", "🢃", "🢄", "🢅", "🢆", "🢇", "⍟" };
-                option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
+                option = JOptionPane.showOptionDialog(null, "Vidas restante : " +jogador.getHp() + " | Balas restantes : " +jogador.getbalas() + "\nSelecione assim que tomar a decisão", "Confirmação",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
 
                 if (option == 8 && jogador.getbalas() > 0) {
@@ -181,8 +187,6 @@ public class Jogo extends JFrame {
                     int alvoLinha = 0, alvoColuna = 0;
                     while (failure) {
                         String[] op = { "Desistir do tiro", "0", "1", "2", "3", "4", "5", "6" };
-                        JOptionPane.showConfirmDialog(null, "Vamos atirar. " + jogador.getbalas() + " balas restantes", "ShotgunKing", JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.PLAIN_MESSAGE, null);
                         alvoLinha = JOptionPane.showOptionDialog(null, "Selecione linha em que o alvo se encontra:",
                                 "Atirar",
                                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
@@ -251,8 +255,8 @@ public class Jogo extends JFrame {
             
             }
         }
-    
         painel.removeAll();
+        
         inimigos = null;
         tab = null;
         return 0;
