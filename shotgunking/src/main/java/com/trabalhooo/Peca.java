@@ -7,14 +7,7 @@ public abstract class Peca {
     protected int ID;
     protected int hp;
     protected char Icon;
-
-    @Override
-    public String toString() {
-        return "Peca{" + "posx=" + posx + ", posy=" + posy + ", ID=" + ID + ", hp=" + hp + ", Icon=" + Icon + '}';
-    }
-    
-    
-
+  
     public int getID() {
         return this.ID;
     }

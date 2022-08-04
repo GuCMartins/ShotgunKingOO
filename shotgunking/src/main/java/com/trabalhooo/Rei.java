@@ -111,6 +111,8 @@ public class Rei extends Peca implements arma {// ver como vai funcionar o dano 
                         ver = true;
                     }
                     break;
+                default:
+                    op = reveMovimento();    
             }
         }
         return true;

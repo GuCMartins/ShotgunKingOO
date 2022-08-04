@@ -2,7 +2,6 @@ package com.trabalhooo;//interface
 
 import java.util.*;
 import java.util.Scanner;
-import java.io.IOException;
 import javax.swing.*;
 
 public class Jogo extends JFrame {
@@ -83,7 +82,7 @@ public class Jogo extends JFrame {
                     System.out.println("perdeu vida");
                     data.hp--;
                     GerenciarRecursos.Salvar(data, "dados.txt");
-                }else if( resultado == 3 ){
+                } else if (resultado == 3) {
                     return;
                 }
 
@@ -106,10 +105,10 @@ public class Jogo extends JFrame {
         }
     }
 
-public static int nivel(int nivel, Rei jogador, Scanner teclado) {
-    painel = new JPanel();
-    List<Peca> inimigos = new ArrayList<>();
-    Sistema tab = new Sistema(nivel, jogador);
+    public static int nivel(int nivel, Rei jogador, Scanner teclado) {
+        painel = new JPanel();
+        List<Peca> inimigos = new ArrayList<>();
+        Sistema tab = new Sistema(nivel, jogador);
         tab.setPainel(painel, jogador.getLinha(), jogador.getColuna());
         int n;
 
@@ -139,55 +138,85 @@ public static int nivel(int nivel, Rei jogador, Scanner teclado) {
         inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab);
 
         while (tab.getNInimigos() > 0) {
-            
+
             tab.resetPainel(painel, jogador);
 
             tab.impressaoTabuleiro(tab, nivel, jogador);
 
-            String[] options = {"Desisto", "Vou jogar"};
-                int option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
-                JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            
-            if(option==0){
+            String[] options = { "Desisto", "Vou jogar" };
+            int option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+            if (option == 0) {
                 boolean ver = jogador.mataRei(tab, jogador.getLinha(), jogador.getColuna());
-                if (ver == true){
+                if (ver == true) {
                     return 3;
                 }
-            }else{
-                String[] move = {"🢀","🢂","🢁","🢃","🢄","🢅","🢆","🢇","⍟"};
+            } else {
+                String[] move = { "🢀", "🢂", "🢁", "🢃", "🢄", "🢅", "🢆", "🢇", "⍟" };
                 option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
-                JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
 
-                if(option == 8){
-                    String[] op = {"Desistir do tiro", "0", "1", "2", "3", "4", "5", "6"};
-                    int alvoLinha = JOptionPane.showOptionDialog(null, "Selecione linha em que o alvo se encontra:", "Atirar",
-                    JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
-                    int alvoColuna = JOptionPane.showOptionDialog(null, "Selecione coluna em que o alvo se encontra:", "Atirar",
-                    JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
-                    if(alvoLinha ==0 || alvoColuna == 0){
-                        break;
+                if (option == 8) {
+                    boolean failure = true;
+                    boolean verificatiro = true;
+                    int alvoLinha = 0, alvoColuna = 0;
+                    while (failure) {
+                        String[] op = { "Desistir do tiro", "0", "1", "2", "3", "4", "5", "6" };
+                        alvoLinha = JOptionPane.showOptionDialog(null, "Selecione linha em que o alvo se encontra:",
+                                "Atirar",
+                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
+                        alvoColuna = JOptionPane.showOptionDialog(null, "Selecione coluna em que o alvo se encontra:",
+                                "Atirar",
+                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
+                                if (alvoLinha == 0 || alvoColuna == 0) {
+                                    option = 10;
+                                    failure = false;
+                                    verificatiro = false;
+                                }
+                        if (tab.getTabuleiro(alvoLinha, alvoColuna) == null
+                                || Math.sqrt(Math.pow(alvoLinha - jogador.getLinha(), 2)
+                                        + Math.pow(alvoColuna - jogador.getColuna(), 2)) > 3) {
+                            JOptionPane.showConfirmDialog(null, "Alvo não alcancado/sem alvo", "Erro",
+                                    JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
+                        } else {
+                            failure = false;
+                        }
                     }
-                    int i = 0;
 
-                    while (!(inimigos.get(i).getLinha() == alvoLinha-1 && inimigos.get(i).getColuna() == alvoColuna-1)) {
-                    i++;
+                    if(option != 8){
+                        continue;
                     }
-                    jogador.atirar(tab, alvoLinha-1, alvoColuna-1, inimigos.get(i));
-                }else{
+
+                    int confirmacao = 0;
+
+                    for(int i = 0; i <inimigos.size();i++){
+                        
+                        if (inimigos.get(i).getLinha() == alvoLinha - 1 && inimigos.get(i).getColuna() == alvoColuna - 1) {
+                            confirmacao = i;
+                        }
+                    }
+
+                    if(alvoLinha == 0 || alvoColuna == 0) {
+                        alvoLinha = 1;
+                        alvoColuna = 1;
+                    }
+                    jogador.atirar(tab, alvoLinha - 1, alvoColuna - 1, inimigos.get(confirmacao));
+                } else {
                     jogador.movimentaRei(jogador.getLinha(), jogador.getColuna(), tab, option);
                     verificaPinimigo(jogador, inimigos, tab.getNInimigos());
                 }
 
                 verificavida(inimigos, tab);
-    
+
                 System.out.println("vetor:" + inimigos.size() + "/tabuleiro:" + tab.getNInimigos());
-    
+
                 cls();
-    
+
                 if (inimigos.size() > 0) {
-    
+
                     n = (int) Math.floor(Math.random() * tab.getNInimigos());
-    
+
                     for (int i = 0; i < inimigos.size(); i++) {
                         if (inimigos.get(i).mataRei(tab, jogador.getLinha(), jogador.getColuna()) == true) {
                             inimigos = null;
@@ -196,20 +225,21 @@ public static int nivel(int nivel, Rei jogador, Scanner teclado) {
                         }
                     }
 
-                    if(inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false){
+                    if (inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false) {
                         int i = inimigos.size() - 1;
-                        while(inimigos.get(i).Movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false && i>0){
+                        while (inimigos.get(i).Movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false
+                                && i > 0) {
                             i--;
                         }
                     }
-                } 
+                }
             }
-                
+
         }
-        
+
         painel.removeAll();
-        inimigos=null;
-        tab=null;
+        inimigos = null;
+        tab = null;
         return 0;
 
     }
@@ -224,7 +254,6 @@ public static int nivel(int nivel, Rei jogador, Scanner teclado) {
             }
         }
     }
-
 
     public static void verificaPinimigo(Peca jogador, List<Peca> inimigos, int nInimigos) {
         for (int i = 0; i < nInimigos; i++) {
@@ -248,44 +277,6 @@ public static int nivel(int nivel, Rei jogador, Scanner teclado) {
         {
             System.out.println("\b"); // Prints a backspace
         }
-    }
-
-    public static boolean VerificaAtirar(Scanner teclado, Rei jogador, Sistema tab, List<Peca> inimigos) {
-        System.out.println("Deseja atirar nesse turno(pressione 'x' e Enter para atirar): ");
-        String op = teclado.nextLine();
-        if (op.equals("x")) {
-            System.out.println("Insira a linha onde o inimigo se encontra:");
-            int alvolinha = teclado.nextInt();
-            System.out.println("Insira a coluna onde o inimigo se encontra:");
-            int alvocoluna = teclado.nextInt();
-            double distancia = Math
-                    .sqrt(Math.pow(alvolinha - jogador.getLinha(), 2) + Math.pow(alvocoluna - jogador.getColuna(), 2));
-            int continua;
-            while (distancia > 3 || tab.getTabuleiro(alvolinha, alvocoluna) == null) {
-                System.out.println(
-                        "Posicionamento muito distante ou sem inimigos.Deseja continuar atirando?(se deseja, insira 1):");
-                continua = teclado.nextInt();
-                if (continua == 1) {
-                    System.out.println("Insira a linha onde o inimigo se encontra:");
-                    alvolinha = teclado.nextInt();
-                    System.out.println("Insira a coluna onde o inimigo se encontra:");
-                    alvocoluna = teclado.nextInt();
-                    distancia = Math.sqrt(Math.pow(alvolinha - jogador.getLinha(), 2)
-                            + Math.pow(alvocoluna - jogador.getColuna(), 2));
-                } else {
-                    return false;
-                }
-            }
-            int i = 0;
-
-            while (!(inimigos.get(i).getLinha() == alvolinha && inimigos.get(i).getColuna() == alvocoluna)) {
-                i++;
-            }
-
-            jogador.atirar(tab, alvolinha, alvocoluna, inimigos.get(i));
-            return true;
-        }
-        return false;
     }
 
     public static void Salvar_info(SalvarDado data, int nivel, boolean fim_jogo, int hp) {
