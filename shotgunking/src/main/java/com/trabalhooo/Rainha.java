@@ -1,4 +1,4 @@
-package com.trabalhooo;//interface
+package com.trabalhooo;
 
 public class Rainha extends Peca {
     
@@ -188,26 +188,41 @@ public class Rainha extends Peca {
                             return false;
                         }
                     }
-                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
+                } else if(this.posx >= reicoluna){
+                    while (this.posx >= reicoluna && this.posy > 0 && this.posx > 0) {
+                        this.posy--;
+                        this.posx--;
+                        if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                            this.posx++;
+                            this.posy++;
+                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                                return true;
+                            }
+                            return false;
+                        }
+                    }
+                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                        return true;
+                    }
+                    return false;
                 }
             }
         }
-        return false; 
-    }
-
-    protected boolean mataRei(Sistema tab,int reiLinha, int reiColuna){
-        if(tab.getTabuleiro(reiLinha, reiColuna) instanceof Rei){
+        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
             return true;
         }
         return false;
     }
-
-    public boolean Movimenta(int reix, int reiy, Sistema tab,int op){
-        return true;
-    };
     
 
-    protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){
+    protected boolean mataRei(Sistema tab,int reiLinha, int reiColuna){
         if(posy == reiLinha){
             boolean hasPeca = false;
             int colunaTorre = posx + 1;
@@ -331,6 +346,12 @@ public class Rainha extends Peca {
                 }
             }
         }
+        return false;
+    }
+
+    @Override
+    public boolean movimentaRei(int reix, int reiy, Sistema tab, int op) {
+        // TODO Auto-generated method stub
         return false;
     }
 }

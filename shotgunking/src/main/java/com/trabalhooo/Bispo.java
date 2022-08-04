@@ -1,4 +1,4 @@
-package com.trabalhooo;//interface
+package com.trabalhooo;
 
 public class Bispo extends Peca {
 
@@ -26,43 +26,41 @@ public class Bispo extends Peca {
                         if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
                             return true;
                         }
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return false;
                     }
                 }
-                if (mataRei(tab, reilinha, reicoluna) == true) {// completar com uma info para que o rei possa ser morto
-
-                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
-                        return true;
-                    }
-                    return false;
-                    
-                } else {
-                    while (this.posx > reicoluna && this.posy > 0) {
-                        this.posy--;
-                        this.posx--;
-                        if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
-                            this.posx++;
-                            this.posy++;
-                            tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                            if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
-                                return true;
-                            }
-                            return false;
-                        }
-                    }
-                    tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                    if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
-                        return true;
-                    }
-                    return false;
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                    return true;
                 }
+                return false;
+            } else {
+                while (this.posx > reicoluna && this.posy > 0) {
+                    this.posy--;
+                    this.posx--;
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        this.posx++;
+                        this.posy++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+                    return true;
+                }
+                return false;
+            }
         }else if (this.posy < reilinha) {
             if (this.posx <= reicoluna) {
                 while (this.posx <= reicoluna && this.posx < 6 && this.posx < 6) {
                     this.posy++;
                     this.posx++;
-                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if(this.posy > 6 || this.posx > 6){
+                        System.out.println("aqui");
                         this.posy--;
                         this.posx--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -144,32 +142,24 @@ public class Bispo extends Peca {
                 }
                 return false;
             }
-          }
+        }
+        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
+            return true;
         }
         return false;
     }
 
     protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
-        if (tab.getTabuleiro(reiLinha, reiColuna) instanceof Rei) {
-                return true;
-            }    
-        return false;
-    }
-
-    public boolean Movimenta(int reix, int reiy, Sistema tab, int op) {
-        return true;
-    };
-
-    protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
-        if (this.posx < reiColuna) {
+        if(this.posx < reiColuna){
             int copiaColuna = this.posx + 1;
+            
 
-            if (this.posy < reiLinha) {
+            if(this.posy < reiLinha){
                 int copiaLinha = this.posy + 1;
-                while (copiaColuna <= reiColuna && copiaLinha <= reiLinha) {
+                while(copiaColuna <= reiColuna && copiaLinha <= reiLinha){
 
-                    if (tab.getTabuleiro(copiaLinha, copiaColuna) != null) {
-                        if (tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei) {
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
@@ -177,49 +167,55 @@ public class Bispo extends Peca {
                     copiaColuna++;
                     copiaLinha++;
                 }
-            } else if (this.posy > reiLinha) {
+            }else if(this.posy > reiLinha){
                 int copiaLinha = this.posy - 1;
-                while (copiaColuna <= reiColuna && copiaLinha >= reiLinha) {
-                    if (tab.getTabuleiro(copiaLinha, copiaColuna) != null) {
-                        if (tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei) {
+                while(copiaColuna <= reiColuna && copiaLinha >= reiLinha){
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
                     }
-                    copiaColuna++;
-                    copiaLinha--;
+                    copiaColuna ++;
+                    copiaLinha --;
                 }
             }
 
-        } else if (this.posx > reiColuna) {
+        }else if(this.posx > reiColuna){
             int copiaColuna = this.posx - 1;
+            
 
-            if (this.posy < reiLinha) {
+            if(this.posy < reiLinha){
                 int copiaLinha = this.posy + 1;
-                while (copiaColuna >= reiColuna && copiaLinha <= reiLinha) {
-                    if (tab.getTabuleiro(copiaLinha, copiaColuna) != null) {
-                        if (tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei) {
+                while(copiaColuna >= reiColuna && copiaLinha <= reiLinha){
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
                     }
-                    copiaColuna--;
-                    copiaLinha++;
+                    copiaColuna --;
+                    copiaLinha ++;
                 }
-            } else if (this.posy > reiLinha) {
+            }else if(this.posy > reiLinha){
                 int copiaLinha = this.posy - 1;
-                while (copiaColuna >= reiColuna && copiaLinha >= reiLinha) {
-                    if (tab.getTabuleiro(copiaLinha, copiaColuna) != null) {
-                        if (tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei) {
+                while(copiaColuna >= reiColuna && copiaLinha >= reiLinha){
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
                     }
-                    copiaColuna--;
-                    copiaLinha--;
+                    copiaColuna --;
+                    copiaLinha --;
                 }
             }
         }
+        return false;
+    }
+    @Override
+    public boolean movimentaRei(int reix, int reiy, Sistema tab, int op) {
+        // TODO Auto-generated method stub
         return false;
     }
 }

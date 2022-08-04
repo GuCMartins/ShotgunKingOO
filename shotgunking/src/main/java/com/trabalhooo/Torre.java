@@ -111,20 +111,11 @@ public class Torre extends Peca {// aspectos basicos da peça
         return true;
     }
 
-    protected boolean mataRei(Sistema tab,int reiLinha, int reiColuna){
-        /*if(tab.getTabuleiro(reiLinha, reiColuna) instanceof Rei){
-
-        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
-            return true;
-        }*/
-        return false;
-    }
-
-    public boolean Movimenta(int reix, int reiy, Sistema tab,int op){
+    public boolean movimentaRei(int reix, int reiy, Sistema tab,int op){
         return true;
     }
     
-    protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){
+    protected boolean mataRei(Sistema tab,int reiLinha, int reiColuna){
        
         if(posy == reiLinha){
             boolean hasPeca = false;

@@ -4,27 +4,35 @@ import java.awt.Color;
 import javax.swing.JButton;
 
 public class Casa extends JButton {
-
+    
     private Peca posicao;
     private int linha;
     private int coluna;
     private String peca;
 
     public Casa(Peca elemento, int linha, int coluna) {
+        
+        if(elemento instanceof Rei){
+            this.setForeground(Color.BLACK);
+        }
+        else{
+            this.setForeground(Color.GRAY);
+        }
+        
         this.posicao = elemento;
         this.linha = linha;
         this.coluna = coluna;
         if (this.linha % 2 == 0) {
             if (this.coluna % 2 == 0) {
-                this.setBackground(Color.LIGHT_GRAY);
+                this.setBackground(Color.WHITE);
             } else {
-                this.setBackground(Color.DARK_GRAY);
+                this.setBackground(Color.green);
             }
         } else {
             if (this.coluna % 2 == 0) {
-                this.setBackground(Color.DARK_GRAY);
+                this.setBackground(Color.green);
             } else {
-                this.setBackground(Color.LIGHT_GRAY);
+                this.setBackground(Color.WHITE);
             }
 
         }

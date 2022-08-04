@@ -11,7 +11,7 @@ public class Sistema extends JFrame {
 
     public static int ultimoReiColuna;
     public static int ultimoReiLinha;
-
+    
     private int ninimigos;
     private Peca tabuleiro[][];
     public static int TAMANHO = 7;
@@ -65,7 +65,7 @@ public class Sistema extends JFrame {
 
                 casa.addMouseListener(new Jogar(this));
 
-                casa.setPreferredSize(new Dimension(40, 40));
+                casa.setPreferredSize(new Dimension(50, 50));
                 casa.setBorder(BorderFactory.createLineBorder(Color.black));
 
                 painel.add(casa);
@@ -111,12 +111,18 @@ public class Sistema extends JFrame {
         return 0;
     }
 
-    public void setTabuleiro(int Oldlinha, int Oldcoluna, int Newlinha, int Newcoluna) {
-        if (Newlinha == Oldlinha && Newcoluna == Oldcoluna) {
+    public void setTabuleiro(int oldLinha, int oldColuna, int newLinha, int newColuna) {
+        if (newLinha == oldLinha && newColuna == oldColuna) {
             return;
         }
-        this.tabuleiro[Newlinha][Newcoluna] = getTabuleiro(Oldlinha, Oldcoluna);
-        this.tabuleiro[Oldlinha][Oldcoluna] = null;
+        if(getTabuleiro(oldLinha, oldColuna) instanceof Rei){
+            System.out.println("Locais antigos:"+oldLinha + ", " + oldColuna);
+            System.out.println("Locais novos:"+newLinha + ", " + newColuna);
+            ultimoReiLinha = oldLinha;
+            ultimoReiColuna = oldColuna;
+        }
+        this.tabuleiro[newLinha][newColuna] = getTabuleiro(oldLinha, oldColuna);
+        this.tabuleiro[oldLinha][oldColuna] = null;
     }
 
     public void resetPainel(JPanel painel, Rei jogador) {
@@ -182,18 +188,5 @@ public class Sistema extends JFrame {
         System.out.println(
                 "                                         / | \\              " + jogador.getHp() + " restantes");
         System.out.println("                                        1  2  3 ");
-    }
-
-    public boolean reiMexeu() {
-        for (int i = 0; i < TAMANHO; i++) {
-            for (int j = 0; j < TAMANHO; j++) {
-                if (getTabuleiro(i, j) instanceof Rei) {
-                    if (i != ultimoReiLinha && j != ultimoReiColuna) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 }

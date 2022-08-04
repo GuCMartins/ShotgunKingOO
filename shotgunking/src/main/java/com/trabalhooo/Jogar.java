@@ -6,7 +6,8 @@ import javax.swing.SwingUtilities;
 
 public class Jogar implements MouseListener {
 
-    private final Sistema tabuleiro;
+    public Sistema tabuleiro;
+    public Jogo jogo;
     static public int ultimoReiColuna = -1;
     static public int ultimoReiLinha = -1;
     static public Casa ultimoRei = null;
@@ -19,6 +20,8 @@ public class Jogar implements MouseListener {
     public void mouseClicked(MouseEvent me) {
         Casa casa = (Casa) me.getSource();
 
+        // JOptionPane.showMessageDialog(null, "opa");
+
         double tiro = 3;
         double dist = Math.sqrt(2);
 
@@ -28,15 +31,11 @@ public class Jogar implements MouseListener {
 
             if (casa.isDistantceequal(ultimoReiLinha, ultimoReiColuna, dist)) {
                 casa.setText("♚");
-                casa.setPeca("rei");
                 System.out.println("chegou");
                 ultimoRei.setText(" ");
-                ultimoRei.getElemento().Movimenta(ultimoReiLinha, ultimoReiColuna, tabuleiro,
+                System.out.println("Mandando o rei andar:" + ultimoReiLinha + ", " + ultimoReiColuna);
+                ultimoRei.getElemento().movimentaRei(ultimoReiLinha, ultimoReiColuna, tabuleiro,
                         decideMov(casa.getLinha(), casa.getColuna()));
-                ultimoRei = casa;
-                ultimoReiColuna = casa.getColuna();
-                ultimoReiLinha = casa.getLinha();
-
             }
             if (casa.getPeca().equals("rei")) {
                 System.out.println("entrou");
@@ -56,30 +55,30 @@ public class Jogar implements MouseListener {
         }
     }
 
-    public int decideMov(int linha, int coluna){
+    public int decideMov(int linha, int coluna) {
         int op = 0;
-        if(linha==(ultimoReiLinha+1) && coluna==(ultimoReiColuna-1)){
+        if (linha == (ultimoReiLinha + 1) && coluna == (ultimoReiColuna - 1)) {
             op = 1;
         }
-        if(linha==(ultimoReiLinha+1) && coluna==ultimoReiColuna){
+        if (linha == (ultimoReiLinha + 1) && coluna == ultimoReiColuna) {
             op = 2;
         }
-        if(linha==(ultimoReiLinha+1) && coluna==(ultimoReiColuna+1)){
+        if (linha == (ultimoReiLinha + 1) && coluna == (ultimoReiColuna + 1)) {
             op = 3;
         }
-        if(linha==ultimoReiLinha && coluna==(ultimoReiColuna-1)){
+        if (linha == ultimoReiLinha && coluna == (ultimoReiColuna - 1)) {
             op = 4;
         }
-        if(linha==ultimoReiLinha && coluna==(ultimoReiColuna+1)){
+        if (linha == ultimoReiLinha && coluna == (ultimoReiColuna + 1)) {
             op = 6;
         }
-        if(linha==(ultimoReiLinha-1) && coluna ==(ultimoReiColuna-1)){
+        if (linha == (ultimoReiLinha - 1) && coluna == (ultimoReiColuna - 1)) {
             op = 7;
         }
-        if(linha==(ultimoReiLinha-1) && coluna == ultimoReiColuna){
+        if (linha == (ultimoReiLinha - 1) && coluna == ultimoReiColuna) {
             op = 8;
         }
-        if(linha==(ultimoReiLinha-1) && coluna==(ultimoReiColuna+1)){
+        if (linha == (ultimoReiLinha - 1) && coluna == (ultimoReiColuna + 1)) {
             op = 9;
         }
         return op;

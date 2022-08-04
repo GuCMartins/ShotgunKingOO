@@ -2,8 +2,10 @@ package com.trabalhooo;//interface
 
 import java.util.*;
 
-public class Rei extends Peca implements arma{// ver como vai funcionar o dano no rei
-    
+import javax.swing.JOptionPane;
+
+public class Rei extends Peca implements arma {// ver como vai funcionar o dano no rei
+
     private int balas = 5;
     private int Arma_dano = 2;
 
@@ -15,13 +17,13 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         this.hp = 3;
     }
 
-    public void restauraPosicao(){
+    public void restauraPosicao() {
         this.posx = 3;
         this.posy = 6;
     }
-    
-    public void inicia(int linha,int coluna){
-        this.posy=linha;
+
+    public void inicia(int linha, int coluna) {
+        this.posy = linha;
         this.posx = coluna;
     }
 
@@ -29,15 +31,13 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         return this.balas;
     }
 
-    public boolean Movimenta(int Oldlinha, int Oldcoluna, Sistema tab, int op) {
-        System.out.println("Escolha a opção de movimentação");
+    public boolean movimentaRei(int Oldlinha, int Oldcoluna, Sistema tab, int op) {
         boolean ver = false;
         while (!ver) {
             switch (op) {
-                case 4:
+                case 0:
                     if (posx - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
+                        op=reveMovimento();
                     } else {
                         posx--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -45,69 +45,62 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
                     }
                     break;
 
-                case 7:
+                case 4:
                     if (posx - 1 == -1 || posy - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-
+                        op=reveMovimento();
                     } else {
                         posx--;
                         posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 8:
-                    if (posy - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 9:
-                    if (posx + 1 == 7 || posy - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posx++;
-                        posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 6:
-                    if (posx + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posx++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 3:
-                    if (posx + 1 == 7 || posy + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posx++;
-                        posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         ver = true;
                     }
                     break;
 
                 case 2:
+                    if (posy - 1 == -1) {
+                        op=reveMovimento();
+                    } else {
+                        posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 5:
+                    if (posx + 1 == 7 || posy - 1 == -1) {
+                        op=reveMovimento();
+                    } else {    
+                        posx++;
+                        posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 1:
+                    if (posx + 1 == 7) {
+                        op=reveMovimento();
+                    } else {
+                        posx++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 6:
+                    if (posx + 1 == 7 || posy + 1 == 7) {
+                        op=reveMovimento();
+                    } else {
+                        posx++;
+                        posy++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 3:
                     if (posy + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
+                        op=reveMovimento();
                     } else {
                         posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -115,10 +108,9 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
                     }
                     break;
 
-                case 1:
+                case 7:
                     if (posx - 1 == -1 || posy + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
+                        op=reveMovimento();
                     } else {
                         posx--;
                         posy++;
@@ -131,7 +123,15 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
         return true;
     }
 
-    public void atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo) {
+    private int reveMovimento(){
+        JOptionPane.showConfirmDialog(null, "Movimento impossivel", "Erro",JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
+        String[] move = {"🢀","🢂","🢁","🢃","🢄","🢅","🢆","🢇"};
+        int option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
+                JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
+        return option;
+    }
+
+    public void atirar(Sistema tab, int alvolinha, int alvocoluna, Peca alvo) {
 
         tab.getTabuleiro(alvolinha, alvocoluna).dano(Arma_dano);
         alvo.dano(Arma_dano);
@@ -139,26 +139,26 @@ public class Rei extends Peca implements arma{// ver como vai funcionar o dano n
 
     }
 
-    public void balasMatou(){
+    public void balasMatou() {
         this.balas++;
     }
-    
-    public void perdeHp(){
+
+    public void perdeHp() {
         this.hp--;
     }
 
     protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
-        Scanner teclado = new Scanner(System.in);
-        String confirm;
-        System.out.println("Quer mesmo desistir?");
-        confirm = teclado.nextLine();
-        if (confirm.equals("sim")) {
+        String[] options = { "Desisto", "Ainda vou lutar!" };
+        int option = JOptionPane.showOptionDialog(null, "Quer mesmo desistir?", "Assim não...",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        if (option == 0) {
             return true;
         }
         return false;
     }
 
-    public boolean Movimenta(int reix, int reiy, Sistema tab){
+    public boolean Movimenta(int reix, int reiy, Sistema tab) {
         return true;
     };
 

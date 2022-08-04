@@ -37,7 +37,7 @@ public abstract class Peca {
     
     public void atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo){};
     
-    public abstract boolean Movimenta(int reix, int reiy, Sistema tab,int op);
+    public abstract boolean movimentaRei(int reix, int reiy, Sistema tab,int op);
 
     public boolean verificaMov(int oldLinha, int Oldcoluna, int newLinha, int newColuna){
         if(oldLinha == newLinha && Oldcoluna == newColuna){

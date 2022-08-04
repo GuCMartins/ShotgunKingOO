@@ -1,4 +1,4 @@
-package com.trabalhooo;//interface
+package com.trabalhooo;
 
 public class Peao extends Peca {
 
@@ -15,6 +15,7 @@ public class Peao extends Peca {
     int Oldlinha = this.posy;
     if (this.posy < reilinha) {
       this.posy++;
+
       if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
         this.posy--;
         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -40,15 +41,19 @@ public class Peao extends Peca {
 
   @Override
   protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
-    if (tab.getTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
-        || tab.getTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {
-      return true;
+    if(this.posy+1 < 6 && this.posx+1 < 6){
+      if (tab.getTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
+          || tab.getTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {
+        return true;
+      }
     }
     return false;
   }
 
-  public boolean Movimenta(int reix, int reiy, Sistema tab,int op){
+  @Override
+  public boolean movimentaRei(int reix, int reiy, Sistema tab, int op) {
+    // TODO Auto-generated method stub
     return true;
-  };
+  }
 
 }
