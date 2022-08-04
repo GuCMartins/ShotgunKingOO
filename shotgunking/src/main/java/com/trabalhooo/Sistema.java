@@ -76,6 +76,8 @@ public class Sistema extends JFrame {
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
         this.repaint();
         this.pack();
+        this.setLocationRelativeTo(null);
+        this.setLocation(775,75);
     }
 
     public int getNInimigos() {
@@ -113,10 +115,6 @@ public class Sistema extends JFrame {
         if (newLinha == oldLinha && newColuna == oldColuna) {
             return;
         }
-        if(getTabuleiro(oldLinha, oldColuna) instanceof Rei){
-            System.out.println("Locais antigos:"+oldLinha + ", " + oldColuna);
-            System.out.println("Locais novos:"+newLinha + ", " + newColuna);
-        }
         this.tabuleiro[newLinha][newColuna] = getTabuleiro(oldLinha, oldColuna);
         this.tabuleiro[oldLinha][oldColuna] = null;
     }
@@ -131,58 +129,4 @@ public class Sistema extends JFrame {
             this.tabuleiro[linha][coluna] = null;
     }
 
-    public void impressaoTabuleiro(Sistema tab, int nivel, Rei jogador) {
-
-        int contl, contc;// impressao dinamica do tabuleiro
-
-        System.out.println("                    NÍVEL " + nivel);
-        System.out.println("   0     1     2     3     4     5     6");
-        System.out.println(" __________________________________________");
-        for (contl = 0; contl < 7; contl++) {
-            System.out.println("|     |     |     |     |     |     |     |");
-
-            for (contc = 0; contc < 7; contc++) {
-                switch (tab.getTabuleiroSwitch(getTabuleiro(contl, contc))) {
-                    case 9:
-                        System.out.print("|  R  ");// impressao do jogador
-                        break;
-                    case 1:
-                        System.out.print("|  P  ");// impressao do inimigo
-                        break;
-                    case 3:
-                        System.out.print("|  B  ");// impressao do inimigo
-                        break;
-                    case 4:
-                        System.out.print("|  T  ");// impressao do inimigo
-                        break;
-                    case 7:
-                        System.out.print("|  r  ");// impressao do inimigo
-                        break;
-                    default:
-                        System.out.print("|     ");// impressao das paredes do tabuleiro
-                        break;
-                }
-            }
-
-            System.out.println("| " + contl);
-
-            System.out.println("|_____|_____|_____|_____|_____|_____|_____|");
-        }
-        System.out.println("");
-        System.out.println("  ______________________________        7  8  9");
-        System.out.println(" |(Para se movimentar,pressione|        \\ | /            Numero de balas:");
-        System.out.println(
-                " | um dirercional e,em seguida,|         \\|/                " + jogador.getbalas() + " restantes");// menus
-                                                                                                                     // de
-                                                                                                                     // itens
-                                                                                                                     // e
-                                                                                                                     // dicas
-                                                                                                                     // do
-                                                                                                                     // jogador
-        System.out.println(" |      pressione Enter)       |  4 --Direcionais-- 6 ");
-        System.out.println(" |_____________________________|          /|\\                Vidas:");
-        System.out.println(
-                "                                         / | \\              " + jogador.getHp() + " restantes");
-        System.out.println("                                        1  2  3 ");
-    }
 }

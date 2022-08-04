@@ -20,7 +20,7 @@ public class Jogo extends JFrame {
         int estado ;
         String texto0 = "BEM VINDO AO SHOTGUNKING";
         String texto1 = "● Para vencer, fuja das peças brancas e elimine com sua arma real.\n ● Para se movimentar, selecione o Rei e depois o local aonde deseja ir.Algumas pecas brancas tentaram te pegar, por isso use a estrategia para engana-las e destrui-las. ";
-        String texto2 = "● A cada nível, mais pecas tentarao te derrotar.Porém, a cada peça destruida, o jogador ganha uma bala para pode atirar mais um dia. As pecas brancas sao des truidas ou\n sendo atingidas pela arma ou quando o rei pula em cima delas.";
+        String texto2 = "● A cada nível, mais pecas tentarao te derrotar.Porém, a cada peça destruida, o jogador ganha uma bala para pode atirar mais um dia. As pecas brancas sao destruidas ou\n quando sao atingidas pela arma ou quando o rei pula em cima delas.";
         String texto3 = "● O jogador já inicia o jogo com o pente cheio. Porém nao atire sem pensar, suas balas sao um recurso valioso.\n  ● Caso o jogador seja pego por alguma peça inimiga, ele perde uma vida e o jogo recomeça. Caso ele seja apanhado novamente, o jogo termina.";
         String texto4 = "● Antes de cada movimento, surge a opção de se executar um disparo. Caso essa opção seja escolhida,sera necessario selecionar a posicao do  inimigo que deseja alvejar.\n Caso esteja muito distante, nao sofrera dano.";
 
@@ -36,8 +36,6 @@ public class Jogo extends JFrame {
                 null);
 
         // tela inicial do jogo
-
-        cls();
 
         try {
             // aqui estamos criando uma variavel do mesmo tipo do dado que foi salvo, para
@@ -155,8 +153,6 @@ public class Jogo extends JFrame {
 
             tab.resetPainel(painel, jogador);
 
-            tab.impressaoTabuleiro(tab, nivel, jogador);
-
             String[] options = { "Desisto","Sair", "Vou jogar" };
             int option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -225,10 +221,6 @@ public class Jogo extends JFrame {
 
                 verificavida(inimigos, tab);
 
-                System.out.println("vetor:" + inimigos.size() + "/tabuleiro:" + tab.getNInimigos());
-
-                cls();
-
                 if (inimigos.size() > 0) {
 
                     n = (int) Math.floor(Math.random() * tab.getNInimigos());
@@ -292,16 +284,6 @@ public class Jogo extends JFrame {
     public static void fimDoJogo(Scanner teclado) {
         JOptionPane.showConfirmDialog(null, "Você perdeu todas as vidas. Fim de jogo", "Fim de jogo", JOptionPane.DEFAULT_OPTION,
         JOptionPane.PLAIN_MESSAGE, null);
-        System.out.println("Voce Perdeu!!");
-        System.out.println("Pressione Enter para terminar o jogo");
-        teclado.nextLine();
-    }
-
-    public static void cls() {
-        for (int i = 0; i < 10; i++) // Default Height of cmd is 300 and Default width is 80
-        {
-            System.out.println("\b"); // Prints a backspace
-        }
     }
 
     public static void Salvar_info(SalvarDado data, int nivel, boolean fim_jogo, int hp) {
