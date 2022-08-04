@@ -1,32 +1,43 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 public abstract class Peca {
 
     protected int posx;
     protected int posy;
     protected int ID;
-    protected char Icon;
     protected int hp;
+    protected char Icon;
 
-    public int GetID() {
+    @Override
+    public String toString() {
+        return "Peca{" + "posx=" + posx + ", posy=" + posy + ", ID=" + ID + ", hp=" + hp + ", Icon=" + Icon + '}';
+    }
+    
+    
+
+    public int getID() {
         return this.ID;
     }
 
-    public int GetLinha() {
+    public int getLinha() {
         return this.posy;
     }
 
-    public int GetColuna() {
+    public int getColuna() {
         return this.posx;
     }
 
-    public char GetIcon() {
+    public char getIcon() {
         return this.Icon;
     }
 
-    public int GetHp() {
+    public int getHp() {
         return this.hp;
     }
+    
+    public void atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo){};
+    
+    public abstract boolean movimentaRei(int reix, int reiy, Sistema tab,int op);
 
     public boolean verificaMov(int oldLinha, int Oldcoluna, int newLinha, int newColuna){
         if(oldLinha == newLinha && Oldcoluna == newColuna){
@@ -37,9 +48,9 @@ public abstract class Peca {
 
     public abstract boolean Movimenta(int reix, int reiy, Sistema tab);
 
-    protected abstract boolean MataRei(Sistema tab, int reiLinha, int reiColuna);
+    protected abstract boolean mataRei(Sistema tab, int reiLinha, int reiColuna);
 
-    public void Dano(int damage){
+    public void dano(int damage){
         this.hp=this.hp-damage;
     }
 

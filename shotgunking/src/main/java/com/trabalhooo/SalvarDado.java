@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

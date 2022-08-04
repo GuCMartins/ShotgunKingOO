@@ -19,7 +19,7 @@ public class Bispo extends Peca {
                 while (this.posy < reicoluna && this.posx < 6) {
                     this.posy++;
                     this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -38,7 +38,7 @@ public class Bispo extends Peca {
                 while (this.posx > reicoluna && this.posy > 0) {
                     this.posy--;
                     this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx++;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -66,7 +66,7 @@ public class Bispo extends Peca {
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         return true;
                     }else{
-                        if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                        if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                             this.posx--;
                             this.posy--;
                             tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -87,7 +87,7 @@ public class Bispo extends Peca {
                 while (this.posx > reicoluna && this.posy < 6 && this.posx > 0) {
                     this.posy++;
                     this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
                         if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
@@ -107,7 +107,7 @@ public class Bispo extends Peca {
                 while (this.posx < reicoluna && this.posy > 0 && this.posx < 6) {
                     this.posy--;
                     this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -126,7 +126,7 @@ public class Bispo extends Peca {
                 while (this.posx >= reicoluna && this.posy > 0 && this.posx > 0) {
                     this.posy--;
                     this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx++;
                         this.posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -149,7 +149,7 @@ public class Bispo extends Peca {
         return false;
     }
 
-    protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
+    protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
         if(this.posx < reiColuna){
             int copiaColuna = this.posx + 1;
             
@@ -158,8 +158,8 @@ public class Bispo extends Peca {
                 int copiaLinha = this.posy + 1;
                 while(copiaColuna <= reiColuna && copiaLinha <= reiLinha){
 
-                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
-                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
@@ -170,8 +170,8 @@ public class Bispo extends Peca {
             }else if(this.posy > reiLinha){
                 int copiaLinha = this.posy - 1;
                 while(copiaColuna <= reiColuna && copiaLinha >= reiLinha){
-                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
-                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
@@ -188,8 +188,8 @@ public class Bispo extends Peca {
             if(this.posy < reiLinha){
                 int copiaLinha = this.posy + 1;
                 while(copiaColuna >= reiColuna && copiaLinha <= reiLinha){
-                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
-                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
@@ -200,8 +200,8 @@ public class Bispo extends Peca {
             }else if(this.posy > reiLinha){
                 int copiaLinha = this.posy - 1;
                 while(copiaColuna >= reiColuna && copiaLinha >= reiLinha){
-                    if(tab.GetTabuleiro(copiaLinha, copiaColuna) != null){
-                        if(tab.GetTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
+                    if(tab.getTabuleiro(copiaLinha, copiaColuna) != null){
+                        if(tab.getTabuleiro(copiaLinha, copiaColuna) instanceof Rei){
                             return true;
                         }
                         return false;
@@ -211,6 +211,11 @@ public class Bispo extends Peca {
                 }
             }
         }
+        return false;
+    }
+    @Override
+    public boolean movimentaRei(int reix, int reiy, Sistema tab, int op) {
+        // TODO Auto-generated method stub
         return false;
     }
 }

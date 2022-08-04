@@ -16,7 +16,7 @@ public class Peao extends Peca {
     if (this.posy < reilinha) {
       this.posy++;
 
-      if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+      if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
         this.posy--;
         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
           if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
@@ -40,14 +40,20 @@ public class Peao extends Peca {
   }
 
   @Override
-  protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
+  protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
     if(this.posy+1 < 6 && this.posx+1 < 6){
-      if (tab.GetTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
-          || tab.GetTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {
+      if (tab.getTabuleiro(this.posy + 1, this.posx + 1) instanceof Rei
+          || tab.getTabuleiro(this.posy + 1, this.posx - 1) instanceof Rei) {
         return true;
       }
     }
     return false;
+  }
+
+  @Override
+  public boolean movimentaRei(int reix, int reiy, Sistema tab, int op) {
+    // TODO Auto-generated method stub
+    return true;
   }
 
 }

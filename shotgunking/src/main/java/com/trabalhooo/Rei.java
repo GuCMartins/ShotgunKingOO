@@ -1,9 +1,9 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
-import java.util.*;
+import javax.swing.JOptionPane;
 
-public class Rei extends Peca {// ver como vai funcionar o dano no rei
-    
+public class Rei extends Peca implements arma {// ver como vai funcionar o dano no rei
+
     private int balas = 5;
     private int Arma_dano = 2;
 
@@ -20,22 +20,17 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         this.posx = coluna;
     }
 
-    public int Getbalas() {
+    public int getbalas() {
         return this.balas;
     }
 
-    public boolean Movimenta(int Oldlinha, int Oldcoluna, Sistema tab) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Escolha a opção de movimentação");
+    public boolean movimentaRei(int Oldlinha, int Oldcoluna, Sistema tab, int op) {
         boolean ver = false;
-        int dir;
         while (!ver) {
-            dir=teclado.nextInt();
-            switch (dir) {
-                case 4:
+            switch (op) {
+                case 0:
                     if (posx - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
+                        op=reveMovimento();
                     } else {
                         posx--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -43,69 +38,62 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     }
                     break;
 
-                case 7:
+                case 4:
                     if (posx - 1 == -1 || posy - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-
+                        op=reveMovimento();
                     } else {
                         posx--;
                         posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 8:
-                    if (posy - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 9:
-                    if (posx + 1 == 7 || posy - 1 == -1) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posx++;
-                        posy--;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 6:
-                    if (posx + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posx++;
-                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
-                        ver = true;
-                    }
-                    break;
-
-                case 3:
-                    if (posx + 1 == 7 || posy + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
-                    } else {
-                        posx++;
-                        posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         ver = true;
                     }
                     break;
 
                 case 2:
+                    if (posy - 1 == -1) {
+                        op=reveMovimento();
+                    } else {
+                        posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 5:
+                    if (posx + 1 == 7 || posy - 1 == -1) {
+                        op=reveMovimento();
+                    } else {    
+                        posx++;
+                        posy--;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 1:
+                    if (posx + 1 == 7) {
+                        op=reveMovimento();
+                    } else {
+                        posx++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 6:
+                    if (posx + 1 == 7 || posy + 1 == 7) {
+                        op=reveMovimento();
+                    } else {
+                        posx++;
+                        posy++;
+                        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
+                        ver = true;
+                    }
+                    break;
+
+                case 3:
                     if (posy + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
+                        op=reveMovimento();
                     } else {
                         posy++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
@@ -113,10 +101,9 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
                     }
                     break;
 
-                case 1:
+                case 7:
                     if (posx - 1 == -1 || posy + 1 == 7) {
-                        System.out.println("Impossivel fazer o movimento");
-                        System.out.println("Escolha outra opção");
+                        op=reveMovimento();
                     } else {
                         posx--;
                         posy++;
@@ -129,27 +116,43 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         return true;
     }
 
-    public void Atirar(Sistema tab, int alvolinha, int alvocoluna,Peca alvo) {
+    private int reveMovimento(){
+        JOptionPane.showConfirmDialog(null, "Movimento impossivel", "Erro",JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
+        String[] move = {"🢀","🢂","🢁","🢃","🢄","🢅","🢆","🢇"};
+        int option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
+                JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
+        return option;
+    }
 
-        tab.GetTabuleiro(alvolinha, alvocoluna).Dano(Arma_dano);
-        alvo.Dano(Arma_dano);
+    public void atirar(Sistema tab, int alvolinha, int alvocoluna, Peca alvo) {
+
+        tab.getTabuleiro(alvolinha, alvocoluna).dano(Arma_dano);
+        alvo.dano(Arma_dano);
         this.balas--;
 
     }
-    
-    public void perdeHp(){
+
+    public void balasMatou() {
+        this.balas++;
+    }
+
+    public void perdeHp() {
         this.hp--;
     }
 
-    protected boolean MataRei(Sistema tab, int reiLinha, int reiColuna) {
-        Scanner teclado = new Scanner(System.in);
-        String confirm;
-        System.out.println("Quer mesmo desistir?");
-        confirm = teclado.nextLine();
-        if (confirm.equals("sim")) {
+    protected boolean mataRei(Sistema tab, int reiLinha, int reiColuna) {
+        String[] options = { "Desisto", "Ainda vou lutar!" };
+        int option = JOptionPane.showOptionDialog(null, "Quer mesmo desistir?", "Assim não...",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        if (option == 0) {
             return true;
         }
         return false;
     }
+
+    public boolean Movimenta(int reix, int reiy, Sistema tab) {
+        return true;
+    };
 
 }

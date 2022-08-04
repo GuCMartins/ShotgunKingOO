@@ -1,4 +1,4 @@
-package com.trabalhooo;
+package com.trabalhooo;//interface
 
 public class Torre extends Peca {// aspectos basicos da peça
 
@@ -18,7 +18,7 @@ public class Torre extends Peca {// aspectos basicos da peça
         if(this.posy < reilinha){          
             while (this.posy < reilinha) {
                 this.posy++;
-                if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                     this.posy--;
                     tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                     if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
@@ -35,7 +35,7 @@ public class Torre extends Peca {// aspectos basicos da peça
         }else if(this.posy > reilinha){
             while (this.posy > reilinha) {
                 this.posy--;
-                if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                     this.posy++;
                     tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                     if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
@@ -55,7 +55,7 @@ public class Torre extends Peca {// aspectos basicos da peça
             if (this.posx < reicoluna) {
                 while (this.posx < reicoluna) {
                     this.posx++;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx--;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
     
@@ -74,7 +74,7 @@ public class Torre extends Peca {// aspectos basicos da peça
             } else if(this.posx > reicoluna){
                 while (this.posx > reicoluna) {
                     this.posx--;
-                    if (!verificacaoMov(tab.GetTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                    if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
                         this.posx++;
                         tab.setTabuleiro(Oldlinha, Oldcoluna, this.posy, this.posx);
                         if(this.verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
@@ -90,14 +90,32 @@ public class Torre extends Peca {// aspectos basicos da peça
                 return false;
             }
         }
-
-        if(verificaMov(Oldlinha, Oldcoluna, this.posy, this.posx) == true){
-            return true;
+        while (this.posy < reilinha) {
+            this.posy++;
+            if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                this.posy--;
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                return true;
+            }
         }
-        return false;
+        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+        while (this.posy > reilinha) {
+            this.posy--;
+            if (!verificacaoMov(tab.getTabuleiro(this.posy, this.posx), this.posy, this.posx)) {
+                this.posy++;
+                tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+                return true;
+            }
+        }
+        tab.setTabuleiro(Oldlinha, Oldcoluna, this.posx, this.posy);
+        return true;
     }
 
-    protected boolean MataRei(Sistema tab,int reiLinha, int reiColuna){
+    public boolean movimentaRei(int reix, int reiy, Sistema tab,int op){
+        return true;
+    }
+    
+    protected boolean mataRei(Sistema tab,int reiLinha, int reiColuna){
        
         if(posy == reiLinha){
             boolean hasPeca = false;
@@ -106,8 +124,8 @@ public class Torre extends Peca {// aspectos basicos da peça
             if(colunaTorre < reiColuna){
                 while(colunaTorre <  reiColuna){
                     System.out.println(colunaTorre);
-                    if(tab.GetTabuleiro(posy, colunaTorre) != null){
-                        System.out.println(tab.GetTabuleiro(posy, colunaTorre).Icon);
+                    if(tab.getTabuleiro(posy, colunaTorre) != null){
+                        System.out.println(tab.getTabuleiro(posy, colunaTorre).Icon);
                         hasPeca = true;
                     }
                     colunaTorre++;
@@ -119,8 +137,8 @@ public class Torre extends Peca {// aspectos basicos da peça
             }else{
                 while(colunaTorre >  reiColuna){
                     System.out.println(colunaTorre);
-                    if(tab.GetTabuleiro(posy, colunaTorre) != null){
-                        System.out.println(tab.GetTabuleiro(posy, colunaTorre).Icon);
+                    if(tab.getTabuleiro(posy, colunaTorre) != null){
+                        System.out.println(tab.getTabuleiro(posy, colunaTorre).Icon);
                         hasPeca = true;
                     }
                     colunaTorre--;
@@ -137,7 +155,7 @@ public class Torre extends Peca {// aspectos basicos da peça
 
             if(copiaLinha < reiLinha){
                 while(copiaLinha < reiLinha){
-                    if(tab.GetTabuleiro(copiaLinha, posx) != null){
+                    if(tab.getTabuleiro(copiaLinha, posx) != null){
                         hasPeca = true;
                     }
                     copiaLinha++;
@@ -148,7 +166,7 @@ public class Torre extends Peca {// aspectos basicos da peça
                 }
             }else{
                 while(copiaLinha > reiLinha){
-                    if(tab.GetTabuleiro(copiaLinha, posx) != null){
+                    if(tab.getTabuleiro(copiaLinha, posx) != null){
                         hasPeca = true;
                     }
                     copiaLinha--;
