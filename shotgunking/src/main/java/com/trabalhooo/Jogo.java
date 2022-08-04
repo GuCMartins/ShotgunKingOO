@@ -1,3 +1,7 @@
+//Integrantes: 
+//João Vítor de Castro Martins Ferreira Nogueira(202065560C), 
+//Kayan Martins de Freitas(202176030), 
+//Gustavo Coelho Martins(202165513B)
 package com.trabalhooo;//interface
 
 import java.util.*;
@@ -79,18 +83,15 @@ public class Jogo extends JFrame {
                 if (resultado == 1) {
                     jogador.perdeHp();
                     System.out.println("perdeu vida");
-                    data.hp--;
                     GerenciarRecursos.Salvar(data, "dados.txt");
                 } else if (resultado == 3) {
                     return;
                 }
 
                 if (jogador.getHp() == 0) {
-                    fimDoJogo(teclado);
                     data.fim_jogo = true; // proxima vez que for iniciar, voltara do começo
-                    data.hp = 2; // volta a vida ao valor inicial
-                    data.nivel = 1; // volta para o nivel 1
                     GerenciarRecursos.Salvar(data, "dados.txt");
+                    fimDoJogo(teclado);
                     return;
                 }
 
@@ -153,8 +154,6 @@ public class Jogo extends JFrame {
                 boolean ver = jogador.mataRei(tab, jogador.getLinha(), jogador.getColuna());
                 if (ver == true) {
                     data.fim_jogo = true; // proxima vez que for iniciar, voltara do começo
-                    data.hp = 2; // volta a vida ao valor inicial
-                    data.nivel = 1; // volta para o nivel 1
                     GerenciarRecursos.Salvar(data, "dados.txt");
                     
                     return 3;
@@ -215,14 +214,21 @@ public class Jogo extends JFrame {
                 if (inimigos.size() > 0) {
 
                     n = (int) Math.floor(Math.random() * tab.getNInimigos());
-
+                    try{
+                        SalvarDado data2 = new SalvarDado();
+                        data2 = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
                     for (int i = 0; i < inimigos.size(); i++) {
                         if (inimigos.get(i).mataRei(tab, jogador.getLinha(), jogador.getColuna()) == true) {
                             inimigos = null;
                             tab = null;
+                            data2.fim_jogo = true;
+                            GerenciarRecursos.Salvar(data2, "dados.txt");
                             return 1;
                         }
                     }
+                }catch(Exception e){
+                    System.out.println();
+                }
 
                     if (inimigos.get(n).movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false) {
                         int i = inimigos.size() - 1;
@@ -232,8 +238,8 @@ public class Jogo extends JFrame {
                         }
                     }
                 }
+            
             }
-
         }
     
         painel.removeAll();

@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+//Integrantes: 
+//João Vítor de Castro Martins Ferreira Nogueira(202065560C), 
+//Kayan Martins de Freitas(202176030), 
+//Gustavo Coelho Martins(202165513B)
+
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
