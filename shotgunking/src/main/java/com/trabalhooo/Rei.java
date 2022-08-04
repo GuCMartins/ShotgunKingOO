@@ -14,11 +14,6 @@ public class Rei extends Peca {// ver como vai funcionar o dano no rei
         this.Icon = 'R';
         this.hp = 3;
     }
-
-    public void restauraPosicao(){
-        this.posx = 3;
-        this.posy = 6;
-    }
     
     public void inicia(int linha,int coluna){
         this.posy=linha;
