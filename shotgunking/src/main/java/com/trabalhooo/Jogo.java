@@ -82,6 +82,8 @@ public class Jogo extends JFrame {
 
                 if (resultado == 1) {
                     jogador.perdeHp();
+                    JOptionPane.showConfirmDialog(null, "voce morreu. Perde uma vida. " + jogador.getHp() + " vidas restantes", "ShotgunKing", JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, null);
                     System.out.println("perdeu vida");
                     GerenciarRecursos.Salvar(data, "dados.txt");
                 } else if (resultado == 3) {
@@ -99,6 +101,15 @@ public class Jogo extends JFrame {
                     estado++;
                     data.nivel++;
                     GerenciarRecursos.Salvar(data, "dados.txt");
+                    if(estado <= 3){
+                        JOptionPane.showConfirmDialog(null, "voce ganhou. Passando para proximo mapa", "ShotgunKing", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE, null);
+                    }else{
+                        JOptionPane.showConfirmDialog(null, "Parabens, voce venceu todas as fases. Fim de jogo", "ShotgunKing", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE, null);
+                        data.nivel = 1;
+                        GerenciarRecursos.Salvar(data, "dados.txt");
+                    }
                 }
             } while (estado <= 3);
 
@@ -163,12 +174,14 @@ public class Jogo extends JFrame {
                 option = JOptionPane.showOptionDialog(null, "Selecione assim que tomar a decisão", "Confirmação",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, move, move[0]);
 
-                if (option == 8) {
+                if (option == 8 && jogador.getbalas() > 0) {
                     boolean failure = true;
                     boolean verificatiro = true;
                     int alvoLinha = 0, alvoColuna = 0;
                     while (failure) {
                         String[] op = { "Desistir do tiro", "0", "1", "2", "3", "4", "5", "6" };
+                        JOptionPane.showConfirmDialog(null, "Vamos atirar. " + jogador.getbalas() + " balas restantes", "ShotgunKing", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.PLAIN_MESSAGE, null);
                         alvoLinha = JOptionPane.showOptionDialog(null, "Selecione linha em que o alvo se encontra:",
                                 "Atirar",
                                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
@@ -272,6 +285,8 @@ public class Jogo extends JFrame {
     }
 
     public static void fimDoJogo(Scanner teclado) {
+        JOptionPane.showConfirmDialog(null, "Você perdeu todas as vidas. Fim de jogo", "Fim de jogo", JOptionPane.DEFAULT_OPTION,
+        JOptionPane.PLAIN_MESSAGE, null);
         System.out.println("Voce Perdeu!!");
         System.out.println("Pressione Enter para terminar o jogo");
         teclado.nextLine();
