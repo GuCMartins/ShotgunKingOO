@@ -47,6 +47,7 @@ public class Jogo extends JFrame {
                         JOptionPane.QUESTION_MESSAGE);
                 data2.nome = guardado;
                 data2.fim_jogo = false;
+                data2.nivel = 1;
                 GerenciarRecursos.Salvar(data2, "dados.txt");
 
             } else {
