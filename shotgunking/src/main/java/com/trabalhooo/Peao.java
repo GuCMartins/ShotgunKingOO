@@ -10,7 +10,7 @@ public class Peao extends Peca {
     this.hp = 1;
   }
 
-  public boolean Movimenta(int reilinha, int reicoluna, Sistema tab) {
+  public boolean movimenta(int reilinha, int reicoluna, Sistema tab) {
     int Oldcoluna = this.posx;
     int Oldlinha = this.posy;
     if (this.posy < reilinha) {

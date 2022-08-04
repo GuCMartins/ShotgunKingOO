@@ -39,7 +39,7 @@ public abstract class Peca {
         return true;
     }
 
-    public abstract boolean Movimenta(int reix, int reiy, Sistema tab);
+    public abstract boolean movimenta(int reix, int reiy, Sistema tab);
 
     protected abstract boolean mataRei(Sistema tab, int reiLinha, int reiColuna);
 

@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 
 public class Sistema extends JFrame {
 
-    public static int ultimoReiColuna;
-    public static int ultimoReiLinha;
     
     private int ninimigos;
     private Peca tabuleiro[][];
@@ -25,8 +23,6 @@ public class Sistema extends JFrame {
         }
 
         jogador.inicia(6, 3);
-        ultimoReiLinha = 6;
-        ultimoReiColuna = 3;
 
         this.tabuleiro[6][3] = new Rei();
 
@@ -62,8 +58,6 @@ public class Sistema extends JFrame {
             for (int j = 0; j < TAMANHO; j++) {
                 Casa casa = new Casa(getTabuleiro(i, j), i, j);
                 casa.setIconNew(getTabuleiro(i, j), reiLinha, reiColuna);
-
-                casa.addMouseListener(new Jogar(this));
 
                 casa.setPreferredSize(new Dimension(50, 50));
                 casa.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -118,8 +112,6 @@ public class Sistema extends JFrame {
         if(getTabuleiro(oldLinha, oldColuna) instanceof Rei){
             System.out.println("Locais antigos:"+oldLinha + ", " + oldColuna);
             System.out.println("Locais novos:"+newLinha + ", " + newColuna);
-            ultimoReiLinha = oldLinha;
-            ultimoReiColuna = oldColuna;
         }
         this.tabuleiro[newLinha][newColuna] = getTabuleiro(oldLinha, oldColuna);
         this.tabuleiro[oldLinha][oldColuna] = null;

@@ -10,7 +10,7 @@ public class Torre extends Peca {// aspectos basicos da peça
         this.hp = 3;
     }
 
-    public boolean Movimenta(int reilinha, int reicoluna, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
+    public boolean movimenta(int reilinha, int reicoluna, Sistema tab) {// movimentacao da peca, seguindo a logica do xadrez e
                                                             // buscando sempre igualar
         int Oldcoluna = this.posx; // primeiramente a posicao x para dps igualar a y
         int Oldlinha = this.posy;

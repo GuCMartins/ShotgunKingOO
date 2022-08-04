@@ -11,7 +11,7 @@ public class Rainha extends Peca {
         this.hp = 5;
     }
     
-    public boolean Movimenta(int reilinha, int reicoluna, Sistema tab) {
+    public boolean movimenta(int reilinha, int reicoluna, Sistema tab) {
         int op = (int) Math.floor(Math.random() * (2) + 1);
         int Oldcoluna = this.posx;
         int Oldlinha = this.posy;

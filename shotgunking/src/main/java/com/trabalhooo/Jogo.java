@@ -135,7 +135,7 @@ public class Jogo extends JFrame {
 
         n = (int) Math.floor(Math.random() * tab.getNInimigos());
 
-        inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab);
+        inimigos.get(n).movimenta(jogador.getLinha(), jogador.getColuna(), tab);
 
         while (tab.getNInimigos() > 0) {
 
@@ -169,16 +169,12 @@ public class Jogo extends JFrame {
                         alvoColuna = JOptionPane.showOptionDialog(null, "Selecione coluna em que o alvo se encontra:",
                                 "Atirar",
                                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, op, op[0]);
-                                if (alvoLinha == 0 || alvoColuna == 0) {
-                                    option = 10;
-                                    failure = false;
-                                    verificatiro = false;
-                                }
-                        if (tab.getTabuleiro(alvoLinha-1, alvoColuna-1) == null
-                                || Math.sqrt(Math.pow((alvoLinha-1) - jogador.getLinha(), 2)
-                                        + Math.pow((alvoColuna-1) - jogador.getColuna(), 2)) > 3) {
-                            JOptionPane.showConfirmDialog(null, "Alvo não alcancado/sem alvo", "Erro",
-                                    JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
+                        if (alvoLinha == 0 || alvoColuna == 0) {
+                            option = 10;
+                            failure = false;
+                            verificatiro = false;
+                        }else if (tab.getTabuleiro(alvoLinha-1, alvoColuna-1) == null || Math.sqrt(Math.pow((alvoLinha-1) - jogador.getLinha(), 2) + Math.pow((alvoColuna-1) - jogador.getColuna(), 2)) > 3) {
+                            JOptionPane.showConfirmDialog(null, "Alvo não alcancado/sem alvo", "Erro",JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
                         } else {
                             failure = false;
                         }
@@ -221,9 +217,9 @@ public class Jogo extends JFrame {
                         }
                     }
 
-                    if (inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false) {
+                    if (inimigos.get(n).movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false) {
                         int i = inimigos.size() - 1;
-                        while (inimigos.get(i).Movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false
+                        while (inimigos.get(i).movimenta(jogador.getLinha(), jogador.getColuna(), tab) == false
                                 && i > 0) {
                             i--;
                         }

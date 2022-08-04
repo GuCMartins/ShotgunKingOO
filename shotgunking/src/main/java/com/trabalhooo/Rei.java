@@ -153,7 +153,7 @@ public class Rei extends Peca implements arma {// ver como vai funcionar o dano 
         return false;
     }
 
-    public boolean Movimenta(int reix, int reiy, Sistema tab) {
+    public boolean movimenta(int reix, int reiy, Sistema tab) {
         return true;
     };
 
