@@ -13,7 +13,7 @@ public class Jogo extends JFrame {
     public static void main(String[] args) throws Exception {
         teclado = new Scanner(System.in);
         Rei jogador = new Rei();
-        int estado = 1;
+        int estado ;
         String texto0 = "BEM VINDO AO SHOTGUNKING";
         String texto1 = "● Para vencer, fuja das peças brancas e elimine com sua arma real.\n ● Para se movimentar, selecione o Rei e depois o local aonde deseja ir.Algumas pecas brancas tentaram te pegar, por isso use a estrategia para engana-las e destrui-las. ";
         String texto2 = "● A cada nível, mais pecas tentarao te derrotar.Porém, a cada peça destruida, o jogador ganha uma bala para pode atirar mais um dia. As pecas brancas sao des truidas ou\n sendo atingidas pela arma ou quando o rei pula em cima delas.";
@@ -51,7 +51,7 @@ public class Jogo extends JFrame {
 
             } else {
                 JOptionPane.showConfirmDialog(null,
-                        "Bem vindo novamente ao jogo," + data2.nome + " continuando de onde parou ...", "ShotgunKing",
+                        "Bem vindo novamente ao jogo, continuando de onde parou ...", "ShotgunKing",
                         JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null);
                 // estado = data2.nivel;
             }
@@ -62,8 +62,6 @@ public class Jogo extends JFrame {
             // voce pode criar seu proprio formato aqui, ou usar o tipo .txt, se modificar
             // aqui, lembre-se de modificar o do “CARREGAR” também, pois vc quer que ele
             // busque as informações no mesmo arquivo que foi salvo.
-            System.out.println("Jogador novo, escreva seu nome:");
-            data2.nome = teclado.nextLine();
             data2.nivel = 1;
             GerenciarRecursos.Salvar(data2, "dados.txt");
         }
@@ -97,6 +95,8 @@ public class Jogo extends JFrame {
 
                 if (resultado == 0) {
                     estado++;
+                    data.nivel++;
+                    GerenciarRecursos.Salvar(data, "dados.txt");
                 }
             } while (estado <= 3);
 
@@ -136,7 +136,9 @@ public class Jogo extends JFrame {
         n = (int) Math.floor(Math.random() * tab.getNInimigos());
 
         inimigos.get(n).Movimenta(jogador.getLinha(), jogador.getColuna(), tab);
+try{
 
+    SalvarDado data = (SalvarDado) GerenciarRecursos.Consultar("dados.txt");
         while (tab.getNInimigos() > 0) {
 
             tab.resetPainel(painel, jogador);
@@ -150,6 +152,11 @@ public class Jogo extends JFrame {
             if (option == 0) {
                 boolean ver = jogador.mataRei(tab, jogador.getLinha(), jogador.getColuna());
                 if (ver == true) {
+                    data.fim_jogo = true; // proxima vez que for iniciar, voltara do começo
+                    data.hp = 2; // volta a vida ao valor inicial
+                    data.nivel = 1; // volta para o nivel 1
+                    GerenciarRecursos.Salvar(data, "dados.txt");
+                    
                     return 3;
                 }
             } else {
@@ -232,7 +239,9 @@ public class Jogo extends JFrame {
             }
 
         }
-
+    } catch(Exception e){
+        System.out.println("nao deu");
+    }
         painel.removeAll();
         inimigos = null;
         tab = null;
